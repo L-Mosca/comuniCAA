@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import com.example.comunicaa.base.BaseFragment
 import com.example.comunicaa.databinding.FragmentHomeBinding
+import com.example.comunicaa.utils.onBackPressed
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -13,7 +14,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         FragmentHomeBinding::inflate
     override val viewModel: HomeViewModel by viewModels()
 
-    override fun initViews() { }
+    override fun initViews() {
+        onBackPressed { requireActivity().moveTaskToBack(true) }
+    }
 
     override fun initObservers() {}
 }
