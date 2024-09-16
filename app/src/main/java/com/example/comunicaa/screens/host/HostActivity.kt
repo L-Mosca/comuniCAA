@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.comunicaa.R
 import com.example.comunicaa.databinding.ActivityHostBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,8 +17,8 @@ class HostActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityHostBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_host)
+        binding = ActivityHostBinding.bind(findViewById(R.id.navHostContainer))
 
         initView()
         initObservers()
