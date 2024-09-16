@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_nav_graph"
+    app:startDestination="@id/menuCardFragment">
+    <fragment
+        android:id="@+id/menuCardFragment"
+        android:name="com.example.comunicaa.screens.card_management.menu_card.MenuCardFragment"
+        android:label="MenuCardFragment"
+        tools:layout="@layout/fragment_menu_card">
+        <action
+            android:id="@+id/action_menuCardFragment_to_createCardFragment2"
+            app:destination="@id/createCardFragment" />
+        <action
+            android:id="@+id/action_menuCardFragment_to_editCardFragment2"
+            app:destination="@id/editCardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createCardFragment"
+        android:name="com.example.comunicaa.screens.card_management.create_card.CreateCardFragment"
+        android:label="CreateCardFragment"
+        tools:layout="@layout/fragment_create_card" />
+    <fragment
+        android:id="@+id/editCardFragment"
+        android:name="com.example.comunicaa.screens.card_management.edit_card.EditCardFragment"
+        android:label="EditCardFragment"
+        tools:layout="@layout/fragment_edit_card" />
+</navigation>

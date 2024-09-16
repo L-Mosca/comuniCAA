@@ -17,8 +17,8 @@ class HostActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_host)
-        binding = ActivityHostBinding.bind(findViewById(R.id.navHostContainer))
+        binding = ActivityHostBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initView()
         initObservers()
