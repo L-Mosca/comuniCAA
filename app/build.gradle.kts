@@ -22,20 +22,41 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+            isDebuggable = true
+        }
+
         release {
             isMinifyEnabled = false
+            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
     }
+
+    flavorDimensions += "version"
+    productFlavors {
+        create("prod") {
+            dimension = "version"
+            resValue("string", "app_name", "ComuniCAA")
+
+            buildConfigField("String", "NAME", "\"ComuniCAA\"")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
+
+    kotlinOptions { jvmTarget = "1.8" }
+
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
     }
 }
 
@@ -78,6 +99,9 @@ dependencies {
     testImplementation(libs.androidx.room.testing)
     //noinspection KaptUsageInsteadOfKsp
     kapt(libs.androidx.room.room.compiler)
+
+    // Gson
+    implementation(libs.gson)
 }
 
 kapt { correctErrorTypes = true }
