@@ -13,7 +13,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         FragmentHomeBinding::inflate
     override val viewModel: HomeViewModel by viewModels()
 
-    override fun initViews() {}
+    override fun initViews() { }
 
     override fun initObservers() {}
 }
