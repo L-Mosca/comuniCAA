@@ -1,20 +1,63 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
+
     <style name="Base.Theme.ComuniCAA" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="colorOnBackground">@color/white</item>
         <item name="android:windowIsTranslucent">true</item>
-    </style>
 
-    <style name="CollapsedAppBar" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="ExpandedAppBar" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
-        <item name="android:textSize">32sp</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <!--Define Custom Styles-->
+        <item name="popupMenuStyle">@style/Base.PopupMenu</item>
+        <item name="textInputStyle">@style/Base.TextInputLayout</item>
+        <item name="textInputFilledStyle">@style/Base.TextInputLayout</item>
+        <item name="android:textViewStyle">@style/Base.MaterialTextView</item>
+        <item name="materialCardViewStyle">@style/Base.MaterialCard</item>
+        <item name="buttonStyle">@style/Base.ButtonStyle</item>
+        <item name="materialButtonStyle">@style/Base.ButtonStyle</item>
+        <!--Define Custom Styles **END**-->
     </style>
 
     <style name="Theme.ComuniCAA" parent="Base.Theme.ComuniCAA" />
+
+    <!--Custom Dialog Style-->
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/translate_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/translate_fade_out</item>
+    </style>
+
+    <style name="Base.PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@drawable/popup_menu_background</item>
+    </style>
+    <!--Custom Dialog Style **END**-->
+
+    <!--Text Input Layout Style-->
+    <style name="Base.TextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="hintTextColor">@color/gray_700</item>
+        <item name="android:textColorHint">@drawable/selector_hint_text_color</item>
+        <item name="boxStrokeColor">@drawable/selector_stroke_color</item>
+    </style>
+    <!--Text Input Layout Style **END**-->
+
+    <!--Text Style-->
+    <style name="Base.MaterialTextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/gray_800</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <!--Text Style **END**-->
+
+    <!--Card Style-->
+    <style name="Base.MaterialCard" parent="Widget.MaterialComponents.CardView">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:elevation">4dp</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="android:strokeColor">@color/white</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+    <!--Card Style **END**-->
+
+    <!--Button Style-->
+    <style name="Base.ButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_default_background</item>
+    </style>
+    <!--Button Style **END**-->
 </resources>

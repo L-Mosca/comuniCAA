@@ -2,4 +2,104 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--Yellow-->
+    <color name="yellow_100">#FFFFF1CD</color>
+    <color name="yellow_200">#FFFFE3A0</color>
+    <color name="yellow_300">#FFFFD573</color>
+    <color name="yellow_400">#FFFFCA51</color>
+    <color name="yellow_500">#FFFEC63B</color>
+    <color name="yellow_600">#FFE6B135</color>
+    <color name="yellow_700">#FFCC9B2F</color>
+    <color name="yellow_800">#FFB38629</color>
+    <color name="yellow_900">#FF997023</color>
+
+    <!--Orange-->
+    <color name="orange_100">#FFFFF7E1</color>
+    <color name="orange_200">#FFFFEAB0</color>
+    <color name="orange_300">#FFFFDE80</color>
+    <color name="orange_400">#FFFFCF87</color>
+    <color name="orange_500">#FFFFBF6B</color>
+    <color name="orange_600">#FFE6A557</color>
+    <color name="orange_700">#FFCC8F43</color>
+    <color name="orange_800">#FFB3782F</color>
+    <color name="orange_900">#FF99701F</color>
+
+    <!--Red-->
+    <color name="red_100">#FFFFCDD2</color>
+    <color name="red_200">#FFEF9A9A</color>
+    <color name="red_300">#FFE57373</color>
+    <color name="red_400">#FFEF5350</color>
+    <color name="red_500">#FFF44336</color>
+    <color name="red_600">#FFE53935</color>
+    <color name="red_700">#FFD32F2F</color>
+    <color name="red_800">#FFC62828</color>
+    <color name="red_900">#FFB71C1C</color>
+
+    <!--Green-->
+    <color name="green_100">#FFD1F1D7</color>
+    <color name="green_200">#FFA9E7B5</color>
+    <color name="green_300">#FF81D393</color>
+    <color name="green_400">#FF6ACF82</color>
+    <color name="green_500">#FF6BD780</color>
+    <color name="green_600">#FF5FC272</color>
+    <color name="green_700">#FF53AD64</color>
+    <color name="green_800">#FF479856</color>
+    <color name="green_900">#FF3A8348</color>
+
+    <!--Blue-->
+    <color name="blue_100">#FFB3E1F4</color>
+    <color name="blue_200">#FF80CDEF</color>
+    <color name="blue_300">#FF4DB9EA</color>
+    <color name="blue_400">#FF26A9E2</color>
+    <color name="blue_500">#FF25A6DF</color>
+    <color name="blue_600">#FF2093C9</color>
+    <color name="blue_700">#FF1C80B3</color>
+    <color name="blue_800">#FF176C9D</color>
+    <color name="blue_900">#FF125987</color>
+
+    <!--Blue Sky-->
+    <color name="blue_sky_100">#FFC8D7FC</color>
+    <color name="blue_sky_200">#FFA3BBFA</color>
+    <color name="blue_sky_300">#FF7E9FF8</color>
+    <color name="blue_sky_400">#FF648AF7</color>
+    <color name="blue_sky_500">#FF6195F5</color>
+    <color name="blue_sky_600">#FF597DE5</color>
+    <color name="blue_sky_700">#FF4F6ECD</color>
+    <color name="blue_sky_800">#FF455FB5</color>
+    <color name="blue_sky_900">#FF3B4F9D</color>
+
+    <!--Dark Blue-->
+    <color name="dark_blue_100">#FFB3D7E4</color>
+    <color name="dark_blue_200">#FF80BDD4</color>
+    <color name="dark_blue_300">#FF4DA3C4</color>
+    <color name="dark_blue_400">#FF2690B8</color>
+    <color name="dark_blue_500">#FF247BA3</color>
+    <color name="dark_blue_600">#FF206F93</color>
+    <color name="dark_blue_700">#FF1C627F</color>
+    <color name="dark_blue_800">#FF17566B</color>
+    <color name="dark_blue_900">#FF134956</color>
+
+    <!--Pink-->
+    <color name="pink_100">#FFF9C4D8</color>
+    <color name="pink_200">#FFF69DBF</color>
+    <color name="pink_300">#FFF275A6</color>
+    <color name="pink_400">#FFEF5F9A</color>
+    <color name="pink_500">#FFED4D91</color>
+    <color name="pink_600">#FFD54582</color>
+    <color name="pink_700">#FFBC3D73</color>
+    <color name="pink_800">#FFA33564</color>
+    <color name="pink_900">#FF8B2D55</color>
+
+    <!--Gray-->
+    <color name="gray_100">#FFCFD8DC</color>
+    <color name="gray_200">#FFB0BEC5</color>
+    <color name="gray_300">#FF90A4AE</color>
+    <color name="gray_400">#FF78909C</color>
+    <color name="gray_500">#FF607D8B</color>
+    <color name="gray_600">#FF546E7A</color>
+    <color name="gray_700">#FF455A64</color>
+    <color name="gray_800">#FF37474F</color>
+    <color name="gray_900">#FF263238</color>
+
 </resources>
