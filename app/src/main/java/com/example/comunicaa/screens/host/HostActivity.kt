@@ -8,8 +8,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.example.comunicaa.R
 import com.example.comunicaa.databinding.ActivityHostBinding
+import com.example.comunicaa.databinding.HeaderLayoutBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,8 +20,10 @@ class HostActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHostBinding
     private lateinit var toggle: ActionBarDrawerToggle
-    private val viewModel: HostViewModel by viewModels()
+    private lateinit var navController: NavController
+    private lateinit var headerBinding: HeaderLayoutBinding
 
+    private val viewModel: HostViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +36,8 @@ class HostActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+        setupHeader()
+        setupNavigation()
         setupDrawer()
     }
 
@@ -51,7 +58,10 @@ class HostActivity : AppCompatActivity() {
             setupDrawerListener()
             drawerLayout.addDrawerListener(toggle)
             toggle.syncState()
-            navigationView.setNavigationItemSelectedListener { _ ->
+            navigationView.setNavigationItemSelectedListener { item ->
+                if (item.itemId == R.id.teste1) {
+                    navController.navigate(R.id.card_nav_graph)
+                }
                 drawerLayout.closeDrawers()
                 true
             }
@@ -77,4 +87,18 @@ class HostActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupNavigation() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navHostContainer) as NavHostFragment
+        navController = navHostFragment.navController
+    }
+
+    private fun setupHeader() {
+        headerBinding = HeaderLayoutBinding.bind(binding.navigationView.getHeaderView(0))
+
+        headerBinding.btLogin.setOnClickListener {
+            navController.navigate(R.id.auth_nav_graph)
+            binding.drawerLayout.closeDrawers()
+        }
+    }
 }
