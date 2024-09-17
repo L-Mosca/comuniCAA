@@ -2,6 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/holo_blue_bright">
+
+    <TextView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvTest"
+        android:textSize="30sp"
+        android:layout_marginTop="100dp"
+        android:text="dsadsasaddsaadsads"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

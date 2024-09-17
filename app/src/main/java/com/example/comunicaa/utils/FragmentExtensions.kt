@@ -2,6 +2,7 @@ package com.example.comunicaa.utils
 
 import android.app.KeyguardManager
 import android.content.Context
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
@@ -137,6 +138,21 @@ fun getColor(@AttrRes resId: Int, context: Context): Int {
     val outTypedValue = TypedValue()
     context.theme?.resolveAttribute(resId, outTypedValue, true)
     return outTypedValue.data
+}
+
+fun Fragment.onBackPressed(
+    action: () -> Unit,
+    closeDrawer: () -> Unit,
+    drawerIsOpen: () -> Boolean
+) {
+    val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (drawerIsOpen()) closeDrawer()
+            else action()
+        }
+    }
+    callback.isEnabled
+    activity?.onBackPressedDispatcher?.addCallback(this, callback)
 }
 
 fun Fragment.onBackPressed(action: () -> Unit) {
