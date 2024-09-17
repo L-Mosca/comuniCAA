@@ -2,10 +2,11 @@ package com.example.comunicaa.screens.splash
 
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.example.comunicaa.R
 import com.example.comunicaa.base.BaseFragment
 import com.example.comunicaa.databinding.FragmentSplashBinding
+import com.example.comunicaa.utils.AnimationUtils
+import com.example.comunicaa.utils.delayed
+import com.example.comunicaa.utils.navigate
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,11 +18,17 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
     override fun initViews() {
         viewModel.fetchData()
+        runIconAnimation()
     }
 
     override fun initObservers() {
         viewModel.showHomeScreen.observe(viewLifecycleOwner) {
-            findNavController().navigate(R.id.home_nav_graph)
+            val direction = SplashFragmentDirections.actionSplashFragmentToHomeNavGraph()
+            delayed(action = { navigate(direction) }, duration = 300L)
         }
+    }
+
+    private fun runIconAnimation() {
+        delayed(action = { AnimationUtils.scale(binding.ivSplashIcon, requireContext()) })
     }
 }

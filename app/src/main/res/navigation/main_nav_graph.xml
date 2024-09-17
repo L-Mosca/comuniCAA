@@ -9,7 +9,11 @@
         android:id="@+id/splashFragment"
         android:name="com.example.comunicaa.screens.splash.SplashFragment"
         android:label="SplashFragment"
-        tools:layout="@layout/fragment_splash" />
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_home_nav_graph"
+            app:destination="@id/home_nav_graph" />
+    </fragment>
 
     <include app:graph="@navigation/home_nav_graph" />
     <include app:graph="@navigation/auth_nav_graph" />

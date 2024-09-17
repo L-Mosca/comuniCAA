@@ -2,6 +2,8 @@ package com.example.comunicaa.utils
 
 import android.app.KeyguardManager
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
@@ -163,4 +165,8 @@ fun Fragment.onBackPressed(action: () -> Unit) {
     }
     callback.isEnabled
     activity?.onBackPressedDispatcher?.addCallback(this, callback)
+}
+
+fun Fragment.delayed(action: () -> Unit, duration: Long = 500L) {
+    Handler(Looper.getMainLooper()).postDelayed({ action() }, duration)
 }
