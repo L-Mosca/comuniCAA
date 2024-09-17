@@ -10,10 +10,10 @@
         android:label="MenuCardFragment"
         tools:layout="@layout/fragment_menu_card">
         <action
-            android:id="@+id/action_menuCardFragment_to_createCardFragment2"
+            android:id="@+id/action_menuCardFragment_to_createCardFragment"
             app:destination="@id/createCardFragment" />
         <action
-            android:id="@+id/action_menuCardFragment_to_editCardFragment2"
+            android:id="@+id/action_menuCardFragment_to_editCardFragment"
             app:destination="@id/editCardFragment" />
     </fragment>
     <fragment

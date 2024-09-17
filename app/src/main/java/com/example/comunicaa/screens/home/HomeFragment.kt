@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import com.example.comunicaa.base.BaseFragment
 import com.example.comunicaa.databinding.FragmentHomeBinding
 import com.example.comunicaa.screens.host.HostViewModel
+import com.example.comunicaa.utils.navigate
 import com.example.comunicaa.utils.onBackPressed
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,7 +21,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun initViews() {
         setupBackAction()
 
-        binding.tvTest.setOnClickListener { hostViewModel.showDrawer() }
+        binding.tvHome.setOnClickListener {
+            val directions = HomeFragmentDirections.actionHomeFragmentToActionListFragment()
+            navigate(directions)
+        }
+
+        binding.ivDrawerHome.setOnClickListener { hostViewModel.showDrawer() }
     }
 
     override fun initObservers() {}
