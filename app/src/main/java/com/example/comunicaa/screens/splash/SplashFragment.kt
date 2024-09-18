@@ -1,11 +1,13 @@
 package com.example.comunicaa.screens.splash
 
 import android.view.LayoutInflater
+import androidx.activity.enableEdgeToEdge
 import androidx.fragment.app.viewModels
 import com.example.comunicaa.base.BaseFragment
 import com.example.comunicaa.databinding.FragmentSplashBinding
 import com.example.comunicaa.utils.AnimationUtils
 import com.example.comunicaa.utils.delayed
+import com.example.comunicaa.utils.hideSystemBars
 import com.example.comunicaa.utils.navigate
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,6 +19,8 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
     override val viewModel: SplashViewModel by viewModels()
 
     override fun initViews() {
+        requireActivity().enableEdgeToEdge()
+        hideSystemBars()
         viewModel.fetchData()
         runIconAnimation()
     }

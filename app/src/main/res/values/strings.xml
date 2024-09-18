@@ -1,4 +1,12 @@
 <resources>
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
+
+    <!--Login Screen-->
+    <string name="login">Login</string>
+    <string name="email">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="enter">Entrar</string>
+    <string name="dont_have_account">Não tem uma conta? Cadastre-se</string>
+    <!--Login Screen **END**-->
 </resources>
