@@ -34,8 +34,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         binding.tvLoginTitle.visibility = View.INVISIBLE
         binding.includeLoginFields.cvLogin.visibility = View.INVISIBLE
 
-        binding.ivLoginBack.translationY = 1000f
-        binding.tvLoginTitle.translationY = 1000f
+        binding.ivLoginBack.translationY = -1000f
+        binding.tvLoginTitle.translationY = -1000f
         binding.includeLoginFields.cvLogin.translationY = 1000f
         binding.vLoginBackground.translationY = -1000f
 
