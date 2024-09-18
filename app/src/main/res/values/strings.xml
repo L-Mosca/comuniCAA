@@ -9,4 +9,16 @@
     <string name="enter">Entrar</string>
     <string name="dont_have_account">Não tem uma conta? Cadastre-se</string>
     <!--Login Screen **END**-->
+
+    <!--Register Screen-->
+    <string name="register">Cadastro</string>
+    <string name="sign_up">Cadastre-se</string>
+    <string name="full_name">Nome e sobrenome</string>
+    <string name="confirm_password">Confirme sua senha</string>
+    <string name="have_account">Já tem uma conta? Entre</string>
+    <!--Register Screen **END**-->
+
+    <!--Drawer-->
+    <string name="logout">Sair</string>
+    <!--Drawer **END**-->
 </resources>

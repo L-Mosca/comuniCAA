@@ -1,14 +1,14 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cvLogin"
+    android:id="@+id/cvRegister"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:visibility="gone"
     tools:visibility="visible">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/llCardLogin"
+        android:id="@+id/llCardRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -17,22 +17,38 @@
         android:paddingTop="40dp">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvLoginCardTitle"
+            android:id="@+id/tvRegisterCardTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/login"
+            android:text="@string/register"
             android:textColor="@color/blue_sky_700"
             android:textSize="24sp"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilLoginEmail"
+            android:id="@+id/tilRegisterName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etLoginEmail"
+                android:id="@+id/etRegisterName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="@string/full_name"
+                android:inputType="textPersonName"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilRegisterEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etRegisterEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -42,92 +58,59 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilLoginPassword"
+            android:id="@+id/tilRegisterPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="14dp"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/gray_200">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etLoginPassword"
+                android:id="@+id/etRegisterPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="@string/password"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilRegisterConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/gray_200">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etRegisterConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="@string/confirm_password"
                 android:imeOptions="actionSend"
                 android:inputType="textPassword"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btLogin"
+            android:id="@+id/btRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="@string/enter"
+            android:text="@string/sign_up"
             android:textAllCaps="true" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clLoginOptions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/includeLoginFields"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="10dp"
-                android:background="@color/gray_600"
-                app:layout_constraintBottom_toBottomOf="@id/tvLoginOptions"
-                app:layout_constraintEnd_toStartOf="@id/tvLoginOptions"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvLoginOptions" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvLoginOptions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ou entre usando"
-                android:textColor="@color/gray_600"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="4dp"
-                android:background="@color/gray_600"
-                app:layout_constraintBottom_toBottomOf="@id/tvLoginOptions"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/tvLoginOptions"
-                app:layout_constraintTop_toTopOf="@id/tvLoginOptions" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_below="@id/clLoginOptions"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/splash_background" />
-
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvDontHasAccount"
+            android:id="@+id/tvHasAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="4dp"
             android:paddingVertical="6dp"
-            android:text="@string/dont_have_account"
+            android:text="@string/have_account"
             android:textAlignment="center"
             android:textColor="@color/gray_900"
             android:textSize="16sp"

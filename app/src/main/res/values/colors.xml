@@ -2,6 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="accent">#F57C00</color>
+
+    <!--Orange Accent-->
+    <color name="orange_accent_100">#FFE0B2</color>
+    <color name="orange_accent_200">#FFCC80</color>
+    <color name="orange_accent_300">#FFB74D</color>
+    <color name="orange_accent_400">#FFA726</color>
+    <color name="orange_accent_500">#F57C00</color>
+    <color name="orange_accent_600">#EF6C00</color>
+    <color name="orange_accent_700">#E65100</color>
+    <color name="orange_accent_800">#E85604</color>
+    <color name="orange_accent_900">#D64E02</color>
 
     <!--Yellow-->
     <color name="yellow_100">#FFFFF1CD</color>

@@ -111,9 +111,14 @@ class HostActivity : AppCompatActivity() {
     private fun setupHeader() {
         headerBinding = HeaderLayoutBinding.bind(binding.navigationView.getHeaderView(0))
 
-        headerBinding.btLogin.setOnClickListener {
-            navController.navigate(R.id.auth_nav_graph)
-            binding.drawerLayout.closeDrawers()
+        headerBinding.apply {
+            btLogin.setOnClickListener {
+                navController.navigate(R.id.auth_nav_graph)
+                binding.drawerLayout.closeDrawers()
+            }
+
+            vDrawerBack.setOnClickListener { binding.drawerLayout.closeDrawers() }
         }
+
     }
 }

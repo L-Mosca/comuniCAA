@@ -6,4 +6,9 @@
         android:id="@+id/teste1"
         android:icon="@drawable/ic_launcher_background"
         android:title="Personalizar app" />
+
+    <item
+        android:id="@+id/menuLogout"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/logout" />
 </menu>
