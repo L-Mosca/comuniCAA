@@ -4,14 +4,15 @@ import android.app.KeyguardManager
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
+import android.view.WindowInsets.Type
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.AttrRes
 import androidx.annotation.IdRes
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
@@ -167,6 +168,26 @@ fun Fragment.onBackPressed(action: () -> Unit) {
     activity?.onBackPressedDispatcher?.addCallback(this, callback)
 }
 
-fun Fragment.delayed(action: () -> Unit, duration: Long = 500L) {
+fun delayed(action: () -> Unit, duration: Long = 500L) {
     Handler(Looper.getMainLooper()).postDelayed({ action() }, duration)
+}
+
+fun Fragment.hideSystemBars() {
+    val windowInsetsController =
+        WindowCompat.getInsetsController(
+            requireActivity().window,
+            requireActivity().window.decorView
+        )
+
+    windowInsetsController.hide(Type.systemBars())
+}
+
+fun Fragment.showSystemBars() {
+    val windowInsetsController =
+        WindowCompat.getInsetsController(
+            requireActivity().window,
+            requireActivity().window.decorView
+        )
+
+    windowInsetsController.show(Type.systemBars())
 }
