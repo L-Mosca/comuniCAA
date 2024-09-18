@@ -21,12 +21,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun initViews() {
         setupBackAction()
 
-        binding.tvHome.setOnClickListener {
+        /*binding.tvHome.setOnClickListener {
             val directions = HomeFragmentDirections.actionHomeFragmentToActionListFragment()
             navigate(directions)
-        }
+        }*/
 
-        binding.ivDrawerHome.setOnClickListener { hostViewModel.showDrawer() }
+        binding.ivDrawerToolbar.setOnClickListener { hostViewModel.showDrawer() }
     }
 
     override fun initObservers() {}
