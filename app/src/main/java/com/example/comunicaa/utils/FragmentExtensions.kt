@@ -1,7 +1,9 @@
 package com.example.comunicaa.utils
 
+import android.annotation.SuppressLint
 import android.app.KeyguardManager
 import android.content.Context
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.TypedValue
@@ -12,7 +14,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.AttrRes
 import androidx.annotation.IdRes
+import androidx.annotation.RequiresApi
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
@@ -172,16 +178,38 @@ fun delayed(action: () -> Unit, duration: Long = 500L) {
     Handler(Looper.getMainLooper()).postDelayed({ action() }, duration)
 }
 
+
 fun Fragment.hideSystemBars() {
     val windowInsetsController =
-        WindowCompat.getInsetsController(
-            requireActivity().window,
-            requireActivity().window.decorView
-        )
+        WindowCompat.getInsetsController(requireActivity().window, requireActivity().window.decorView)
+    // Configure the behavior of the hidden system bars.
+    windowInsetsController.systemBarsBehavior =
+        WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 
-    windowInsetsController.hide(Type.systemBars())
+    // Add a listener to update the behavior of the toggle fullscreen button when
+    // the system bars are hidden or revealed.
+    ViewCompat.setOnApplyWindowInsetsListener(requireActivity().window.decorView) { view, windowInsets ->
+        // You can hide the caption bar even when the other system bars are visible.
+        // To account for this, explicitly check the visibility of navigationBars()
+        // and statusBars() rather than checking the visibility of systemBars().
+        if (windowInsets.isVisible(WindowInsetsCompat.Type.navigationBars())
+            || windowInsets.isVisible(WindowInsetsCompat.Type.statusBars())) {
+            /*binding.toggleFullscreenButton.setOnClickListener {
+                // Hide both the status bar and the navigation bar.
+                windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+            }*/
+        } else {
+            /*binding.toggleFullscreenButton.setOnClickListener {
+                // Show both the status bar and the navigation bar.
+                windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
+            }*/
+        }
+        ViewCompat.onApplyWindowInsets(view, windowInsets)
+    }
 }
 
+@SuppressLint("WrongConstant")
+@RequiresApi(Build.VERSION_CODES.R)
 fun Fragment.showSystemBars() {
     val windowInsetsController =
         WindowCompat.getInsetsController(
