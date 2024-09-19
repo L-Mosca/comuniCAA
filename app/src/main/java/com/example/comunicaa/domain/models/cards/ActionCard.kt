@@ -13,4 +13,16 @@ data class ActionCard(
     val image: String? = "",
     val sound: String? = "",
     val isDefault: Boolean? = true,
-) : Parcelable
+) : Parcelable {
+    companion object {
+        fun getMockData() : List<ActionCard> {
+            val list = mutableListOf<ActionCard>()
+
+            for (i in 1..5) {
+
+            }
+
+            return list
+        }
+    }
+}
