@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import com.example.comunicaa.base.BaseFragment
 import com.example.comunicaa.databinding.FragmentHomeBinding
 import com.example.comunicaa.domain.models.cards.Category
+import com.example.comunicaa.screens.home.adapter.HomeCategoriesAdapter
 import com.example.comunicaa.screens.host.HostViewModel
 import com.example.comunicaa.utils.navigate
 import com.example.comunicaa.utils.onBackPressed
