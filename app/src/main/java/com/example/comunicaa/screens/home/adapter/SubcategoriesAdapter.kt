@@ -1,4 +1,4 @@
-package com.example.comunicaa.screens.home
+package com.example.comunicaa.screens.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
