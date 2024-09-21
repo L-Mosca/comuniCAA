@@ -11,7 +11,8 @@
         tools:layout="@layout/fragment_menu_card">
         <action
             android:id="@+id/action_menuCardFragment_to_createCardFragment"
-            app:destination="@id/createCardFragment" />
+            app:destination="@id/createCardFragment" >
+        </action>
         <action
             android:id="@+id/action_menuCardFragment_to_editCardFragment"
             app:destination="@id/editCardFragment" />
@@ -20,7 +21,13 @@
         android:id="@+id/createCardFragment"
         android:name="com.example.comunicaa.screens.card_management.create_card.CreateCardFragment"
         android:label="CreateCardFragment"
-        tools:layout="@layout/fragment_create_card" />
+        tools:layout="@layout/fragment_create_card">
+        <argument
+            android:name="keys"
+            app:argType="com.example.comunicaa.domain.models.keys.DataKeys"
+            app:nullable="true"
+            />
+    </fragment>
     <fragment
         android:id="@+id/editCardFragment"
         android:name="com.example.comunicaa.screens.card_management.edit_card.EditCardFragment"
