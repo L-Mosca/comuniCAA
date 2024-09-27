@@ -1,40 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:background="@color/white">
 
-    <TextView
-        android:id="@+id/tvMenuCard"
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/includeMenuCardHeader"
+        layout="@layout/include_create_card_header"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="MENU CARDS"
-        android:textColor="@android:color/white"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btCreateCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="NOVO CARD"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvEditCategories"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="-10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvMenuCard" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btEditCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="EDITAR CARD"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btCreateCard" />
+        app:layout_constraintTop_toBottomOf="@id/includeMenuCardHeader"
+        tools:itemCount="5"
+        tools:listitem="@layout/adapter_edit_categories" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

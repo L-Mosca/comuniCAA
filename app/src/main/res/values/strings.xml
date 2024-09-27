@@ -24,10 +24,16 @@
 
     <!--Create Action-->
     <string name="create_action_title">Criar novo cartão</string>
+    <string name="edit_action_title">Editar cartão</string>
     <string name="card_name">Nome do cartão</string>
     <string name="select_image">Selecione uma imagem</string>
+    <string name="select_another_image">Selecione outra imagem</string>
     <string name="select_category">Selecione uma categoria</string>
     <string name="select_subcategory">Selecione uma subcategoria</string>
     <string name="preview">Pré visualização</string>
     <!--Create Action **END**-->
+
+    <!--Menu Card Screen-->
+    <string name="my_cards">Meus cartões</string>
+    <!--Menu Card Screen **END**-->
 </resources>
