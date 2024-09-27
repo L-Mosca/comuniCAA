@@ -32,4 +32,8 @@
     <string name="select_subcategory">Selecione uma subcategoria</string>
     <string name="preview">Pré visualização</string>
     <!--Create Action **END**-->
+
+    <!--Menu Card Screen-->
+    <string name="my_cards">Meus cartões</string>
+    <!--Menu Card Screen **END**-->
 </resources>

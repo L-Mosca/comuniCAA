@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="40dp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvEditCategoryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="20dp"
+        android:textColor="@color/gray_900"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:text="Aprendizado" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivEditCategory"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignTop="@id/tvEditCategoryName"
+        android:layout_alignBottom="@id/tvEditCategoryName"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:tint="@color/blue_sky_600"
+        app:srcCompat="@drawable/ic_edit" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvEditCategories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvEditCategoryName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="10dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:itemCount="4"
+        tools:listitem="@layout/adapter_edit_subcategories" />
+
+</RelativeLayout>
