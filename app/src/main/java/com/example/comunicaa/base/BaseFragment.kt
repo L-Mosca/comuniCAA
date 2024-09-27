@@ -1,14 +1,18 @@
 package com.example.comunicaa.base
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.example.comunicaa.R
 
 @Suppress("UNCHECKED_CAST")
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
@@ -78,6 +82,71 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         currentToast?.cancel()
         currentToast = Toast.makeText(context, message, duration)
         currentToast?.show()
+    }
+
+    /**
+     * Shows a PopupMenu
+     *
+     * @param anchorView View that the PopupMenu will be anchored to
+     * @param customLogic Use this to add the desired options to your PopupMenu as well
+     * as the action to be performed after those options are clicked
+     *
+     */
+    fun showPopupMenu(anchorView: View, customLogic: (popupMenu: PopupMenu) -> Unit) {
+        val popupMenu = PopupMenu(
+            requireContext(),
+            anchorView,
+            Gravity.END,
+            androidx.appcompat.R.attr.popupMenuStyle,
+            R.style.Base_PopupMenu
+        )
+
+        customLogic.invoke(popupMenu)
+
+        try {
+            val fieldPopup = PopupMenu::class.java.getDeclaredField("mPopup")
+            fieldPopup.isAccessible = true
+            popupMenu.show()
+        } catch (exception: Exception) {
+            exception.printStackTrace()
+        } finally {
+            popupMenu.show()
+        }
+    }
+
+    /**
+     * Shows a PopupMenu
+     *
+     * @param anchorView View that the PopupMenu will be anchored to
+     * @param customLogic Use this to add the desired options to your PopupMenu as well
+     * as the action to be performed after those options are clicked
+     *
+     */
+    fun showPopupMenu(
+        anchorView: View,
+        @MenuRes menuRes: Int,
+        customLogic: (popupMenu: PopupMenu) -> Unit
+    ) {
+        val popupMenu = PopupMenu(
+            requireContext(),
+            anchorView,
+            Gravity.END,
+            androidx.appcompat.R.attr.popupMenuStyle,
+            R.style.Base_PopupMenu
+        ).apply {
+            menuInflater.inflate(menuRes, menu)
+            customLogic.invoke(this)
+        }
+
+        try {
+            val fieldPopup = PopupMenu::class.java.getDeclaredField("mPopup")
+            fieldPopup.isAccessible = true
+            popupMenu.show()
+        } catch (exception: Exception) {
+            exception.printStackTrace()
+        } finally {
+            popupMenu.show()
+        }
     }
 
     override fun onDestroyView() {

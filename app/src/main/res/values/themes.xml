@@ -24,11 +24,13 @@
         <item name="android:windowEnterAnimation">@anim/translate_fade_in</item>
         <item name="android:windowExitAnimation">@anim/translate_fade_out</item>
     </style>
+    <!--Custom Dialog Style **END**-->
 
+    <!--Pop Menu Style-->
     <style name="Base.PopupMenu" parent="Widget.AppCompat.PopupMenu">
         <item name="android:popupBackground">@drawable/popup_menu_background</item>
     </style>
-    <!--Custom Dialog Style **END**-->
+    <!--Pop Menu Style **END**-->
 
     <!--Text Input Layout Style-->
     <style name="Base.TextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">

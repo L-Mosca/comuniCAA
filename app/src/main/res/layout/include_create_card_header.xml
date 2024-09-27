@@ -14,6 +14,7 @@
         android:paddingHorizontal="20dp">
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHeaderTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
