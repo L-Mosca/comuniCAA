@@ -61,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@id/vRegisterBack"
         tools:visibility="visible" />
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:id="@+id/nsvRegister"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -86,5 +86,5 @@
 
         </RelativeLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

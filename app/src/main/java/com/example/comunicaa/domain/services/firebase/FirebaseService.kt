@@ -4,4 +4,5 @@ import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class FirebaseService @Inject constructor(@ApplicationContext private val context: Context) : FirebaseServiceContract {}
+class FirebaseService @Inject constructor(@ApplicationContext private val context: Context) :
+    FirebaseServiceContract {}
