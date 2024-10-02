@@ -19,7 +19,7 @@ class RegisterViewModel @Inject constructor(
     val passwordEmpty = SingleLiveData<Unit>()
     val confirmPasswordEmpty = SingleLiveData<Unit>()
     val loginSuccess = SingleLiveData<Unit>()
-    val loginError = SingleLiveData<Int>()
+    val loginError = SingleLiveData<Unit>()
 
     val passwordLength = SingleLiveData<Int>()
     val passwordUpperLetter = SingleLiveData<Int>()
@@ -27,10 +27,14 @@ class RegisterViewModel @Inject constructor(
     val passwordNumber = SingleLiveData<Int>()
     private var isValidPassword = false
 
-    fun login(username: String, email: String, password: String, confirmPassword: String) {
-        defaultLaunch {
+    fun register(username: String, email: String, password: String, confirmPassword: String) {
+        defaultLaunch (exceptionHandler = {
+            loginError.postValue(Unit)
+        }) {
             if (formIsOk(username, email, password, confirmPassword)) {
-                userRepository.login(buildLoginBody(username, email, password))
+                val userModel = userRepository.register(buildLoginBody(username, email, password))
+                if (userModel != null) loginSuccess.postValue(Unit)
+                else loginError.postValue(Unit)
             }
         }
     }

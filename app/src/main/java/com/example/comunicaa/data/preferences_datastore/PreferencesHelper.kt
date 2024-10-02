@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.comunicaa.BuildConfig
+import com.example.comunicaa.domain.models.user.UserModel
 import com.google.gson.Gson
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.catch
@@ -25,6 +26,7 @@ class PreferencesHelper @Inject constructor(@ApplicationContext private val cont
         // Keys
         private val remoteDatabaseVersion =
             stringPreferencesKey(name = "$PREFERENCES_NAME.remoteDatabaseVersion")
+        private val userData = stringPreferencesKey(name = "$PREFERENCES_NAME.userData")
     }
 
     private val Context.dataStore by preferencesDataStore(name = PREFERENCES_NAME)
@@ -39,6 +41,22 @@ class PreferencesHelper @Inject constructor(@ApplicationContext private val cont
     override suspend fun saveRemoteDbVersion(version: String) {
         dataStore.edit { pref ->
             pref[remoteDatabaseVersion] = version
+        }
+    }
+
+    override suspend fun getUserData(): UserModel? {
+        return Gson().fromJson(dataStore.getData<String>(userData), UserModel::class.java)
+    }
+
+    override suspend fun saveUserData(userModel: UserModel) {
+        dataStore.edit { pref ->
+            pref[userData] = Gson().toJson(userModel)
+        }
+    }
+
+    override suspend fun clearUserData() {
+        dataStore.edit { pref ->
+            pref[userData] = ""
         }
     }
 }

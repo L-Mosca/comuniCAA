@@ -110,7 +110,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 val password = etRegisterPassword.text.toString()
                 val confirmPassword = etRegisterConfirmPassword.text.toString()
 
-                viewModel.login(username, email, password, confirmPassword)
+                viewModel.register(username, email, password, confirmPassword)
             }
         }
     }

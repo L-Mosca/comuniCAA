@@ -1,6 +1,7 @@
 package com.example.comunicaa.domain.models.user
 
 import android.os.Parcelable
+import com.google.firebase.auth.FirebaseUser
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -25,3 +26,21 @@ data class UserModel(
     @SerializedName("uid")
     val uid: String? = ""
 ): Parcelable
+
+fun FirebaseUser?.toUserModel() : UserModel? {
+    val user = this?.let {
+        UserModel(
+            displayName = this.displayName,
+            email = this.email,
+            isAnonymous = this.isAnonymous,
+            photoUrl = this.photoUrl.toString(),
+            isEmailVerified = this.isEmailVerified,
+            phoneNumber = this.phoneNumber,
+            providerId = this.providerId,
+            tenantId = this.tenantId,
+            uid = this.uid,
+        )
+    }
+
+    return user
+}
