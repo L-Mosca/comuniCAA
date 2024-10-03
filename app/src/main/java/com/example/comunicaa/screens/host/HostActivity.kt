@@ -3,19 +3,21 @@ package com.example.comunicaa.screens.host
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.comunicaa.R
 import com.example.comunicaa.databinding.ActivityHostBinding
 import com.example.comunicaa.databinding.HeaderLayoutBinding
+import com.example.comunicaa.domain.models.user.UserModel
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 @Suppress("DEPRECATION")
@@ -39,20 +41,8 @@ class HostActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val bars = insets.getInsets(
-                WindowInsetsCompat.Type.systemBars()
-                        or WindowInsetsCompat.Type.displayCutout()
-            )
-            v.updatePadding(
-                left = bars.left,
-                top = bars.top,
-                right = bars.right,
-                bottom = bars.bottom,
-            )
-            WindowInsetsCompat.CONSUMED
-        }
-
+        viewModel.getUserData()
+        setupViewPadding()
         setupHeader()
         setupNavigation()
         setupDrawer()
@@ -61,6 +51,11 @@ class HostActivity : AppCompatActivity() {
     private fun initObservers() {
         viewModel.openDrawer.observe(this) { binding.drawerLayout.openDrawer(GravityCompat.START) }
         viewModel.closeDrawer.observe(this) { binding.drawerLayout.closeDrawers() }
+        viewModel.graphId.observe(this) { navController.navigate(it) }
+
+        viewModel.user.observe(this) { updateUserOnDrawer(it) }
+        viewModel.changeScreen.observe(this) { navController.navigate(it) }
+        viewModel.logoutSuccess.observe(this) { updateUserOnDrawer(null) }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -76,9 +71,7 @@ class HostActivity : AppCompatActivity() {
             drawerLayout.addDrawerListener(toggle)
             toggle.syncState()
             navigationView.setNavigationItemSelectedListener { item ->
-                if (item.itemId == R.id.teste1) {
-                    navController.navigate(R.id.card_nav_graph)
-                }
+                viewModel.handleNavigation(item)
                 drawerLayout.closeDrawers()
                 true
             }
@@ -113,15 +106,44 @@ class HostActivity : AppCompatActivity() {
     private fun setupHeader() {
         headerBinding = HeaderLayoutBinding.bind(binding.navigationView.getHeaderView(0))
 
-        headerBinding.apply {
+        headerBinding.includeHeaderLoggedMessage.apply {
             btLogin.setOnClickListener {
                 navController.navigate(R.id.auth_nav_graph)
                 binding.drawerLayout.closeDrawers()
             }
 
-            vDrawerBack.setOnClickListener { binding.drawerLayout.closeDrawers() }
+            headerBinding.vDrawerBack.setOnClickListener { binding.drawerLayout.closeDrawers() }
         }
 
+    }
+
+    private fun updateUserOnDrawer(user: UserModel?) {
+        headerBinding.includeHeaderUserData.llHeaderUserData.isVisible = user != null
+        headerBinding.includeHeaderLoggedMessage.clLoggedMessage.isVisible = user == null
+
+        headerBinding.includeHeaderUserData.apply {
+            tvDrawerUserName.text = user?.displayName
+            tvDrawerUserEmail.text = user?.email
+            tvDrawerUserPhone.text = user?.phoneNumber
+            user?.photoUrl?.let {  Picasso.get().load(it).into(ivDrawerUserImage)  }
+
+        }
+    }
+
+    private fun setupViewPadding() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars()
+                        or WindowInsetsCompat.Type.displayCutout()
+            )
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+                bottom = bars.bottom,
+            )
+            WindowInsetsCompat.CONSUMED
+        }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

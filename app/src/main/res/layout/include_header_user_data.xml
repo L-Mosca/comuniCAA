@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llHeaderUserData"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    tools:visibility="invisible">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivDrawerUserImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/circle_background" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDrawerUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="Nome Completo do Usuário" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDrawerUserEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        tools:text="emaildousuario@gmail.com" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvDrawerUserPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="2dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        tools:text="(00) 00000-0000" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
