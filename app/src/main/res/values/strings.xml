@@ -31,6 +31,7 @@
     <!--Drawer-->
     <string name="logout">Sair</string>
     <string name="profile">Perfil</string>
+    <string name="customize_app">Personalizar</string>
     <string name="logged_message">Faça login para utilizar todos os recursos do app</string>
     <!--Drawer **END**-->
 
