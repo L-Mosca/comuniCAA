@@ -85,6 +85,10 @@
                 android:layout_marginVertical="40dp" />
 
         </RelativeLayout>
-
     </ScrollView>
+
+    <include
+        android:id="@+id/includeRegisterLoading"
+        layout="@layout/include_default_loading" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

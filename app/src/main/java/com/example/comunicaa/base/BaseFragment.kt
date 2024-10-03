@@ -11,9 +11,11 @@ import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.example.comunicaa.R
+import com.example.comunicaa.databinding.IncludeDefaultLoadingBinding
 import com.google.android.material.snackbar.Snackbar
 
 @Suppress("UNCHECKED_CAST")
@@ -172,5 +174,9 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
                 .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.white))
                 .setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
         currentSnackBar?.show()
+    }
+
+    fun IncludeDefaultLoadingBinding.showLoading(showLoading: Boolean) {
+        rlLoading.isVisible = showLoading
     }
 }

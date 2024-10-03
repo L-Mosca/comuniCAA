@@ -86,4 +86,8 @@
 
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/includeLoginLoading"
+        layout="@layout/include_default_loading" />
 </androidx.constraintlayout.widget.ConstraintLayout>

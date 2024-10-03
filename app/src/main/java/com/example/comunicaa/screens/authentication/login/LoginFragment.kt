@@ -10,6 +10,7 @@ import com.example.comunicaa.R
 import com.example.comunicaa.base.BaseFragment
 import com.example.comunicaa.databinding.FragmentLoginBinding
 import com.example.comunicaa.screens.host.HostViewModel
+import com.example.comunicaa.utils.hideKeyboard
 import com.example.comunicaa.utils.navigate
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,9 +28,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         setupTextFields()
         setupRegisterNavigation()
         setupButtons()
+        binding.includeLoginLoading.rlLoading.setOnClickListener {  }
     }
 
     override fun initObservers() {
+        viewModel.loading.observe(viewLifecycleOwner) { showLoading ->
+            binding.includeLoginLoading.showLoading(showLoading)
+        }
+
         viewModel.loginSuccess.observe(viewLifecycleOwner) {
             mainViewModel.getUserData()
             mainViewModel.showHome()
@@ -60,6 +66,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             etLoginPassword.addTextChangedListener {
                 tilLoginPassword.error = null
             }
+            etLoginPassword.setOnEditorActionListener { _, actionId, _ ->
+                viewModel.validateKeyboardAction(actionId) { doLogin() }
+            }
         }
     }
 
@@ -71,12 +80,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     private fun setupButtons() {
+        binding.includeLoginFields.btLogin.setOnClickListener { doLogin() }
+    }
+
+    private fun doLogin() {
         binding.includeLoginFields.apply {
-            btLogin.setOnClickListener {
-                val email = etLoginEmail.text.toString()
-                val password = etLoginPassword.text.toString()
-                viewModel.login(email, password)
-            }
+            hideKeyboard()
+            val email = etLoginEmail.text.toString()
+            val password = etLoginPassword.text.toString()
+            viewModel.login(email, password)
         }
     }
 
