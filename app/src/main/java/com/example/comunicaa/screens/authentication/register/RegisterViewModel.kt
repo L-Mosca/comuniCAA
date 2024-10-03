@@ -1,5 +1,6 @@
 package com.example.comunicaa.screens.authentication.register
 
+import android.view.inputmethod.EditorInfo
 import com.example.comunicaa.R
 import com.example.comunicaa.base.BaseViewModel
 import com.example.comunicaa.base.SingleLiveData
@@ -28,11 +29,12 @@ class RegisterViewModel @Inject constructor(
     private var isValidPassword = false
 
     fun register(username: String, email: String, password: String, confirmPassword: String) {
-        defaultLaunch (exceptionHandler = {
+        defaultLaunch(exceptionHandler = {
             registerError.postValue(Unit)
         }) {
             if (formIsOk(username, email, password, confirmPassword)) {
-                val userModel = userRepository.register(buildRegisterBody(username, email, password))
+                val userModel =
+                    userRepository.register(buildRegisterBody(username, email, password))
                 if (userModel != null) registerSuccess.postValue(Unit)
                 else registerError.postValue(Unit)
             }
@@ -82,5 +84,12 @@ class RegisterViewModel @Inject constructor(
         passwordUpperLetter.postValue(if (upperLetter) R.color.green_700 else R.color.red_700)
         passwordLowerLetter.postValue(if (lowerCase) R.color.green_700 else R.color.red_700)
         passwordNumber.postValue(if (number) R.color.green_700 else R.color.red_700)
+    }
+
+    fun validateKeyboardAction(actionId: Int, onSendPressed: () -> Unit): Boolean {
+        if (actionId == EditorInfo.IME_ACTION_SEND) {
+            onSendPressed.invoke()
+        }
+        return true
     }
 }

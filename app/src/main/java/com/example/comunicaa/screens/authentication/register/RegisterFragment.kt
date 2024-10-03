@@ -11,6 +11,7 @@ import com.example.comunicaa.R
 import com.example.comunicaa.base.BaseFragment
 import com.example.comunicaa.databinding.FragmentRegisterBinding
 import com.example.comunicaa.screens.host.HostViewModel
+import com.example.comunicaa.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,6 +24,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
     override fun initViews() {
         binding.includeRegisterFields.tvHasAccount.setOnClickListener { findNavController().popBackStack() }
+        binding.includeRegisterLoading.rlLoading.setOnClickListener {  }
         startAnimation()
         setupTextFields()
         setupRegisterButton()
@@ -30,7 +32,14 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     }
 
     override fun initObservers() {
-        viewModel.registerSuccess.observe(viewLifecycleOwner) { mainViewModel.showHome() }
+        viewModel.loading.observe(viewLifecycleOwner) { showLoading ->
+            binding.includeRegisterLoading.showLoading(showLoading)
+        }
+
+        viewModel.registerSuccess.observe(viewLifecycleOwner) {
+            mainViewModel.getUserData()
+            mainViewModel.showHome()
+        }
 
         viewModel.registerError.observe(viewLifecycleOwner) {
             showShortSnackBar(getString(R.string.register_error))
@@ -99,23 +108,30 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             etRegisterConfirmPassword.addTextChangedListener {
                 tilRegisterConfirmPassword.error = null
             }
-        }
-    }
 
-    private fun setupRegisterButton() {
-        binding.includeRegisterFields.apply {
-            btRegister.setOnClickListener {
-                val username = etRegisterName.text.toString()
-                val email = etRegisterEmail.text.toString()
-                val password = etRegisterPassword.text.toString()
-                val confirmPassword = etRegisterConfirmPassword.text.toString()
-                viewModel.register(username, email, password, confirmPassword)
+            etRegisterConfirmPassword.setOnEditorActionListener { _, actionId, _ ->
+                viewModel.validateKeyboardAction(actionId) { doRegister() }
             }
         }
     }
 
+    private fun setupRegisterButton() {
+        binding.includeRegisterFields.btRegister.setOnClickListener { doRegister() }
+    }
+
     private fun setupHeader() {
         binding.vRegisterBack.setOnClickListener { findNavController().popBackStack() }
+    }
+
+    private fun doRegister() {
+        hideKeyboard()
+        binding.includeRegisterFields.apply {
+            val username = etRegisterName.text.toString()
+            val email = etRegisterEmail.text.toString()
+            val password = etRegisterPassword.text.toString()
+            val confirmPassword = etRegisterConfirmPassword.text.toString()
+            viewModel.register(username, email, password, confirmPassword)
+        }
     }
 
     private fun startAnimation() {
