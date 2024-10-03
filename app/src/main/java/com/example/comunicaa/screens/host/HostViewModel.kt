@@ -33,8 +33,7 @@ class HostViewModel @Inject constructor(private val userRepository: UserReposito
 
     fun handleNavigation(item: MenuItem) {
         when (item.itemId) {
-            R.id.teste1 -> changeScreen.postValue(R.id.card_nav_graph)
-            R.id.menuProfile -> {}
+            R.id.menuCustomizeApp -> changeScreen.postValue(R.id.card_nav_graph)
             R.id.menuLogout -> logout()
         }
     }

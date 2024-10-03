@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/llHeaderUserData"
     android:layout_width="match_parent"
@@ -14,7 +15,9 @@
         android:layout_height="80dp"
         android:layout_marginStart="14dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/circle_background" />
+        android:background="@drawable/circle_background"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_profile" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvDrawerUserName"
