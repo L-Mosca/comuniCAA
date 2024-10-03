@@ -4,9 +4,12 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class LoginBody(
+data class RegisterBody(
     val email: String,
     val password: String,
+    val name: String,
 ) : Parcelable
 
-fun buildLoginBody(email: String, password: String) = LoginBody(email, password)
+fun buildRegisterBody(name: String, email: String, password: String) =
+    RegisterBody(name = name, email = email, password = password)
+

@@ -45,7 +45,7 @@ class PreferencesHelper @Inject constructor(@ApplicationContext private val cont
     }
 
     override suspend fun getUserData(): UserModel? {
-        return Gson().fromJson(dataStore.getData<String>(userData), UserModel::class.java)
+        return dataStore.getData<UserModel?>(userData)
     }
 
     override suspend fun saveUserData(userModel: UserModel) {
@@ -66,9 +66,9 @@ suspend inline fun <reified T> DataStore<Preferences>.getData(key: Preferences.K
         this.data.catch { exception ->
             if (exception is IOException) emit(emptyPreferences())
             else throw exception
-        }.map { preferences ->
-            val data = preferences[key]
-            if (data.isNullOrEmpty()) null
+        }.map { pref ->
+            val data = pref[key]
+            if (data.isNullOrEmpty()) return@map null
             else Gson().fromJson(data, T::class.java)
         }.first()
     }.getOrNull()

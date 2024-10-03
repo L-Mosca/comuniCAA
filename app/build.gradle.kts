@@ -108,6 +108,14 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
 
+    // Firebase Realtime Database
+    implementation(libs.firebase.database)
+
+    // Picasso
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.picasso)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 }
 
 kapt { correctErrorTypes = true }

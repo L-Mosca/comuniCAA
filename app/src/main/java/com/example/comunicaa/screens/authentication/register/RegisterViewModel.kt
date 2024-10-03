@@ -3,7 +3,7 @@ package com.example.comunicaa.screens.authentication.register
 import com.example.comunicaa.R
 import com.example.comunicaa.base.BaseViewModel
 import com.example.comunicaa.base.SingleLiveData
-import com.example.comunicaa.domain.models.user.buildLoginBody
+import com.example.comunicaa.domain.models.user.buildRegisterBody
 import com.example.comunicaa.domain.repositories.user.UserRepositoryContract
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -18,8 +18,8 @@ class RegisterViewModel @Inject constructor(
     val confirmPasswordError = SingleLiveData<Unit>()
     val passwordEmpty = SingleLiveData<Unit>()
     val confirmPasswordEmpty = SingleLiveData<Unit>()
-    val loginSuccess = SingleLiveData<Unit>()
-    val loginError = SingleLiveData<Unit>()
+    val registerSuccess = SingleLiveData<Unit>()
+    val registerError = SingleLiveData<Unit>()
 
     val passwordLength = SingleLiveData<Int>()
     val passwordUpperLetter = SingleLiveData<Int>()
@@ -29,12 +29,12 @@ class RegisterViewModel @Inject constructor(
 
     fun register(username: String, email: String, password: String, confirmPassword: String) {
         defaultLaunch (exceptionHandler = {
-            loginError.postValue(Unit)
+            registerError.postValue(Unit)
         }) {
             if (formIsOk(username, email, password, confirmPassword)) {
-                val userModel = userRepository.register(buildLoginBody(username, email, password))
-                if (userModel != null) loginSuccess.postValue(Unit)
-                else loginError.postValue(Unit)
+                val userModel = userRepository.register(buildRegisterBody(username, email, password))
+                if (userModel != null) registerSuccess.postValue(Unit)
+                else registerError.postValue(Unit)
             }
         }
     }

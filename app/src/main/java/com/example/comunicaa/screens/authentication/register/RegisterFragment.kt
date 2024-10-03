@@ -19,7 +19,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     override val bindingInflater: (LayoutInflater) -> FragmentRegisterBinding =
         FragmentRegisterBinding::inflate
     override val viewModel: RegisterViewModel by viewModels()
-    val mainViewModel: HostViewModel by activityViewModels()
+    private val mainViewModel: HostViewModel by activityViewModels()
 
     override fun initViews() {
         binding.includeRegisterFields.tvHasAccount.setOnClickListener { findNavController().popBackStack() }
@@ -30,11 +30,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     }
 
     override fun initObservers() {
-        viewModel.loginSuccess.observe(viewLifecycleOwner) {
+        viewModel.registerSuccess.observe(viewLifecycleOwner) { mainViewModel.showHome() }
 
+        viewModel.registerError.observe(viewLifecycleOwner) {
+            showShortSnackBar(getString(R.string.register_error))
         }
-
-        viewModel.loginError.observe(viewLifecycleOwner) {}
 
         viewModel.confirmPasswordError.observe(viewLifecycleOwner) {
             binding.includeRegisterFields.tilRegisterConfirmPassword.error =
@@ -109,7 +109,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 val email = etRegisterEmail.text.toString()
                 val password = etRegisterPassword.text.toString()
                 val confirmPassword = etRegisterConfirmPassword.text.toString()
-
                 viewModel.register(username, email, password, confirmPassword)
             }
         }

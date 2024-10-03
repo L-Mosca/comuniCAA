@@ -8,6 +8,7 @@
     <string name="password">Senha</string>
     <string name="enter">Entrar</string>
     <string name="dont_have_account">Não tem uma conta? Cadastre-se</string>
+    <string name="login_error">Erro ao realizar login</string>
     <!--Login Screen **END**-->
 
     <!--Register Screen-->
@@ -24,10 +25,13 @@
     <string name="upper_letter">maiúscula *</string>
     <string name="lower_letter">minúscula *</string>
     <string name="number">número *</string>
+    <string name="register_error">Erro ao realizar cadastro</string>
     <!--Register Screen **END**-->
 
     <!--Drawer-->
     <string name="logout">Sair</string>
+    <string name="profile">Perfil</string>
+    <string name="logged_message">Faça login para utilizar todos os recursos do app</string>
     <!--Drawer **END**-->
 
     <!--Create Action-->

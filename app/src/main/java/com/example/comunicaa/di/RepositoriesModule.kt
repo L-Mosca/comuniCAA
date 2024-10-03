@@ -6,6 +6,8 @@ import com.example.comunicaa.data.firebase.database.RemoteDatabase
 import com.example.comunicaa.data.firebase.database.RemoteDatabaseContract
 import com.example.comunicaa.data.firebase.storage.RemoteStorage
 import com.example.comunicaa.data.firebase.storage.RemoteStorageContract
+import com.example.comunicaa.data.preferences_datastore.PreferencesContract
+import com.example.comunicaa.data.preferences_datastore.PreferencesHelper
 import com.example.comunicaa.domain.repositories.cards.CardsRepository
 import com.example.comunicaa.domain.repositories.cards.CardsRepositoryContract
 import com.example.comunicaa.domain.repositories.user.UserRepository
@@ -27,6 +29,10 @@ interface RepositoriesModule {
     @Singleton
     @Binds
     fun bindUserRepository(userRepository: UserRepository): UserRepositoryContract
+
+    @Singleton
+    @Binds
+    fun bindPreferences(preferencesHelper: PreferencesHelper): PreferencesContract
 
     @Singleton
     @Binds
