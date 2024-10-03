@@ -34,54 +34,17 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/ivDrawerUserImage"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/circle_background" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvDrawerUserName"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="8dp"
-        android:text="Nome Completo do Usuário"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvDrawerUserEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="2dp"
-        android:text="emaildousuario@gmail.com"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="italic" />
+        <include
+            android:id="@+id/includeHeaderUserData"
+            layout="@layout/include_header_user_data" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="2dp"
-        android:text="(00) 00000-0000"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="italic" />
+        <include
+            android:id="@+id/includeHeaderLoggedMessage"
+            layout="@layout/include_header_logged_message" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="30dp"
-        android:text="Login"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

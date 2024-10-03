@@ -5,6 +5,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs")
     id("kotlin-parcelize")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -102,6 +103,19 @@ dependencies {
 
     // Gson
     implementation(libs.gson)
+
+    // Firebase Auth
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+
+    // Firebase Realtime Database
+    implementation(libs.firebase.database)
+
+    // Picasso
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.picasso)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 }
 
 kapt { correctErrorTypes = true }

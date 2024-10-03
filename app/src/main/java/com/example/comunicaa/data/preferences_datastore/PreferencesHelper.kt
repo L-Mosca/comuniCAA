@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.comunicaa.BuildConfig
+import com.example.comunicaa.domain.models.user.UserModel
 import com.google.gson.Gson
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.catch
@@ -25,6 +26,7 @@ class PreferencesHelper @Inject constructor(@ApplicationContext private val cont
         // Keys
         private val remoteDatabaseVersion =
             stringPreferencesKey(name = "$PREFERENCES_NAME.remoteDatabaseVersion")
+        private val userData = stringPreferencesKey(name = "$PREFERENCES_NAME.userData")
     }
 
     private val Context.dataStore by preferencesDataStore(name = PREFERENCES_NAME)
@@ -41,6 +43,22 @@ class PreferencesHelper @Inject constructor(@ApplicationContext private val cont
             pref[remoteDatabaseVersion] = version
         }
     }
+
+    override suspend fun getUserData(): UserModel? {
+        return dataStore.getData<UserModel?>(userData)
+    }
+
+    override suspend fun saveUserData(userModel: UserModel) {
+        dataStore.edit { pref ->
+            pref[userData] = Gson().toJson(userModel)
+        }
+    }
+
+    override suspend fun clearUserData() {
+        dataStore.edit { pref ->
+            pref[userData] = ""
+        }
+    }
 }
 
 suspend inline fun <reified T> DataStore<Preferences>.getData(key: Preferences.Key<String>): T? {
@@ -48,9 +66,9 @@ suspend inline fun <reified T> DataStore<Preferences>.getData(key: Preferences.K
         this.data.catch { exception ->
             if (exception is IOException) emit(emptyPreferences())
             else throw exception
-        }.map { preferences ->
-            val data = preferences[key]
-            if (data.isNullOrEmpty()) null
+        }.map { pref ->
+            val data = pref[key]
+            if (data.isNullOrEmpty()) return@map null
             else Gson().fromJson(data, T::class.java)
         }.first()
     }.getOrNull()

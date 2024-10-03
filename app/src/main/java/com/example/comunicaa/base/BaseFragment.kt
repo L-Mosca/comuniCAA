@@ -10,9 +10,11 @@ import androidx.activity.addCallback
 import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.example.comunicaa.R
+import com.google.android.material.snackbar.Snackbar
 
 @Suppress("UNCHECKED_CAST")
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
@@ -22,6 +24,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     val binding: VB get() = viewBinding as VB
     private var currentToast: Toast? = null
+    private var currentSnackBar: Snackbar? = null
 
     abstract val viewModel: BaseViewModel
 
@@ -152,5 +155,22 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     override fun onDestroyView() {
         viewBinding = null
         super.onDestroyView()
+    }
+
+    fun showLongSnackBar(message: String) {
+        showSnackBar(message, Snackbar.LENGTH_LONG)
+    }
+
+    fun showShortSnackBar(message: String) {
+        showSnackBar(message, Snackbar.LENGTH_SHORT)
+    }
+
+    private fun showSnackBar(message: String, duration: Int) {
+        currentSnackBar?.dismiss()
+        currentSnackBar =
+            Snackbar.make(binding.root, message, duration)
+                .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.white))
+                .setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+        currentSnackBar?.show()
     }
 }
