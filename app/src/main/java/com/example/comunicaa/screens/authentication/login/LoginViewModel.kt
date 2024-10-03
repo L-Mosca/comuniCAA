@@ -1,5 +1,6 @@
 package com.example.comunicaa.screens.authentication.login
 
+import android.view.inputmethod.EditorInfo
 import com.example.comunicaa.base.BaseViewModel
 import com.example.comunicaa.base.SingleLiveData
 import com.example.comunicaa.domain.models.user.buildLoginBody
@@ -31,5 +32,12 @@ class LoginViewModel @Inject constructor(private val userRepository: UserReposit
         if (password.isEmpty()) passwordEmptyError.postValue(Unit)
 
         return email.isNotEmpty() || password.isNotEmpty()
+    }
+
+    fun validateKeyboardAction(actionId: Int, onSendPressed: () -> Unit): Boolean {
+        if (actionId == EditorInfo.IME_ACTION_SEND) {
+            onSendPressed.invoke()
+        }
+        return true
     }
 }
