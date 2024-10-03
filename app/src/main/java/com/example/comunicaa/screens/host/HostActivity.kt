@@ -17,7 +17,6 @@ import com.example.comunicaa.R
 import com.example.comunicaa.databinding.ActivityHostBinding
 import com.example.comunicaa.databinding.HeaderLayoutBinding
 import com.example.comunicaa.domain.models.user.UserModel
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 @Suppress("DEPRECATION")
@@ -125,9 +124,9 @@ class HostActivity : AppCompatActivity() {
             tvDrawerUserName.text = user?.displayName
             tvDrawerUserEmail.text = user?.email
             tvDrawerUserPhone.text = user?.phoneNumber
-            user?.photoUrl?.let {  Picasso.get().load(it).into(ivDrawerUserImage)  }
-
         }
+
+        binding.navigationView.menu.findItem(R.id.menuLogout).isVisible = user != null
     }
 
     private fun setupViewPadding() {

@@ -4,14 +4,9 @@
     tools:showIn="navigation_view">
 
     <item
-        android:id="@+id/menuProfile"
-        android:icon="@drawable/ic_profile"
-        android:title="@string/profile" />
-
-    <item
-        android:id="@+id/teste1"
+        android:id="@+id/menuCustomizeApp"
         android:icon="@drawable/ic_launcher_background"
-        android:title="Personalizar app" />
+        android:title="@string/customize_app" />
 
     <item
         android:id="@+id/menuLogout"
