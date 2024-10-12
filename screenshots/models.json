@@ -1,0 +1,34 @@
+category
+{
+  "id": "",
+  "userId": "",
+  "name": "Comidas",
+  "subCategories": [],
+  "isDefault": true,
+}
+
+
+subCategory
+{
+  "id": "",
+  "userId": "",
+  "categoryId": "",
+  "name": "Frutas",
+  "image": "",
+  "color": 0,
+  "actions": [],
+  "isDefault": true,
+}
+
+
+action
+{
+  "id": "",
+  "userId": "",
+  "categoryId": "",
+  "subCategoryId": "",
+  "name": "Banana",
+  "image": "",
+  "sound": "",
+  "isDefault": true,
+}
