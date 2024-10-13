@@ -111,6 +111,9 @@ dependencies {
     // Firebase Realtime Database
     implementation(libs.firebase.database)
 
+    // Firebase Storage
+    implementation(libs.firebase.storage)
+
     // Picasso
     implementation(platform(libs.okhttp.bom))
     implementation(libs.picasso)

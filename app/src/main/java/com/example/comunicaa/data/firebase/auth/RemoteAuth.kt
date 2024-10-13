@@ -13,7 +13,7 @@ import kotlin.coroutines.suspendCoroutine
 
 class RemoteAuth @Inject constructor() : RemoteAuthContract {
 
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     override suspend fun login(body: LoginBody): UserModel? {
         Log.e("test", "usuario: $body")
