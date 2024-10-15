@@ -44,6 +44,11 @@
     <string name="select_category">Selecione uma categoria</string>
     <string name="select_subcategory">Selecione uma subcategoria</string>
     <string name="preview">Pré visualização</string>
+    <string name="add_image">Adicionar imagem</string>
+    <string name="camera">Câmera</string>
+    <string name="gallery">Galeria</string>
+    <string name="image_error">Erro ao carregar imagem</string>
+    <string name="use_this_image">Usar esta imagem</string>
     <!--Create Action **END**-->
 
     <!--Menu Card Screen-->

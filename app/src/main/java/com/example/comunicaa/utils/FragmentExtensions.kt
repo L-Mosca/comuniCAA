@@ -1,20 +1,30 @@
 package com.example.comunicaa.utils
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.KeyguardManager
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.provider.MediaStore
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowInsets.Type
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.AttrRes
 import androidx.annotation.IdRes
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -26,6 +36,8 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navOptions
 import com.example.comunicaa.R
+import com.example.comunicaa.screens.card_management.create_card.CreateCardFragment
+import java.io.File
 
 enum class TransitionAnimation {
     TRANSLATE_FROM_RIGHT, TRANSLATE_FROM_DOWN, TRANSLATE_FROM_LEFT, TRANSLATE_FROM_UP, NO_ANIMATION, TRANSLATE_FROM_DOWN_POP, FADE
@@ -181,7 +193,10 @@ fun delayed(action: () -> Unit, duration: Long = 500L) {
 
 fun Fragment.hideSystemBars() {
     val windowInsetsController =
-        WindowCompat.getInsetsController(requireActivity().window, requireActivity().window.decorView)
+        WindowCompat.getInsetsController(
+            requireActivity().window,
+            requireActivity().window.decorView
+        )
     // Configure the behavior of the hidden system bars.
     windowInsetsController.systemBarsBehavior =
         WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
@@ -193,7 +208,8 @@ fun Fragment.hideSystemBars() {
         // To account for this, explicitly check the visibility of navigationBars()
         // and statusBars() rather than checking the visibility of systemBars().
         if (windowInsets.isVisible(WindowInsetsCompat.Type.navigationBars())
-            || windowInsets.isVisible(WindowInsetsCompat.Type.statusBars())) {
+            || windowInsets.isVisible(WindowInsetsCompat.Type.statusBars())
+        ) {
             /*binding.toggleFullscreenButton.setOnClickListener {
                 // Hide both the status bar and the navigation bar.
                 windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
@@ -218,4 +234,71 @@ fun Fragment.showSystemBars() {
         )
 
     windowInsetsController.show(Type.systemBars())
+}
+
+fun Fragment.openGallery(launcher: ActivityResultLauncher<Intent>) {
+    val intent = Intent(Intent.ACTION_PICK)
+    intent.type = "image/*"
+    launcher.launch(intent)
+}
+
+fun Activity.hasPermission(
+    permissionRequestCode: Int,
+    permissionsCheck: Array<String>
+): Boolean {
+    val permissions = ArrayList<String>()
+
+    permissionsCheck.forEach {
+        if (ActivityCompat.checkSelfPermission(this, it)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            permissions.add(it)
+        }
+    }
+
+    if (permissions.isNotEmpty()) {
+        val array = permissions.toTypedArray()
+        ActivityCompat.requestPermissions(this, array, permissionRequestCode)
+        return false
+    }
+
+    return true
+}
+
+fun Activity.checkPickImagePermission(onPermissionGranted: () -> Unit) {
+    val permissions: Array<String> = when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
+            arrayOf(Manifest.permission.READ_MEDIA_IMAGES)
+
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ->
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+
+        else ->
+            arrayOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            )
+    }
+
+    if (hasPermission(CreateCardFragment.REQUEST_PERMISSION, permissions)) onPermissionGranted()
+}
+
+fun Activity.checkCameraPermission(onPermissionGranted: () -> Unit) {
+    val permissions: Array<String> = arrayOf(Manifest.permission.CAMERA)
+
+    if (hasPermission(CreateCardFragment.REQUEST_PERMISSION, permissions)) onPermissionGranted()
+}
+
+fun Fragment.createFile(): File {
+    val fileName = "temp_image"
+    val storageDir = requireActivity().getExternalFilesDir(null)
+    return File.createTempFile(fileName, ".jpg", storageDir)
+}
+
+fun Fragment.getImageUri(file: File): Uri {
+    return FileProvider.getUriForFile(
+        requireContext(),
+        "${requireActivity().application.packageName}.provider",
+        file
+    )
 }
