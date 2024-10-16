@@ -60,6 +60,17 @@
                 app:layout_constraintTop_toBottomOf="@id/tilCreateActionName" />
 
             <include
+                android:id="@+id/includeCreateActionSelectAudio"
+                layout="@layout/include_create_card_select_audio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/includeCreateActionSelectImage" />
+
+            <include
                 android:id="@+id/includeCreateActionSelectCategory"
                 layout="@layout/include_create_card_select_category"
                 android:layout_width="match_parent"
@@ -68,7 +79,7 @@
                 android:layout_marginTop="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/includeCreateActionSelectImage" />
+                app:layout_constraintTop_toBottomOf="@id/includeCreateActionSelectAudio" />
 
             <include
                 android:id="@+id/includeCreateActionSelectSubcategory"

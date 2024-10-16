@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package com.example.comunicaa.screens.card_management.create_card.dialogs
+package com.example.comunicaa.screens.card_management.create_card.dialogs.choose_image
 
 import android.content.Intent
 import android.net.Uri
@@ -20,8 +20,10 @@ import com.example.comunicaa.utils.checkCameraPermission
 import com.example.comunicaa.utils.checkPickImagePermission
 import com.example.comunicaa.utils.createFile
 import com.example.comunicaa.utils.getImageUri
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
+@AndroidEntryPoint
 class ChooseImageProviderDialog : BaseDialog<DialogChooseImageProviderBinding>() {
     override val bindingInflater: (LayoutInflater) -> DialogChooseImageProviderBinding =
         DialogChooseImageProviderBinding::inflate

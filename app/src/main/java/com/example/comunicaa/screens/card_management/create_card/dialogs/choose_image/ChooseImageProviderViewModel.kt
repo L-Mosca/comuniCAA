@@ -1,12 +1,14 @@
-package com.example.comunicaa.screens.card_management.create_card.dialogs
+package com.example.comunicaa.screens.card_management.create_card.dialogs.choose_image
 
 import android.app.Activity
 import android.net.Uri
 import androidx.activity.result.ActivityResult
 import com.example.comunicaa.base.BaseViewModel
 import com.example.comunicaa.base.SingleLiveData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class ChooseImageProviderViewModel @Inject constructor() : BaseViewModel() {
 
     val imageSuccess = SingleLiveData<Uri>()

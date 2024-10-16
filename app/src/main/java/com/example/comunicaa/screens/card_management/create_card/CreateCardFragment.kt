@@ -1,27 +1,22 @@
 package com.example.comunicaa.screens.card_management.create_card
 
-import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
-import androidx.activity.result.ActivityResultLauncher
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.comunicaa.base.BaseFragment
 import com.example.comunicaa.databinding.FragmentCreateCardBinding
-import com.example.comunicaa.screens.card_management.create_card.dialogs.ChooseImageProviderDialog
+import com.example.comunicaa.screens.card_management.create_card.dialogs.choose_audio.ChooseAudioDialog
+import com.example.comunicaa.screens.card_management.create_card.dialogs.choose_image.ChooseImageProviderDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CreateCardFragment : BaseFragment<FragmentCreateCardBinding>() {
 
-    companion object {
-        const val REQUEST_PERMISSION = 1357
-    }
-
-    var uri: Uri? = null
+    private var imageUri: Uri? = null
+    private var audioPath: String? = null
 
     override val bindingInflater: (LayoutInflater) -> FragmentCreateCardBinding =
         FragmentCreateCardBinding::inflate
@@ -40,20 +35,32 @@ class CreateCardFragment : BaseFragment<FragmentCreateCardBinding>() {
 
         viewModel.fetchCardData(navArgs.keys)
         setupSelectImage()
+        setupSelectAudio()
     }
 
     override fun initObservers() {}
 
     private fun setupSelectImage() {
         binding.includeCreateActionSelectImage.cvCreateActionSelectImage.setOnClickListener {
-            val fragment = ChooseImageProviderDialog.newInstance(uri)
+            val fragment = ChooseImageProviderDialog.newInstance(imageUri)
             fragment.onImageSelected = {
-                uri = it
+                imageUri = it
+                binding.includeCreateActionPreview.ivCreatePreview.setImageURI(imageUri)
                 fragment.dismiss()
-                binding.includeCreateActionPreview.ivCreatePreview.setImageURI(uri)
             }
             fragment.show(childFragmentManager, "chooseImage")
         }
     }
 
+    private fun setupSelectAudio() {
+        binding.includeCreateActionSelectAudio.cvCreateActionSelectAudio.setOnClickListener {
+            val fragment = ChooseAudioDialog.newInstance(audioPath)
+            fragment.onAudioSelected = { path, name ->
+                audioPath = path
+                binding.includeCreateActionSelectAudio.tvPreselectedAudio.text = name
+                fragment.dismiss()
+            }
+            fragment.show(childFragmentManager, "chooseAudio")
+        }
+    }
 }

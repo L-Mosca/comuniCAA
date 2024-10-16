@@ -1,17 +1,13 @@
 package com.example.comunicaa.utils
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.KeyguardManager
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.provider.MediaStore
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
@@ -19,11 +15,9 @@ import android.view.WindowInsets.Type
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.AttrRes
 import androidx.annotation.IdRes
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -35,9 +29,12 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navOptions
+import com.example.comunicaa.BuildConfig
 import com.example.comunicaa.R
-import com.example.comunicaa.screens.card_management.create_card.CreateCardFragment
 import java.io.File
+import java.io.IOException
+import java.util.Calendar
+import java.util.UUID
 
 enum class TransitionAnimation {
     TRANSLATE_FROM_RIGHT, TRANSLATE_FROM_DOWN, TRANSLATE_FROM_LEFT, TRANSLATE_FROM_UP, NO_ANIMATION, TRANSLATE_FROM_DOWN_POP, FADE
@@ -236,59 +233,6 @@ fun Fragment.showSystemBars() {
     windowInsetsController.show(Type.systemBars())
 }
 
-fun Fragment.openGallery(launcher: ActivityResultLauncher<Intent>) {
-    val intent = Intent(Intent.ACTION_PICK)
-    intent.type = "image/*"
-    launcher.launch(intent)
-}
-
-fun Activity.hasPermission(
-    permissionRequestCode: Int,
-    permissionsCheck: Array<String>
-): Boolean {
-    val permissions = ArrayList<String>()
-
-    permissionsCheck.forEach {
-        if (ActivityCompat.checkSelfPermission(this, it)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            permissions.add(it)
-        }
-    }
-
-    if (permissions.isNotEmpty()) {
-        val array = permissions.toTypedArray()
-        ActivityCompat.requestPermissions(this, array, permissionRequestCode)
-        return false
-    }
-
-    return true
-}
-
-fun Activity.checkPickImagePermission(onPermissionGranted: () -> Unit) {
-    val permissions: Array<String> = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
-            arrayOf(Manifest.permission.READ_MEDIA_IMAGES)
-
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ->
-            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-
-        else ->
-            arrayOf(
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            )
-    }
-
-    if (hasPermission(CreateCardFragment.REQUEST_PERMISSION, permissions)) onPermissionGranted()
-}
-
-fun Activity.checkCameraPermission(onPermissionGranted: () -> Unit) {
-    val permissions: Array<String> = arrayOf(Manifest.permission.CAMERA)
-
-    if (hasPermission(CreateCardFragment.REQUEST_PERMISSION, permissions)) onPermissionGranted()
-}
-
 fun Fragment.createFile(): File {
     val fileName = "temp_image"
     val storageDir = requireActivity().getExternalFilesDir(null)
@@ -301,4 +245,28 @@ fun Fragment.getImageUri(file: File): Uri {
         "${requireActivity().application.packageName}.provider",
         file
     )
+}
+
+fun Context.createAudioFilePath(): String? {
+    val prefix = "${BuildConfig.NAME}_${Calendar.getInstance().timeInMillis}"
+    val audioFile: File? = try {
+        val storageDir = this.getExternalFilesDir(null)
+        File.createTempFile(prefix, ".mp3", storageDir)
+    } catch (ex: IOException) {
+        null
+    }
+    return audioFile?.absolutePath
+}
+
+fun String.getAudioFileName(): String {
+    val file = File(this)
+    return file.name.substring(0, 24)
+}
+
+fun String.getAudioDuration(mediaPlayer: MediaPlayer): String {
+    mediaPlayer.setDataSource(this)
+    mediaPlayer.prepare()
+    val duration = mediaPlayer.duration.toLong()
+    mediaPlayer.release()
+    return duration.toString()
 }
