@@ -8,6 +8,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.comunicaa.base.BaseFragment
 import com.example.comunicaa.databinding.FragmentCreateCardBinding
+import com.example.comunicaa.domain.models.cards.SubCategory
+import com.example.comunicaa.screens.card_management.create_card.bottom_sheets.SelectSubcategoryBottomSheet
 import com.example.comunicaa.screens.card_management.create_card.dialogs.choose_audio.ChooseAudioDialog
 import com.example.comunicaa.screens.card_management.create_card.dialogs.choose_image.ChooseImageProviderDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +19,7 @@ class CreateCardFragment : BaseFragment<FragmentCreateCardBinding>() {
 
     private var imageUri: Uri? = null
     private var audioPath: String? = null
+    private var subcategory: SubCategory? = null
 
     override val bindingInflater: (LayoutInflater) -> FragmentCreateCardBinding =
         FragmentCreateCardBinding::inflate
@@ -36,6 +39,7 @@ class CreateCardFragment : BaseFragment<FragmentCreateCardBinding>() {
         viewModel.fetchCardData(navArgs.keys)
         setupSelectImage()
         setupSelectAudio()
+        setupSelectSubcategory()
     }
 
     override fun initObservers() {}
@@ -61,6 +65,18 @@ class CreateCardFragment : BaseFragment<FragmentCreateCardBinding>() {
                 fragment.dismiss()
             }
             fragment.show(childFragmentManager, "chooseAudio")
+        }
+    }
+
+    private fun setupSelectSubcategory() {
+        binding.includeCreateActionSelectSubcategory.cvCreateActionSelectSubcategory.setOnClickListener {
+            val fragment = SelectSubcategoryBottomSheet.newInstance(subcategory)
+            fragment.onSubcategorySelect = {
+                binding.includeCreateActionSelectSubcategory.tvCreateActionSelectSubcategory.text = it.name
+                subcategory = it
+                fragment.dismiss()
+            }
+            fragment.show(childFragmentManager, fragment.tag)
         }
     }
 }

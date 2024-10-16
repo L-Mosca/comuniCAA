@@ -70,7 +70,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/includeCreateActionSelectImage" />
 
-            <include
+           <!-- <include
                 android:id="@+id/includeCreateActionSelectCategory"
                 layout="@layout/include_create_card_select_category"
                 android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                 android:layout_marginTop="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/includeCreateActionSelectAudio" />
+                app:layout_constraintTop_toBottomOf="@id/includeCreateActionSelectAudio" />-->
 
             <include
                 android:id="@+id/includeCreateActionSelectSubcategory"
@@ -89,7 +89,7 @@
                 app:cardCornerRadius="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/includeCreateActionSelectCategory" />
+                app:layout_constraintTop_toBottomOf="@id/includeCreateActionSelectAudio" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
