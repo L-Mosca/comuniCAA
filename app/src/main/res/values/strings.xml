@@ -57,6 +57,7 @@
     <string name="pick_audio">Buscar áudio</string>
     <string name="audio_max_time">Tempo máximo de 3 segundos</string>
     <string name="subcategories">Subcategorias</string>
+    <string name="save_success">Cartão salvo com sucesso</string>
     <!--Create Action **END**-->
 
     <!--Menu Card Screen-->

@@ -6,6 +6,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.comunicaa.R
 import com.example.comunicaa.base.BaseFragment
 import com.example.comunicaa.databinding.FragmentCreateCardBinding
 import com.example.comunicaa.domain.models.cards.SubCategory
@@ -40,6 +41,10 @@ class CreateCardFragment : BaseFragment<FragmentCreateCardBinding>() {
         setupSelectImage()
         setupSelectAudio()
         setupSelectSubcategory()
+        binding.fabSaveCard.setOnClickListener {
+            showShortSnackBar(getString(R.string.save_success))
+            findNavController().popBackStack()
+        }
     }
 
     override fun initObservers() {}
@@ -73,6 +78,7 @@ class CreateCardFragment : BaseFragment<FragmentCreateCardBinding>() {
             val fragment = SelectSubcategoryBottomSheet.newInstance(subcategory)
             fragment.onSubcategorySelect = {
                 binding.includeCreateActionSelectSubcategory.tvCreateActionSelectSubcategory.text = it.name
+                binding.includeCreateActionPreview.tvPreviewSubcategory.text = it.name
                 subcategory = it
                 fragment.dismiss()
             }
