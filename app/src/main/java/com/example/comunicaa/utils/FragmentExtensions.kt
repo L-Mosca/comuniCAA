@@ -3,9 +3,12 @@ package com.example.comunicaa.utils
 import android.annotation.SuppressLint
 import android.app.KeyguardManager
 import android.content.Context
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowInsets.Type
@@ -15,6 +18,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.AttrRes
 import androidx.annotation.IdRes
 import androidx.annotation.RequiresApi
+import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -25,7 +29,12 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navOptions
+import com.example.comunicaa.BuildConfig
 import com.example.comunicaa.R
+import java.io.File
+import java.io.IOException
+import java.util.Calendar
+import java.util.UUID
 
 enum class TransitionAnimation {
     TRANSLATE_FROM_RIGHT, TRANSLATE_FROM_DOWN, TRANSLATE_FROM_LEFT, TRANSLATE_FROM_UP, NO_ANIMATION, TRANSLATE_FROM_DOWN_POP, FADE
@@ -181,7 +190,10 @@ fun delayed(action: () -> Unit, duration: Long = 500L) {
 
 fun Fragment.hideSystemBars() {
     val windowInsetsController =
-        WindowCompat.getInsetsController(requireActivity().window, requireActivity().window.decorView)
+        WindowCompat.getInsetsController(
+            requireActivity().window,
+            requireActivity().window.decorView
+        )
     // Configure the behavior of the hidden system bars.
     windowInsetsController.systemBarsBehavior =
         WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
@@ -193,7 +205,8 @@ fun Fragment.hideSystemBars() {
         // To account for this, explicitly check the visibility of navigationBars()
         // and statusBars() rather than checking the visibility of systemBars().
         if (windowInsets.isVisible(WindowInsetsCompat.Type.navigationBars())
-            || windowInsets.isVisible(WindowInsetsCompat.Type.statusBars())) {
+            || windowInsets.isVisible(WindowInsetsCompat.Type.statusBars())
+        ) {
             /*binding.toggleFullscreenButton.setOnClickListener {
                 // Hide both the status bar and the navigation bar.
                 windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
@@ -218,4 +231,42 @@ fun Fragment.showSystemBars() {
         )
 
     windowInsetsController.show(Type.systemBars())
+}
+
+fun Fragment.createFile(): File {
+    val fileName = "temp_image"
+    val storageDir = requireActivity().getExternalFilesDir(null)
+    return File.createTempFile(fileName, ".jpg", storageDir)
+}
+
+fun Fragment.getImageUri(file: File): Uri {
+    return FileProvider.getUriForFile(
+        requireContext(),
+        "${requireActivity().application.packageName}.provider",
+        file
+    )
+}
+
+fun Context.createAudioFilePath(): String? {
+    val prefix = "${BuildConfig.NAME}_${Calendar.getInstance().timeInMillis}"
+    val audioFile: File? = try {
+        val storageDir = this.getExternalFilesDir(null)
+        File.createTempFile(prefix, ".mp3", storageDir)
+    } catch (ex: IOException) {
+        null
+    }
+    return audioFile?.absolutePath
+}
+
+fun String.getAudioFileName(): String {
+    val file = File(this)
+    return file.name.substring(0, 24)
+}
+
+fun String.getAudioDuration(mediaPlayer: MediaPlayer): String {
+    mediaPlayer.setDataSource(this)
+    mediaPlayer.prepare()
+    val duration = mediaPlayer.duration.toLong()
+    mediaPlayer.release()
+    return duration.toString()
 }

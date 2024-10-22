@@ -40,10 +40,24 @@
     <string name="edit_action_title">Editar cartão</string>
     <string name="card_name">Nome do cartão</string>
     <string name="select_image">Selecione uma imagem</string>
+    <string name="select_audio">Selecione um áudio</string>
     <string name="select_another_image">Selecione outra imagem</string>
     <string name="select_category">Selecione uma categoria</string>
     <string name="select_subcategory">Selecione uma subcategoria</string>
     <string name="preview">Pré visualização</string>
+    <string name="add_image">Adicionar imagem</string>
+    <string name="add_audio">Adicionar áudio</string>
+    <string name="camera">Câmera</string>
+    <string name="gallery">Galeria</string>
+    <string name="image_error">Erro ao carregar imagem</string>
+    <string name="use_this_image">Usar esta imagem</string>
+    <string name="use_this_audio">Usar este áudio</string>
+    <string name="record_audio">Gravar</string>
+    <string name="stop_recording">Parar</string>
+    <string name="pick_audio">Buscar áudio</string>
+    <string name="audio_max_time">Tempo máximo de 3 segundos</string>
+    <string name="subcategories">Subcategorias</string>
+    <string name="save_success">Cartão salvo com sucesso</string>
     <!--Create Action **END**-->
 
     <!--Menu Card Screen-->
