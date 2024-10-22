@@ -1,0 +1,34 @@
+category
+{
+  "id": "000001",
+  "userId": "",
+  "name": "Comidas",
+  "subCategories": [],
+  "isDefault": true,
+}
+
+
+subCategory
+{
+  "id": "000010",
+  "userId": "",
+  "categoryId": "000001",
+  "name": "Frutas",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000010%2Fcomunicaa_fruit_subcategory.png?alt=media&token=2a080939-948c-4202-aaea-f21e076701f0",
+  "color": 0,
+  "actions": "",
+  "isDefault": true,
+}
+
+
+action
+{
+  "id": "000100",
+  "userId": "",
+  "categoryId": "000001",
+  "subCategoryId": "000010",
+  "name": "Banana",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000010%2Fcomunicaa_img_banana.png?alt=media&token=9e87f544-4723-4167-9202-cdc7bc5cfe0d",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000010%2Fcomunicaa_aud_banana.mp3?alt=media&token=ea14b024-842a-458d-bc52-e93ce2026b00",
+  "isDefault": true,
+}

@@ -21,8 +21,9 @@ class LoginViewModel @Inject constructor(private val userRepository: UserReposit
     fun login(email: String, password: String) {
         defaultLaunch(exceptionHandler = { loginError.postValue(Unit) }) {
             if (fieldsHasData(email, password)) {
-                userRepository.login(buildLoginBody(email, password))
-                loginSuccess.postValue(Unit)
+                val user = userRepository.login(buildLoginBody(email, password))
+                if (user != null) loginSuccess.postValue(Unit)
+                else loginError.postValue(Unit)
             }
         }
     }
