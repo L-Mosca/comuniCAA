@@ -1,0 +1,45 @@
+subCategory - Animais
+{
+  "id": "000012",
+  "userId": "",
+  "categoryId": "000002",
+  "name": "Animais",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000002%2F000012%2Fcomunicaa_img_animals.png?alt=media&token=a37dfe58-9546-4370-9aa2-1d22b62185fb",
+  "color": -5642315,
+  "actions": "",
+  "isDefault": true,
+}
+
+
+{
+  "id": "000102",
+  "userId": "",
+  "categoryId": "000002",
+  "subCategoryId": "000012",
+  "name": "Gato",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000002%2F000012%2F000102%2Fcomunicaa_img_cat.png?alt=media&token=7f983b87-e889-4b31-9a81-9d80d5818506",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000002%2F000012%2F000102%2Fcomunicaa_aud_cat.mp3?alt=media&token=014a80b3-ede1-4495-8621-4d7ae7d878a4",
+  "isDefault": true
+}
+
+{
+  "id": "000202",
+  "userId": "",
+  "categoryId": "000002",
+  "subCategoryId": "000012",
+  "name": "Cachorro",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000002%2F000012%2F000202%2Fcomunicaa_img_dog.png?alt=media&token=71604f9f-1bd7-4da3-b939-2edcf1b3bd5a",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000002%2F000012%2F000202%2Fcomunicaa_aud_dog.mp3?alt=media&token=2370a225-3ca0-41b1-86a5-6d5989808a90",
+  "isDefault": true
+}
+
+{
+  "id": "000302",
+  "userId": "",
+  "categoryId": "000002",
+  "subCategoryId": "000012",
+  "name": "Pássaro",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000002%2F000012%2F000302%2Fcomunicaa_img_bird.png?alt=media&token=f6659931-a9ad-4fdd-8b5d-1bf7ca021a95",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000002%2F000012%2F000302%2Fcomunicaa_aud_bird.mp3?alt=media&token=5ecdea5e-0708-4abe-bfaa-cf45dd08f676",
+  "isDefault": true
+}

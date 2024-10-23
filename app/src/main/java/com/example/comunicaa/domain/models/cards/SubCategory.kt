@@ -3,6 +3,8 @@ package com.example.comunicaa.domain.models.cards
 import android.os.Parcelable
 import com.google.firebase.database.Exclude
 import kotlinx.parcelize.Parcelize
+import java.text.Collator
+import java.util.Locale
 
 @Parcelize
 data class SubCategory(
@@ -55,7 +57,10 @@ data class SubCategory(
                     }
                 }
             }
-            return list
+            val collator = Collator.getInstance(Locale("pt", "BR"))
+            collator.strength = Collator.PRIMARY
+
+            return list.sortedWith(compareBy(collator) { it.name })
         }
     }
 }
