@@ -16,13 +16,11 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/ivAction"
+        <include
+            android:id="@+id/includeActionImage"
+            layout="@layout/include_image_with_effect"
             android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:padding="20dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/placeholder_image" />
+            android:layout_height="280dp" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvActionName"

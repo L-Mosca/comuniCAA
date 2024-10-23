@@ -2,8 +2,8 @@ package com.example.comunicaa.screens.home.adapter
 
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.example.comunicaa.base.BaseListAdapter
@@ -42,10 +42,21 @@ class SubcategoriesAdapter :
         holder.binding.apply {
             tvSubcategoryName.text = data.name
             cvSubcategories.setOnClickListener { onItemClick?.invoke(data) }
-            Log.e("test", "${cvSubcategories.backgroundTintList}")
             cvSubcategories.backgroundTintList = ColorStateList.valueOf(data.color ?: Color.WHITE)
             if (!data.image.isNullOrEmpty()) {
                 Picasso.get().load(data.image).into(includeSubcategoryImage.ivSubcategory)
+
+                Picasso.get()
+                    .load(data.image)
+                    .into(includeSubcategoryImage.ivSubcategory, object : com.squareup.picasso.Callback {
+                        override fun onSuccess() {
+                            includeSubcategoryImage.piActionLoading.visibility = View.GONE
+                        }
+
+                        override fun onError(e: Exception?) {
+                            includeSubcategoryImage.piActionLoading.visibility = View.GONE
+                        }
+                    })
             }
         }
     }

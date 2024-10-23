@@ -1,10 +1,12 @@
 package com.example.comunicaa.screens.action_list
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,6 +17,7 @@ import com.example.comunicaa.databinding.FragmentActionListBinding
 import com.example.comunicaa.domain.models.cards.ActionCard
 import com.example.comunicaa.screens.host.HostViewModel
 import com.example.comunicaa.utils.onBackPressed
+import com.example.comunicaa.utils.toDpMetric
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 
@@ -33,11 +36,10 @@ class ActionListFragment : BaseFragment<FragmentActionListBinding>() {
     override fun initViews() {
         setupInitialData()
         setupBackAction()
-        binding.ivActionDrawerToolbar.setOnClickListener { findNavController().popBackStack() }
         viewModel.fetchActions()
     }
 
-    override fun initObservers() { }
+    override fun initObservers() {}
 
     private fun setupBackAction() {
         onBackPressed(
@@ -70,11 +72,12 @@ class ActionListFragment : BaseFragment<FragmentActionListBinding>() {
         val actionList = navArgs.subCategory.actions ?: emptyList()
         val title = navArgs.subCategory.name ?: getString(R.string.app_name)
 
-        binding.apply {
-            tvActionListTitle.text = title
-            clActionList.setBackgroundColor(color)
-            ctblCardList.setBackgroundColor(color)
-            tbCardList.setBackgroundColor(color)
+        binding.clActionList.setBackgroundColor(color)
+        binding.includeActionBar.apply {
+            tvListBar.text = title
+            cvListBar.backgroundTintList = ColorStateList.valueOf(color)
+            ivListBar.setOnClickListener { findNavController().popBackStack() }
+            ivListBar.setImageResource(R.drawable.ic_back)
         }
 
         setupAdapter(actionList)

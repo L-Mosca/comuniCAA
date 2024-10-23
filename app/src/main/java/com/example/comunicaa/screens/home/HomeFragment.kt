@@ -1,8 +1,10 @@
 package com.example.comunicaa.screens.home
 
 import android.view.LayoutInflater
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import com.example.comunicaa.R
 import com.example.comunicaa.base.BaseFragment
 import com.example.comunicaa.databinding.FragmentHomeBinding
 import com.example.comunicaa.domain.models.cards.Category
@@ -30,6 +32,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun initObservers() {
+        viewModel.loading.observe(viewLifecycleOwner) { binding.piHome.isVisible = it }
+
         viewModel.categories.observe(viewLifecycleOwner) { categories ->
             setupAdapter(categories)
         }
@@ -44,7 +48,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setupDrawer() {
-        binding.ivDrawerToolbar.setOnClickListener { hostViewModel.showDrawer() }
+        binding.includeHomeToolbar.apply {
+            ivListBar.setOnClickListener { hostViewModel.showDrawer() }
+            tvListBar.text = getString(R.string.app_name)
+        }
+
     }
 
     private fun setupAdapter(categories: List<Category>) {
