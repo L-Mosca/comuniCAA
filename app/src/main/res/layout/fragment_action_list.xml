@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_sky_300">
+    android:id="@+id/clActionList"
+    tools:background="@color/blue_sky_300">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue_sky_300">
+        tools:background="@color/blue_sky_300">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/ctblCardList"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:background="@color/blue_sky_300"
@@ -19,6 +21,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tbCardList"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/blue_sky_300"
@@ -37,6 +40,7 @@
                 app:srcCompat="@drawable/ic_back" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvActionListTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

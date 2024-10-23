@@ -1,5 +1,6 @@
 package com.example.comunicaa.screens.action_list
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.updateLayoutParams
@@ -10,6 +11,7 @@ import com.example.comunicaa.base.ViewHolder
 import com.example.comunicaa.databinding.AdapterActionListBinding
 import com.example.comunicaa.domain.models.cards.ActionCard
 import com.example.comunicaa.utils.toDpMetric
+import com.squareup.picasso.Picasso
 
 class ActionListAdapter : BaseListAdapter<AdapterActionListBinding, ActionCard>(ActionDiffUtil()) {
 
@@ -58,13 +60,19 @@ class ActionListAdapter : BaseListAdapter<AdapterActionListBinding, ActionCard>(
         else -> DEFAULT_VIEW
     }
 
+    var onCardPressed: ((ActionCard) -> Unit)? = null
+
     override fun onBindViewHolder(
         holder: ViewHolder<AdapterActionListBinding>,
         data: ActionCard,
         position: Int
     ) {
         holder.binding.apply {
+
+            cvActionItem.setOnClickListener { onCardPressed?.invoke(data) }
+
             tvActionName.text = data.name
+            Picasso.get().load(data.image).into(ivAction)
         }
     }
 }

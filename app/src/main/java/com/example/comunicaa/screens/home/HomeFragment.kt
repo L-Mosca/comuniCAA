@@ -49,7 +49,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun setupAdapter(categories: List<Category>) {
         adapter.onSubcategorySelected = {
-            val direction = HomeFragmentDirections.actionHomeFragmentToActionListFragment()
+            val direction = HomeFragmentDirections.actionHomeFragmentToActionListFragment(it)
             navigate(direction)
         }
 

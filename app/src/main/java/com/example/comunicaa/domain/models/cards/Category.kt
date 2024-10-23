@@ -1,6 +1,8 @@
 package com.example.comunicaa.domain.models.cards
 
 import android.os.Parcelable
+import android.util.Log
+import com.google.firebase.database.Exclude
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -27,6 +29,23 @@ data class Category(
                 list.add(category)
             }
 
+            return list
+        }
+
+        @Exclude
+        fun convertToCategoryList(data: HashMap<String, Any>?): List<Category> {
+            val list = mutableListOf<Category>()
+            data?.forEach { (_, value) ->
+                if (value is Map<*, *>) {
+                    val id = value["id"] as String
+                    val userId = value["userId"] as String
+                    val name = value["name"] as String
+                    val isDefault = value["isDefault"] as Boolean
+                    val subCategories = SubCategory.convertToSubcategoryList(value["subCategories"])
+                    val category = Category(id, userId, name, subCategories, isDefault)
+                    list.add(category)
+                }
+            }
             return list
         }
     }
