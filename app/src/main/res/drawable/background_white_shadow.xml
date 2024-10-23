@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <gradient
+        android:centerColor="#32FFFFFF"
+        android:centerX="50%"
+        android:centerY="50%"
+        android:endColor="@android:color/transparent"
+        android:gradientRadius="50%"
+        android:startColor="@color/white"
+        android:type="radial" />
+</shape>

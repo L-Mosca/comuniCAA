@@ -2,16 +2,26 @@ package com.example.comunicaa.screens.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.comunicaa.base.BaseListAdapter
 import com.example.comunicaa.base.ViewHolder
 import com.example.comunicaa.databinding.AdapterCategoriesBinding
 import com.example.comunicaa.domain.models.cards.Category
 import com.example.comunicaa.domain.models.cards.SubCategory
+import com.example.comunicaa.screens.action_list.ActionListAdapter
+import com.example.comunicaa.utils.toDpMetric
 
 class HomeCategoriesAdapter :
     BaseListAdapter<AdapterCategoriesBinding, Category>(CategoryDiffCallback()) {
+
+    companion object {
+        const val FIRST_VIEW = 0
+        const val DEFAULT_VIEW = 1
+        const val LAST_VIEW = 2
+    }
 
     class CategoryDiffCallback : DiffUtil.ItemCallback<Category>() {
         override fun areItemsTheSame(oldItem: Category, newItem: Category) =
@@ -26,6 +36,34 @@ class HomeCategoriesAdapter :
                 layoutInflater, viewGroup, false
             )
         }
+
+    override fun getItemViewType(position: Int) = when (position) {
+        0 -> FIRST_VIEW
+        currentList.lastIndex -> LAST_VIEW
+        else -> DEFAULT_VIEW
+    }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ViewHolder<AdapterCategoriesBinding> {
+        val inflater = LayoutInflater.from(parent.context)
+        val viewBinding = bindingInflater(inflater, parent)
+
+        if (viewType == FIRST_VIEW) {
+            viewBinding.root.updateLayoutParams<RecyclerView.LayoutParams> {
+                topMargin = 40.toDpMetric(parent)
+            }
+        }
+
+        if (viewType == LAST_VIEW) {
+            viewBinding.root.updateLayoutParams<RecyclerView.LayoutParams> {
+                bottomMargin = 60.toDpMetric(parent)
+            }
+        }
+
+        return ViewHolder(viewBinding)
+    }
 
     var onSubcategorySelected: ((SubCategory) -> Unit)? = null
 
