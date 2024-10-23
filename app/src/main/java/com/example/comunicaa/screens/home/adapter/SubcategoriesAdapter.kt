@@ -42,6 +42,7 @@ class SubcategoriesAdapter :
         holder.binding.apply {
             tvSubcategoryName.text = data.name
             cvSubcategories.setOnClickListener { onItemClick?.invoke(data) }
+            Log.e("test", "${cvSubcategories.backgroundTintList}")
             cvSubcategories.backgroundTintList = ColorStateList.valueOf(data.color ?: Color.WHITE)
             if (!data.image.isNullOrEmpty()) {
                 Picasso.get().load(data.image).into(includeSubcategoryImage.ivSubcategory)

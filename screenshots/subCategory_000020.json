@@ -1,0 +1,45 @@
+subCategory - Bebidas
+{
+  "id": "000020",
+  "userId": "",
+  "categoryId": "000001",
+  "name": "Bebidas",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000020%2Fcomunicaa_drink_subcategory.png?alt=media&token=2df70372-8ef3-4358-bfca-c3d9878b46fa",
+  "color": -8335889,
+  "actions": "",
+  "isDefault": true,
+}
+
+
+{
+  "id": "000120",
+  "userId": "",
+  "categoryId": "000001",
+  "subCategoryId": "000020",
+  "name": "Água",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000020%2F000120%2Fcomunicaa_img_water.png?alt=media&token=a89f2827-7f3c-4380-892f-42fcaf0b9167",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000020%2F000120%2Fcomunicaa_aud_water.mp3?alt=media&token=4aae7186-a871-4d6c-bdd4-7e2aaf1b6ab4",
+  "isDefault": true
+}
+
+{
+  "id": "000220",
+  "userId": "",
+  "categoryId": "000001",
+  "subCategoryId": "000020",
+  "name": "Suco",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000020%2F000220%2Fcomunicaa_img_juyce.png?alt=media&token=be2a6d59-bd1a-49d0-9ebb-6e5f0af3d33d",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000020%2F000220%2Fcomunicaa_aud_juyce.mp3?alt=media&token=9dfb36ea-49c0-4178-bd43-89814fb736f3",
+  "isDefault": true
+}
+
+{
+  "id": "000320",
+  "userId": "",
+  "categoryId": "000001",
+  "subCategoryId": "000020",
+  "name": "Leite",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000020%2F000320%2Fcomunicaa_img_milk.png?alt=media&token=20de2422-2bef-4ae7-ae7d-d7c97cac8e86",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000020%2F000320%2Fcomunicaa_aud_milk.mp3?alt=media&token=d8c0e68a-6289-4fe6-b377-6d8cad32ad0d",
+  "isDefault": true
+}
