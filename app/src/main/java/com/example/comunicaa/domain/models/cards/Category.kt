@@ -1,7 +1,10 @@
 package com.example.comunicaa.domain.models.cards
 
 import android.os.Parcelable
+import com.google.firebase.database.Exclude
 import kotlinx.parcelize.Parcelize
+import java.text.Collator
+import java.util.Locale
 
 @Parcelize
 data class Category(
@@ -28,6 +31,26 @@ data class Category(
             }
 
             return list
+        }
+
+        @Exclude
+        fun convertToCategoryList(data: HashMap<String, Any>?): List<Category> {
+            val list = mutableListOf<Category>()
+            data?.forEach { (_, value) ->
+                if (value is Map<*, *>) {
+                    val id = value["id"] as String
+                    val userId = value["userId"] as String
+                    val name = value["name"] as String
+                    val isDefault = value["isDefault"] as Boolean
+                    val subCategories = SubCategory.convertToSubcategoryList(value["subCategories"])
+                    val category = Category(id, userId, name, subCategories, isDefault)
+                    list.add(category)
+                }
+            }
+            val collator = Collator.getInstance(Locale("pt", "BR"))
+            collator.strength = Collator.PRIMARY
+
+            return list.sortedWith(compareBy(collator) { it.name })
         }
     }
 }

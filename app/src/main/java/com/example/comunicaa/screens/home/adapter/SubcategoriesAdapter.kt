@@ -1,12 +1,16 @@
 package com.example.comunicaa.screens.home.adapter
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.example.comunicaa.base.BaseListAdapter
 import com.example.comunicaa.base.ViewHolder
 import com.example.comunicaa.databinding.AdapterSubcategoriesBinding
 import com.example.comunicaa.domain.models.cards.SubCategory
+import com.squareup.picasso.Picasso
 
 class SubcategoriesAdapter :
     BaseListAdapter<AdapterSubcategoriesBinding, SubCategory>(SubcategoryDiffUtil()) {
@@ -38,6 +42,22 @@ class SubcategoriesAdapter :
         holder.binding.apply {
             tvSubcategoryName.text = data.name
             cvSubcategories.setOnClickListener { onItemClick?.invoke(data) }
+            cvSubcategories.backgroundTintList = ColorStateList.valueOf(data.color ?: Color.WHITE)
+            if (!data.image.isNullOrEmpty()) {
+                Picasso.get().load(data.image).into(includeSubcategoryImage.ivSubcategory)
+
+                Picasso.get()
+                    .load(data.image)
+                    .into(includeSubcategoryImage.ivSubcategory, object : com.squareup.picasso.Callback {
+                        override fun onSuccess() {
+                            includeSubcategoryImage.piActionLoading.visibility = View.GONE
+                        }
+
+                        override fun onError(e: Exception?) {
+                            includeSubcategoryImage.piActionLoading.visibility = View.GONE
+                        }
+                    })
+            }
         }
     }
 }

@@ -2,7 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cvSubcategories"
+    android:id="@+id/cvActionItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="40dp"
@@ -16,13 +16,11 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/ivAction"
-            android:layout_width="180dp"
-            android:layout_height="280dp"
-            android:padding="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/placeholder_image" />
+        <include
+            android:id="@+id/includeActionImage"
+            layout="@layout/include_image_with_effect"
+            android:layout_width="match_parent"
+            android:layout_height="280dp" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvActionName"

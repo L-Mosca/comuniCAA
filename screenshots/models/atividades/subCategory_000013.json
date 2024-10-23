@@ -1,0 +1,45 @@
+subCategory - Atividades
+{
+  "id": "000013",
+  "userId": "",
+  "categoryId": "000003",
+  "name": "Atividades",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000003%2F000013%2Fcomunicaa_img_activities.png?alt=media&token=d2813ae0-2b56-4852-8b35-dcd25cc50e0a",
+  "color": -5642315,
+  "actions": "",
+  "isDefault": true,
+}
+
+
+{
+  "id": "000103",
+  "userId": "",
+  "categoryId": "000003",
+  "subCategoryId": "000013",
+  "name": "Desenhar",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000003%2F000013%2F000103%2Fcomunicaa_img_draw.png?alt=media&token=3106551a-e8b9-49c8-99b9-bbf615c49ad7",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000003%2F000013%2F000103%2Fcomunicaa_aud_draw.mp3?alt=media&token=be4a615d-a24e-4809-9da2-9e7d2ad604fb",
+  "isDefault": true
+}
+
+{
+  "id": "000203",
+  "userId": "",
+  "categoryId": "000003",
+  "subCategoryId": "000013",
+  "name": "Ler",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000003%2F000013%2F000203%2Fcomunicaa_img_read.png?alt=media&token=75d85870-5991-4488-91bf-252c0ce7ae5a",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000003%2F000013%2F000203%2Fcomunicaa_aud_read.mp3?alt=media&token=fcc3aea1-567c-47b4-bec0-fc20b007a6ba",
+  "isDefault": true
+}
+
+{
+  "id": "000303",
+  "userId": "",
+  "categoryId": "000003",
+  "subCategoryId": "000013",
+  "name": "Videogame",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000003%2F000013%2F000303%2Fcomunicaa_img_game.png?alt=media&token=8d0de9df-39f9-4dbf-afcd-40344ea3c17c",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000003%2F000013%2F000303%2Fcomunicaa_aud_game.mp3?alt=media&token=a5880854-33e1-477c-97fb-0849ec9931b2",
+  "isDefault": true
+}

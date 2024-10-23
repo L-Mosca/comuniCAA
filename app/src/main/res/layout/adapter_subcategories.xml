@@ -17,13 +17,11 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/ivSubcategory"
+        <include
+            layout="@layout/include_image_with_effect"
             android:layout_width="160dp"
             android:layout_height="200dp"
-            android:padding="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/placeholder_image" />
+            android:id="@+id/includeSubcategoryImage" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvSubcategoryName"

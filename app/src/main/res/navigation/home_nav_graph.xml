@@ -18,5 +18,9 @@
         android:id="@+id/actionListFragment"
         android:name="com.example.comunicaa.screens.action_list.ActionListFragment"
         android:label="ActionListFragment"
-        tools:layout="@layout/fragment_action_list" />
+        tools:layout="@layout/fragment_action_list" >
+        <argument
+            android:name="subCategory"
+            app:argType="com.example.comunicaa.domain.models.cards.SubCategory" />
+    </fragment>
 </navigation>

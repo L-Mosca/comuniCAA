@@ -1,7 +1,9 @@
 package com.example.comunicaa.screens.action_list
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +12,8 @@ import com.example.comunicaa.base.ViewHolder
 import com.example.comunicaa.databinding.AdapterActionListBinding
 import com.example.comunicaa.domain.models.cards.ActionCard
 import com.example.comunicaa.utils.toDpMetric
+import com.squareup.picasso.Picasso
+import java.lang.Exception
 
 class ActionListAdapter : BaseListAdapter<AdapterActionListBinding, ActionCard>(ActionDiffUtil()) {
 
@@ -49,6 +53,12 @@ class ActionListAdapter : BaseListAdapter<AdapterActionListBinding, ActionCard>(
             }
         }
 
+        if (viewType == LAST_VIEW) {
+            viewBinding.root.updateLayoutParams<RecyclerView.LayoutParams> {
+                bottomMargin = 40.toDpMetric(parent)
+            }
+        }
+
         return ViewHolder(viewBinding)
     }
 
@@ -58,13 +68,36 @@ class ActionListAdapter : BaseListAdapter<AdapterActionListBinding, ActionCard>(
         else -> DEFAULT_VIEW
     }
 
+    var onCardPressed: ((ActionCard) -> Unit)? = null
+
     override fun onBindViewHolder(
         holder: ViewHolder<AdapterActionListBinding>,
         data: ActionCard,
         position: Int
     ) {
         holder.binding.apply {
+
+            cvActionItem.setOnClickListener { onCardPressed?.invoke(data) }
             tvActionName.text = data.name
+
+            includeActionImage.ivSubcategory.apply {
+                layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+                layoutParams.height = (200 * context.resources.displayMetrics.density).toInt()
+                scaleType = ImageView.ScaleType.CENTER_INSIDE
+            }
+
+            Picasso.get()
+                .load(data.image)
+                .into(includeActionImage.ivSubcategory, object : com.squareup.picasso.Callback {
+                    override fun onSuccess() {
+                        includeActionImage.piActionLoading.visibility = View.GONE
+                    }
+
+                    override fun onError(e: Exception?) {
+                        includeActionImage.piActionLoading.visibility = View.GONE
+                    }
+
+                })
         }
     }
 }

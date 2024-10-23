@@ -1,0 +1,45 @@
+subCategory - Frutas
+{
+  "id": "000010",
+  "userId": "",
+  "categoryId": "000001",
+  "name": "Frutas",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000010%2Fcomunicaa_fruit_subcategory.png?alt=media&token=2a080939-948c-4202-aaea-f21e076701f0",
+  "color": -5456,
+  "actions": "",
+  "isDefault": true,
+}
+
+
+{
+  "id": "000100",
+  "userId": "",
+  "categoryId": "000001",
+  "subCategoryId": "000010",
+  "name": "Banana",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000010%2F000100%2Fcomunicaa_img_banana.png?alt=media&token=c5b994d9-af40-484c-8f48-0f47daeaf647",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000010%2F000100%2Fcomunicaa_aud_banana.mp3?alt=media&token=5a6f844c-69a2-47f5-9364-801062afa639",
+  "isDefault": true
+}
+
+{
+  "id": "000200",
+  "userId": "",
+  "categoryId": "000001",
+  "subCategoryId": "000010",
+  "name": "Maçã",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000010%2F000200%2Fcomunicaa_fruit_maca.png?alt=media&token=6a31541a-8fe2-4335-bb71-a957266018df",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000010%2F000200%2Fcomunicaa_aud_maca.mp3?alt=media&token=6bd799be-a623-4500-94dc-dbfcc228b283",
+  "isDefault": true
+}
+
+{
+  "id": "000300",
+  "userId": "",
+  "categoryId": "000001",
+  "subCategoryId": "000010",
+  "name": "Laranja",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000010%2F000300%2Fcomunicaa_img_laranja.png?alt=media&token=fb763d00-013c-48c6-ae49-2a3aa78a586b",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000010%2F000300%2Fcomunicaa_aud_laranja.mp3?alt=media&token=ccd635e3-f20a-4921-8925-26a7c30877f8",
+  "isDefault": true
+}
