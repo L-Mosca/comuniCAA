@@ -32,7 +32,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/orange_200"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp">
 

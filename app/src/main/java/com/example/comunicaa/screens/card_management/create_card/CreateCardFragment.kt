@@ -10,9 +10,9 @@ import com.example.comunicaa.R
 import com.example.comunicaa.base.BaseFragment
 import com.example.comunicaa.databinding.FragmentCreateCardBinding
 import com.example.comunicaa.domain.models.cards.SubCategory
-import com.example.comunicaa.screens.card_management.create_card.bottom_sheets.SelectSubcategoryBottomSheet
 import com.example.comunicaa.screens.card_management.create_card.dialogs.choose_audio.ChooseAudioDialog
 import com.example.comunicaa.screens.card_management.create_card.dialogs.choose_image.ChooseImageProviderDialog
+import com.example.comunicaa.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,14 +40,23 @@ class CreateCardFragment : BaseFragment<FragmentCreateCardBinding>() {
         viewModel.fetchCardData(navArgs.keys)
         setupSelectImage()
         setupSelectAudio()
-        setupSelectSubcategory()
+        //setupSelectSubcategory()
         binding.fabSaveCard.setOnClickListener {
-            showShortSnackBar(getString(R.string.save_success))
-            findNavController().popBackStack()
+            hideKeyboard()
+
         }
     }
 
-    override fun initObservers() {}
+    override fun initObservers() {
+        viewModel.createSuccess.observe(viewLifecycleOwner) {
+            showShortSnackBar(getString(R.string.save_success))
+            findNavController().popBackStack()
+        }
+
+        viewModel.createError.observe(viewLifecycleOwner) {
+            showShortSnackBar(getString(R.string.create_action_error))
+        }
+    }
 
     private fun setupSelectImage() {
         binding.includeCreateActionSelectImage.cvCreateActionSelectImage.setOnClickListener {
@@ -73,7 +82,7 @@ class CreateCardFragment : BaseFragment<FragmentCreateCardBinding>() {
         }
     }
 
-    private fun setupSelectSubcategory() {
+    /*private fun setupSelectSubcategory() {
         binding.includeCreateActionSelectSubcategory.cvCreateActionSelectSubcategory.setOnClickListener {
             val fragment = SelectSubcategoryBottomSheet.newInstance(subcategory)
             fragment.onSubcategorySelect = {
@@ -84,5 +93,5 @@ class CreateCardFragment : BaseFragment<FragmentCreateCardBinding>() {
             }
             fragment.show(childFragmentManager, fragment.tag)
         }
-    }
+    }*/
 }

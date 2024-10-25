@@ -58,6 +58,7 @@
     <string name="audio_max_time">Tempo máximo de 3 segundos</string>
     <string name="subcategories">Subcategorias</string>
     <string name="save_success">Cartão salvo com sucesso</string>
+    <string name="create_action_error">Erro ao criar cartão</string>
     <!--Create Action **END**-->
 
     <!--Menu Card Screen-->

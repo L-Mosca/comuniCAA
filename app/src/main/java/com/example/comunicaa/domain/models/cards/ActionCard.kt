@@ -8,7 +8,7 @@ import java.util.Locale
 
 @Parcelize
 data class ActionCard(
-    val id: String? = "",
+    var id: String? = "",
     val userId: String? = "",
     val categoryId: String? = "",
     val subCategoryId: String? = "",
@@ -39,7 +39,7 @@ data class ActionCard(
         }
 
         @Exclude
-        fun convertToCardList(data: Any?) : List<ActionCard> {
+        fun convertToCardList(data: Any?): List<ActionCard> {
             val list = mutableListOf<ActionCard>()
             if (data is Map<*, *>) {
                 data.forEach { (_, value) ->
@@ -52,7 +52,16 @@ data class ActionCard(
                         val image = value["image"] as String
                         val sound = value["sound"] as String
                         val isDefault = value["isDefault"] as Boolean
-                        val card = ActionCard(id, userId, categoryId, subCategoryId, name, image, sound, isDefault)
+                        val card = ActionCard(
+                            id,
+                            userId,
+                            categoryId,
+                            subCategoryId,
+                            name,
+                            image,
+                            sound,
+                            isDefault
+                        )
                         list.add(card)
                     }
                 }
@@ -62,5 +71,37 @@ data class ActionCard(
 
             return list.sortedWith(compareBy(collator) { it.name })
         }
+
+        fun buildNewActionBody(
+            title: String,
+            image: String,
+            audio: String,
+            userId: String
+        ): ActionCard {
+
+            return ActionCard(
+                id = "",
+                userId = userId,
+                categoryId = Category.DEFAULT_ID,
+                subCategoryId = SubCategory.DEFAULT_ID,
+                name = title,
+                image = image,
+                sound = audio,
+                isDefault = false,
+            )
+        }
     }
+}
+
+fun ActionCard.toMap(): Map<String, Any?> {
+    return mapOf(
+        "id" to id,
+        "userId" to userId,
+        "categoryId" to categoryId,
+        "subCategoryId" to subCategoryId,
+        "name" to name,
+        "image" to image,
+        "sound" to sound,
+        "isDefault" to isDefault,
+    )
 }

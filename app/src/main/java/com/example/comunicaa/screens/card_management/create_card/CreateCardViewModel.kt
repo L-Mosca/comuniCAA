@@ -6,24 +6,31 @@ import android.net.Uri
 import android.util.Log
 import androidx.activity.result.ActivityResult
 import com.example.comunicaa.base.BaseViewModel
+import com.example.comunicaa.base.SingleLiveData
 import com.example.comunicaa.domain.models.keys.DataKeys
+import com.example.comunicaa.domain.repositories.cards.CardsRepositoryContract
+import com.example.comunicaa.domain.repositories.user.UserRepositoryContract
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateCardViewModel @Inject constructor() : BaseViewModel() {
+class CreateCardViewModel @Inject constructor(
+    private val cardRepository: CardsRepositoryContract,
+    private val userRepository: UserRepositoryContract
+) : BaseViewModel() {
 
+    val createSuccess = SingleLiveData<Unit>()
+    val createError = SingleLiveData<Unit>()
 
     fun fetchCardData(keys: DataKeys?) {}
 
-    fun handleImageResult(result: ActivityResult) {
-        val imageBitmap = result.data?.data
-        Log.e("test", "test camera image: $imageBitmap")
-        if (result.resultCode == Activity.RESULT_OK) {
-            Log.e("test", "result code is ok")
-            // TODO set camera image here
-        } else {
-            //TODO show image error
+    fun createAction(title: String, image: String, audio: String) {
+        defaultLaunch(exceptionHandler = { createError.postValue(Unit) }) {
+            val user = userRepository.getUserData()
+            if (user != null && !user.uid.isNullOrEmpty()) {
+                cardRepository.createAction(title, image, audio, user.uid)
+                createSuccess.postValue(Unit)
+            } else createError.postValue(Unit)
         }
     }
 }

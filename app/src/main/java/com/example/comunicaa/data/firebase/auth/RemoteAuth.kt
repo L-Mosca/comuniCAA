@@ -1,6 +1,5 @@
 package com.example.comunicaa.data.firebase.auth
 
-import android.util.Log
 import com.example.comunicaa.domain.models.user.LoginBody
 import com.example.comunicaa.domain.models.user.RegisterBody
 import com.example.comunicaa.domain.models.user.UserModel
@@ -16,7 +15,6 @@ class RemoteAuth @Inject constructor() : RemoteAuthContract {
     private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     override suspend fun login(body: LoginBody): UserModel? {
-        Log.e("test", "usuario: $body")
         return suspendCoroutine { continuation ->
             auth.signInWithEmailAndPassword(body.email, body.password)
                 .addOnCompleteListener { task ->
