@@ -84,8 +84,7 @@ class RemoteDatabase @Inject constructor() : RemoteDatabaseContract {
     }
 
     override suspend fun createAction(action: ActionCard) {
-        val path =
-            "/$USERS_BRANCH/${action.userId}/$USER_CATEGORIES/${Category.DEFAULT_ID}/${SubCategory.DEFAULT_ID}"
+        val path = "/$USERS_BRANCH/${action.userId}/$USER_CATEGORIES/${Category.DEFAULT_ID}/${SubCategory.DEFAULT_ID}/actions"
         val ref = database.child(path).push()
 
         val id = ref.key

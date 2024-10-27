@@ -2,6 +2,7 @@ package com.example.comunicaa.screens.card_management.create_card
 
 import android.net.Uri
 import android.view.LayoutInflater
+import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import com.example.comunicaa.domain.models.cards.SubCategory
 import com.example.comunicaa.screens.card_management.create_card.dialogs.choose_audio.ChooseAudioDialog
 import com.example.comunicaa.screens.card_management.create_card.dialogs.choose_image.ChooseImageProviderDialog
 import com.example.comunicaa.utils.hideKeyboard
+import com.example.comunicaa.utils.resizeImage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,7 +45,12 @@ class CreateCardFragment : BaseFragment<FragmentCreateCardBinding>() {
         //setupSelectSubcategory()
         binding.fabSaveCard.setOnClickListener {
             hideKeyboard()
-
+            val title = binding.etCreateActionName.text.toString()
+            viewModel.createAction(
+                title,
+                resizeImage(requireContext().contentResolver, imageUri!!, title),
+                audioPath
+            )
         }
     }
 

@@ -1,10 +1,11 @@
 package com.example.comunicaa.domain.repositories.cards
 
+import android.net.Uri
 import com.example.comunicaa.domain.models.cards.Category
 
 interface CardsRepositoryContract {
     suspend fun fetchCategories(userId: String) : List<Category>
     suspend fun fetchCategories(): List<Category>
 
-    suspend fun createAction(title: String, image: String, audio: String, userId: String)
+    suspend fun createAction(title: String, image: Uri, audio: String, userId: String)
 }
