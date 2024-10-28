@@ -64,5 +64,7 @@
 
     <!--Menu Card Screen-->
     <string name="my_cards">Meus cartões</string>
+    <string name="delete">Excluir</string>
+    <string name="delete_card_error">Erro ao excluir cartão</string>
     <!--Menu Card Screen **END**-->
 </resources>

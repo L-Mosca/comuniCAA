@@ -1,6 +1,5 @@
 package com.example.comunicaa.data.firebase.database
 
-import android.app.Notification.Action
 import com.example.comunicaa.domain.models.cards.ActionCard
 import com.example.comunicaa.domain.models.cards.Category
 import com.example.comunicaa.domain.models.cards.SubCategory
@@ -71,6 +70,22 @@ class RemoteDatabase @Inject constructor() : RemoteDatabaseContract {
 
         return suspendCoroutine { continuation ->
             database.child(USERS_BRANCH).child(userId).removeValue()
+                .addOnSuccessListener { continuation.resume(true) }
+                .addOnFailureListener { continuation.resume(false) }
+        }
+    }
+
+    override suspend fun deleteUserCard(userId: String, cardId: String) : Boolean {
+        return suspendCoroutine { continuation ->
+            database
+                .child(USERS_BRANCH)
+                .child(userId)
+                .child(USER_CATEGORIES)
+                .child(Category.DEFAULT_ID)
+                .child(SUBCATEGORIES)
+                .child(SubCategory.DEFAULT_ID)
+                .child(ACTIONS)
+                .child(cardId).removeValue()
                 .addOnSuccessListener { continuation.resume(true) }
                 .addOnFailureListener { continuation.resume(false) }
         }

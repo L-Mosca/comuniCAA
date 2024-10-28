@@ -26,6 +26,10 @@ class CardsRepository @Inject constructor(
         return remoteDatabase.fetchUserCards(userId)
     }
 
+    override suspend fun deleteUserCard(userId: String, cardId: String) : Boolean {
+        return remoteDatabase.deleteUserCard(userId, cardId)
+    }
+
     override suspend fun createAction(title: String, image: Uri, audio: String, userId: String) {
         val imagePath = remoteStorage.insertImage(image, userId)
         val audioPath = remoteStorage.insertAudio(audio, userId)

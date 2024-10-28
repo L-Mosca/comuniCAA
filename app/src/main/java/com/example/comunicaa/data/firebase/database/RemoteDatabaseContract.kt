@@ -9,6 +9,7 @@ interface RemoteDatabaseContract {
     suspend fun insertDefaultCategory(userId: String)
     suspend fun insertDefaultSubcategory(userId: String)
     suspend fun deleteUser(user: UserModel): Boolean
+    suspend fun deleteUserCard(userId: String, cardId: String) : Boolean
 
     suspend fun fetchCategories(userId: String): List<Category>
     suspend fun fetchCategories(): List<Category>

@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.comunicaa.base.BaseListAdapter
 import com.example.comunicaa.base.ViewHolder
-import com.example.comunicaa.databinding.AdapterEditCategoriesBinding
-import com.example.comunicaa.domain.models.cards.Category
-import com.example.comunicaa.domain.models.cards.SubCategory
+import com.example.comunicaa.databinding.AdapterUserCardBinding
+import com.example.comunicaa.domain.models.cards.ActionCard
 import com.example.comunicaa.utils.toDpMetric
+import com.squareup.picasso.Picasso
 
 class EditCategoriesAdapter :
-    BaseListAdapter<AdapterEditCategoriesBinding, Category>(EditCategoryDiffUtil()) {
+    BaseListAdapter<AdapterUserCardBinding, ActionCard>(EditCategoryDiffUtil()) {
 
     companion object {
         const val FIRST_VIEW = 0
@@ -22,23 +22,36 @@ class EditCategoriesAdapter :
         const val LAST_VIEW = 2
     }
 
-    class EditCategoryDiffUtil : DiffUtil.ItemCallback<Category>() {
-        override fun areItemsTheSame(oldItem: Category, newItem: Category) =
+    class EditCategoryDiffUtil : DiffUtil.ItemCallback<ActionCard>() {
+        override fun areItemsTheSame(oldItem: ActionCard, newItem: ActionCard) =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: Category, newItem: Category) = oldItem == newItem
+        override fun areContentsTheSame(oldItem: ActionCard, newItem: ActionCard) =
+            oldItem == newItem
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ViewHolder<AdapterEditCategoriesBinding> {
+    ): ViewHolder<AdapterUserCardBinding> {
         val inflater = LayoutInflater.from(parent.context)
         val viewBinding = bindingInflater(inflater, parent)
 
         if (viewType == FIRST_VIEW) {
             viewBinding.root.updateLayoutParams<RecyclerView.LayoutParams> {
                 topMargin = 40.toDpMetric(parent)
+            }
+        }
+
+        else if (viewType == LAST_VIEW) {
+            viewBinding.root.updateLayoutParams<RecyclerView.LayoutParams> {
+                bottomMargin = 40.toDpMetric(parent)
+            }
+        }
+
+        else {
+            viewBinding.root.updateLayoutParams<RecyclerView.LayoutParams> {
+                bottomMargin = 30.toDpMetric(parent)
             }
         }
 
@@ -51,33 +64,41 @@ class EditCategoriesAdapter :
         else -> DEFAULT_VIEW
     }
 
-    override val bindingInflater: (LayoutInflater, ViewGroup) -> AdapterEditCategoriesBinding
+    override val bindingInflater: (LayoutInflater, ViewGroup) -> AdapterUserCardBinding
         get() = { layoutInflater, viewGroup ->
-            AdapterEditCategoriesBinding.inflate(
+            AdapterUserCardBinding.inflate(
                 layoutInflater,
                 viewGroup,
                 false
             )
         }
 
-    var onEditCategoryClicked: ((Category) -> Unit)? = null
-    var onSubcategoryClicked: ((View, SubCategory) -> Unit)? = null
+    var onEditCategoryClicked: ((ActionCard) -> Unit)? = null
+    var onCardSelected: ((View, ActionCard) -> Unit)? = null
 
     override fun onBindViewHolder(
-        holder: ViewHolder<AdapterEditCategoriesBinding>,
-        data: Category,
+        holder: ViewHolder<AdapterUserCardBinding>,
+        data: ActionCard,
         position: Int
     ) {
         holder.binding.apply {
-            ivEditCategory.setOnClickListener { onEditCategoryClicked?.invoke(data) }
-            tvEditCategoryName.text = data.name
+            cvSubcategories.setOnClickListener { onCardSelected?.invoke(it, data) }
+            tvSubcategoryName.text = data.name
 
-            val adapter = EditSubcategoriesAdapter()
-            adapter.submitList(data.subCategories)
-            rvEditCategories.adapter = adapter
+            data.image?.let {
+                with(includeSubcategoryImage) {
+                    Picasso.get()
+                        .load(it)
+                        .into(ivSubcategory, object : com.squareup.picasso.Callback {
+                            override fun onSuccess() {
+                                piActionLoading.visibility = View.GONE
+                            }
 
-            adapter.onSubcategoryClicked = { view, data ->
-                onSubcategoryClicked?.invoke(view, data)
+                            override fun onError(e: Exception?) {
+                                piActionLoading.visibility = View.GONE
+                            }
+                        })
+                }
             }
         }
     }
