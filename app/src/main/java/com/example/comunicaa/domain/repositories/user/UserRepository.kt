@@ -19,7 +19,10 @@ class UserRepository @Inject constructor(
         if (userData != null) {
             preferencesHelper.saveUserData(userData)
             databaseService.insertUser(userData)
-            userData.uid?.let { databaseService.insertDefaultCategory(it) }
+            userData.uid?.let {
+                databaseService.insertDefaultCategory(it)
+                databaseService.insertDefaultSubcategory(it)
+            }
         }
         return userData
     }

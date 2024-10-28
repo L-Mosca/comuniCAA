@@ -18,7 +18,7 @@ class ImageUtil {
     }
 }
 
-fun resizeImage(contentResolver: ContentResolver, imageUri: Uri, actionName: String): Uri? {
+fun resizeImage(contentResolver: ContentResolver, imageUri: Uri): Uri? {
     val resizedBitmap = resizeBitmap(contentResolver, imageUri)
 
     val contentValues = buildImagePath()

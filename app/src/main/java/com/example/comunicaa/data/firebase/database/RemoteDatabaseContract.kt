@@ -7,6 +7,7 @@ import com.example.comunicaa.domain.models.user.UserModel
 interface RemoteDatabaseContract {
     suspend fun insertUser(user: UserModel): Boolean
     suspend fun insertDefaultCategory(userId: String)
+    suspend fun insertDefaultSubcategory(userId: String)
     suspend fun deleteUser(user: UserModel): Boolean
 
     suspend fun fetchCategories(userId: String): List<Category>

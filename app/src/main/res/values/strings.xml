@@ -59,6 +59,7 @@
     <string name="subcategories">Subcategorias</string>
     <string name="save_success">Cartão salvo com sucesso</string>
     <string name="create_action_error">Erro ao criar cartão</string>
+    <string name="empty_card_data_error">Preencha todos os campos</string>
     <!--Create Action **END**-->
 
     <!--Menu Card Screen-->

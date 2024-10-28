@@ -23,6 +23,7 @@ class RemoteDatabase @Inject constructor() : RemoteDatabaseContract {
         private const val CATEGORIES = "categories"
         private const val USER_CATEGORIES = "user_categories"
         private const val SUBCATEGORIES = "subCategories"
+        private const val ACTIONS = "actions"
     }
 
     private val database = Firebase.database.reference
@@ -40,14 +41,27 @@ class RemoteDatabase @Inject constructor() : RemoteDatabaseContract {
 
     override suspend fun insertDefaultCategory(userId: String) {
         val category = Category.buildDefaultUserCategory(userId).toMap()
+
+        database
+            .child(USERS_BRANCH)
+            .child(userId)
+            .child(USER_CATEGORIES)
+            .child(Category.DEFAULT_ID).setValue(category)
+
+        insertDefaultSubcategory(userId)
+    }
+
+    override suspend fun insertDefaultSubcategory(userId: String) {
         val subCategory = SubCategory.buildDefaultUserSubcategory(userId).toMap()
 
-        val categoryPath = "$USERS_BRANCH/$userId/${Category.DEFAULT_ID}"
-
-        database.child(categoryPath).setValue(category).addOnSuccessListener {
-            val subCategoryPath = "$USERS_BRANCH/$userId/${Category.DEFAULT_ID}/$SUBCATEGORIES"
-            database.child(subCategoryPath).child(SubCategory.DEFAULT_ID).setValue(subCategory)
-        }
+        database
+            .child(USERS_BRANCH)
+            .child(userId)
+            .child(USER_CATEGORIES)
+            .child(Category.DEFAULT_ID)
+            .child(SUBCATEGORIES)
+            .child(SubCategory.DEFAULT_ID)
+            .setValue(subCategory)
     }
 
     override suspend fun deleteUser(user: UserModel): Boolean {
@@ -84,8 +98,14 @@ class RemoteDatabase @Inject constructor() : RemoteDatabaseContract {
     }
 
     override suspend fun createAction(action: ActionCard) {
-        val path = "/$USERS_BRANCH/${action.userId}/$USER_CATEGORIES/${Category.DEFAULT_ID}/${SubCategory.DEFAULT_ID}/actions"
-        val ref = database.child(path).push()
+        val ref = database
+            .child(USERS_BRANCH)
+            .child(action.userId!!)
+            .child(USER_CATEGORIES)
+            .child(Category.DEFAULT_ID)
+            .child(SUBCATEGORIES)
+            .child(SubCategory.DEFAULT_ID)
+            .child(ACTIONS).push()
 
         val id = ref.key
         action.id = id
