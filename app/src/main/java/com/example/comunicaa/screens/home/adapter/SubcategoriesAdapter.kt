@@ -44,8 +44,6 @@ class SubcategoriesAdapter :
             cvSubcategories.setOnClickListener { onItemClick?.invoke(data) }
             cvSubcategories.backgroundTintList = ColorStateList.valueOf(data.color ?: Color.WHITE)
             if (!data.image.isNullOrEmpty()) {
-                Picasso.get().load(data.image).into(includeSubcategoryImage.ivSubcategory)
-
                 Picasso.get()
                     .load(data.image)
                     .into(includeSubcategoryImage.ivSubcategory, object : com.squareup.picasso.Callback {

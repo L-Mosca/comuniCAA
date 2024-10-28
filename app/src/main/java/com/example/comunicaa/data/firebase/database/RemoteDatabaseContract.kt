@@ -12,6 +12,7 @@ interface RemoteDatabaseContract {
 
     suspend fun fetchCategories(userId: String): List<Category>
     suspend fun fetchCategories(): List<Category>
+    suspend fun fetchUserCards(userId: String): List<ActionCard>
 
     suspend fun createAction(action: ActionCard)
 }

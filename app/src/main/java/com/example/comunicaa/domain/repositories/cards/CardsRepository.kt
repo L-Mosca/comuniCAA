@@ -22,6 +22,10 @@ class CardsRepository @Inject constructor(
         return remoteDatabase.fetchCategories()
     }
 
+    override suspend fun fetchUserCards(userId: String): List<ActionCard> {
+        return remoteDatabase.fetchUserCards(userId)
+    }
+
     override suspend fun createAction(title: String, image: Uri, audio: String, userId: String) {
         val imagePath = remoteStorage.insertImage(image, userId)
         val audioPath = remoteStorage.insertAudio(audio, userId)

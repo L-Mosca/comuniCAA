@@ -7,8 +7,10 @@ import androidx.fragment.app.viewModels
 import com.example.comunicaa.R
 import com.example.comunicaa.base.BaseFragment
 import com.example.comunicaa.databinding.FragmentHomeBinding
+import com.example.comunicaa.domain.models.cards.ActionCard
 import com.example.comunicaa.domain.models.cards.Category
 import com.example.comunicaa.screens.home.adapter.HomeCategoriesAdapter
+import com.example.comunicaa.screens.home.adapter.HomeUserCardsAdapter
 import com.example.comunicaa.screens.host.HostViewModel
 import com.example.comunicaa.utils.navigate
 import com.example.comunicaa.utils.onBackPressed
@@ -23,12 +25,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val hostViewModel: HostViewModel by activityViewModels()
 
     private val adapter = HomeCategoriesAdapter()
+    private val userCardsAdapter = HomeUserCardsAdapter()
 
     override fun initViews() {
         setupBackAction()
         setupDrawer()
 
         viewModel.fetchCategories()
+        viewModel.fetchUserCategories()
     }
 
     override fun initObservers() {
@@ -36,6 +40,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         viewModel.categories.observe(viewLifecycleOwner) { categories ->
             setupAdapter(categories)
+        }
+
+        viewModel.userCategories.observe(viewLifecycleOwner) { actions ->
+            setupUserCardsAdapter(actions)
         }
     }
 
@@ -63,5 +71,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         binding.rvHome.adapter = adapter
         adapter.submitList(categories)
+    }
+
+    private fun setupUserCardsAdapter(actions: List<ActionCard>) {
+        binding.apply {
+            rvHomeUserCards.isVisible = actions.isNotEmpty()
+            tvCategoryName.isVisible = actions.isNotEmpty()
+            rvHomeUserCards.adapter = userCardsAdapter
+        }
+
+        userCardsAdapter.onCardSelected = {}
+        userCardsAdapter.submitList(actions)
     }
 }
