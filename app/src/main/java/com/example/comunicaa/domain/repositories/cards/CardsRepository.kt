@@ -10,8 +10,7 @@ import javax.inject.Inject
 class CardsRepository @Inject constructor(
     private val remoteDatabase: RemoteDatabaseContract,
     private val remoteStorage: RemoteStorageContract,
-) :
-    CardsRepositoryContract {
+) : CardsRepositoryContract {
 
 
     override suspend fun fetchCategories(userId: String): List<Category> {
@@ -28,6 +27,10 @@ class CardsRepository @Inject constructor(
 
     override suspend fun deleteUserCard(userId: String, cardId: String) : Boolean {
         return remoteDatabase.deleteUserCard(userId, cardId)
+    }
+
+    override suspend fun fetchCardData(userId: String, cardId: String) : ActionCard? {
+        return remoteDatabase.fetchCardData(userId, cardId)
     }
 
     override suspend fun createAction(title: String, image: Uri, audio: String, userId: String) {

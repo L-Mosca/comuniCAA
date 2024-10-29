@@ -119,6 +119,9 @@ dependencies {
     implementation(libs.picasso)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
+
+    // Lottie Files
+    implementation("com.airbnb.android:lottie:6.0.0")
 }
 
 kapt { correctErrorTypes = true }

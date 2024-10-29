@@ -91,6 +91,21 @@ class RemoteDatabase @Inject constructor() : RemoteDatabaseContract {
         }
     }
 
+    override suspend fun fetchCardData(userId: String, cardId: String): ActionCard? {
+            val ref = database
+                .child(USERS_BRANCH)
+                .child(userId)
+                .child(USER_CATEGORIES)
+                .child(Category.DEFAULT_ID)
+                .child(SUBCATEGORIES)
+                .child(SubCategory.DEFAULT_ID)
+                .child(ACTIONS)
+                .child(cardId)
+
+            val raw = ref.snapshots.first().value
+            return ActionCard.convertToCard(raw)
+    }
+
     override suspend fun fetchCategories(userId: String): List<Category> {
         return try {
             val ref = database.child(USERS_BRANCH).child(userId).child(CATEGORIES)

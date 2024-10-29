@@ -66,5 +66,7 @@
     <string name="my_cards">Meus cartões</string>
     <string name="delete">Excluir</string>
     <string name="delete_card_error">Erro ao excluir cartão</string>
+    <string name="add_new_card">Novo cartão</string>
+    <string name="empty_user_list">Nenhum cartão encontrado</string>
     <!--Menu Card Screen **END**-->
 </resources>

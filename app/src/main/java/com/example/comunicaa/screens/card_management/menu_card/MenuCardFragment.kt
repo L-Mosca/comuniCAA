@@ -1,6 +1,7 @@
 package com.example.comunicaa.screens.card_management.menu_card
 
 import android.view.LayoutInflater
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.comunicaa.R
@@ -23,14 +24,20 @@ class MenuCardFragment : BaseFragment<FragmentMenuCardBinding>() {
 
     override fun initViews() {
         setupHeader()
+        binding.ivNewCard.setOnClickListener { goToEditAction() }
     }
 
     override fun initObservers() {
-        viewModel.userCards.observe(viewLifecycleOwner) { setupAdapter(it) }
+        viewModel.userCards.observe(viewLifecycleOwner) {
+            binding.includeMenuEmptyList.rlEmptyPlaceholder.isVisible = it.isEmpty()
+            setupAdapter(it)
+        }
 
         viewModel.deleteCardError.observe(viewLifecycleOwner) {
             showShortSnackBar(getString(R.string.delete_card_error))
         }
+
+        viewModel.loading.observe(viewLifecycleOwner) { binding.piMenuList.isVisible = it }
     }
 
     override fun onResume() {
@@ -71,6 +78,11 @@ class MenuCardFragment : BaseFragment<FragmentMenuCardBinding>() {
     private fun goToEditAction(action: ActionCard) {
         val keys = DataKeys.build(action)
         val direction = MenuCardFragmentDirections.actionMenuCardFragmentToCreateCardFragment(keys)
+        navigate(direction)
+    }
+
+    private fun goToEditAction() {
+        val direction = MenuCardFragmentDirections.actionMenuCardFragmentToCreateCardFragment(null)
         navigate(direction)
     }
 }

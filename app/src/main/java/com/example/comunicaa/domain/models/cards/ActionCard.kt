@@ -72,6 +72,33 @@ data class ActionCard(
             return list.sortedWith(compareBy(collator) { it.name })
         }
 
+        @Exclude
+        fun convertToCard(data: Any?): ActionCard? {
+            if (data is Map<*, *>) {
+                val id = data["id"] as String
+                val userId = data["userId"] as String
+                val categoryId = data["categoryId"] as String
+                val subCategoryId = data["subCategoryId"] as String
+                val name = data["name"] as String
+                val image = data["image"] as String
+                val sound = data["sound"] as String
+                val isDefault = data["isDefault"] as Boolean
+                val card = ActionCard(
+                    id,
+                    userId,
+                    categoryId,
+                    subCategoryId,
+                    name,
+                    image,
+                    sound,
+                    isDefault
+                )
+                return card
+            }
+
+            return null
+        }
+
         fun buildNewActionBody(
             title: String,
             image: String,

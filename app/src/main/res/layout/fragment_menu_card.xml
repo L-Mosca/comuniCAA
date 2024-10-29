@@ -15,12 +15,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivNewCard"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="20dp"
+        android:elevation="4dp"
+        android:src="@drawable/ic_add_image"
+        android:tint="@color/blue_sky_600"
+        app:layout_constraintBottom_toBottomOf="@id/includeMenuCardHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/includeMenuCardHeader" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/piMenuList"
+        style="@style/Widget.MaterialComponents.LinearProgressIndicator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:indicatorColor="@color/blue_sky_600"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/includeMenuCardHeader"
+        app:trackColor="@color/white" />
+
+    <View
+        android:id="@+id/vNewCard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/includeMenuCardHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/ivNewCard"
+        app:layout_constraintTop_toTopOf="@id/includeMenuCardHeader" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvEditCategories"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="-10dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,5 +61,9 @@
         app:spanCount="2"
         tools:itemCount="5"
         tools:listitem="@layout/adapter_user_card" />
+
+    <include
+        android:id="@+id/include_menu_empty_list"
+        layout="@layout/include_empty_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

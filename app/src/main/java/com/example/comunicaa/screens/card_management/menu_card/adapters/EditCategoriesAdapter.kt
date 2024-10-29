@@ -37,22 +37,8 @@ class EditCategoriesAdapter :
         val inflater = LayoutInflater.from(parent.context)
         val viewBinding = bindingInflater(inflater, parent)
 
-        if (viewType == FIRST_VIEW) {
-            viewBinding.root.updateLayoutParams<RecyclerView.LayoutParams> {
-                topMargin = 40.toDpMetric(parent)
-            }
-        }
-
-        else if (viewType == LAST_VIEW) {
-            viewBinding.root.updateLayoutParams<RecyclerView.LayoutParams> {
-                bottomMargin = 40.toDpMetric(parent)
-            }
-        }
-
-        else {
-            viewBinding.root.updateLayoutParams<RecyclerView.LayoutParams> {
-                bottomMargin = 30.toDpMetric(parent)
-            }
+        viewBinding.root.updateLayoutParams<RecyclerView.LayoutParams> {
+            topMargin = 20.toDpMetric(parent)
         }
 
         return ViewHolder(viewBinding)
