@@ -183,9 +183,7 @@ O projeto foi estruturado da seguinte maneira:
 
 ___
 
-## Como executar o projeto
-
-### Flavor
+## Flavor
 Este app possui apenas a flavor "prod".
 ```
 flavorDimensions += "version"
@@ -201,7 +199,7 @@ flavorDimensions += "version"
 
 ___
 
-### Tipos de builds
+## Tipos de builds
 Existem dois tipos de builds:
 - **prodDebug** = utilize em ambiente de desenvolvimento (aqui as configurações de depuração estão habilitadas e ofuscação de código estão desabilitadas).
 
