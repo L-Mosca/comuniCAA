@@ -109,6 +109,8 @@ ___
 
 O projeto foi estruturado da seguinte maneira:
 
+<img src="screenshots/structure.png" alt="app structure"/>
+
 - base => Classes abstratas utilizadas para base do comportamento do app
 
 
@@ -222,6 +224,68 @@ ___
 Esta tela permite que um novo cartão seja criado ou que um cartão existente seja editado.
 
 <img src="screenshots/feature_create_card.png" alt="app data layer" width="200"/>
+
+___
+
+## Estrutura de dados
+
+No geral foram utilizados 3 models diferentes:
+- Model de Categoria
+- Model de Subcategoria
+- Model de ações
+
+<img src="screenshots/strutcture_diagram.png" alt="app data layer"/>
+
+Deste modo pode-se observar que temos várias categorias, onde cada categoria possui várias subcategorias, que por sua vez possuem várias ações.
+
+___
+
+### Categoria:
+As categorias ocupam o nível mais alto da hierarquia, ela são as responsáveis pelo contexto das subcategorias e das ações:
+```
+Categoria - Alimentos
+{
+  "id": "000001",
+  "userId": "",
+  "name": "Alimentos",
+  "subCategories": [],
+  "isDefault": true
+}
+```
+
+### Subcategoria:
+As subcategorias estão logo abaixo das categorias são resopnsáveis pela cor, subtítulo e ainda possuem uma lista de ações:
+```
+Subcategoria - Frutas
+{
+  "id": "000010",
+  "userId": "",
+  "categoryId": "000001",
+  "name": "Frutas",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000010%2Fcomunicaa_fruit_subcategory.png?alt=media&token=2a080939-948c-4202-aaea-f21e076701f0",
+  "color": -5456,
+  "actions": [],
+  "isDefault": true,
+}
+```
+
+### Ações:
+As ações são o útilmo nível da estrutura logo abaixo das subcategorias. Elas possuem uma imagem, título e um arquivo de áudio.
+```
+{
+  "id": "000100",
+  "userId": "",
+  "categoryId": "000001",
+  "subCategoryId": "000010",
+  "name": "Banana",
+  "image": "Url da imagem",
+  "sound": "Url do arquivo de áudio",
+  "isDefault": true
+}
+```
+
+Os identificadores únicos de todas as categorias e subcategorias estão presentes em vários modelos diferentes para possibilitar que o dispositivo final possa realizar o trabalho de processamento que 
+é consequência da ausencia de um sistema de backend e servidor dedicados para esta aplicação.
 
 ___
 
