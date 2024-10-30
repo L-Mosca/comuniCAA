@@ -20,18 +20,21 @@ class ChooseAudioDialog : BaseDialog<DialogChooseAudioBinding>() {
 
     companion object {
         private const val CHOOSE_AUDIO_DIALOG_EXTRAS = "ChooseAudioDialog.audioData"
+        private const val CHOOSE_AUDIO_URL_DIALOG_EXTRAS = "ChooseAudioDialog.audioUrl"
 
-        fun newInstance(audioData: String?): ChooseAudioDialog {
+        fun newInstance(audioData: String?, audioUrl: String?): ChooseAudioDialog {
             return ChooseAudioDialog().apply {
                 arguments = Bundle().apply {
                     putString(CHOOSE_AUDIO_DIALOG_EXTRAS, audioData)
+                    putString(CHOOSE_AUDIO_URL_DIALOG_EXTRAS, audioUrl)
                 }
             }
         }
     }
 
     private lateinit var audioHelper: AudioHelper
-    var onAudioSelected: ((String, String) -> Unit)? = null
+    var onAudioSelected: ((String?, String?) -> Unit)? = null
+    private var audioUrl: String? = null
 
     override fun initViews() {
         audioHelper = AudioHelper(requireContext())
@@ -46,6 +49,13 @@ class ChooseAudioDialog : BaseDialog<DialogChooseAudioBinding>() {
             }
         }
 
+        viewModel.audioUrl.observe(viewLifecycleOwner) {
+            it?.let { audio ->
+                audioHelper.audioUrl = audio
+                afterRecordingDesign()
+            }
+        }
+
         viewModel.setInitialPath.observe(viewLifecycleOwner) {
             it?.let { initialData ->
                 audioHelper.audioFilePath = initialData
@@ -55,7 +65,8 @@ class ChooseAudioDialog : BaseDialog<DialogChooseAudioBinding>() {
     }
 
     override fun getBundleArguments() {
-        viewModel.handleInitialData(arguments?.getString(CHOOSE_AUDIO_DIALOG_EXTRAS))
+        audioUrl = arguments?.getString(CHOOSE_AUDIO_URL_DIALOG_EXTRAS)
+        viewModel.handleInitialData(arguments?.getString(CHOOSE_AUDIO_DIALOG_EXTRAS), audioUrl)
     }
 
     private fun setupListener() {
@@ -72,8 +83,8 @@ class ChooseAudioDialog : BaseDialog<DialogChooseAudioBinding>() {
             }
 
             ivConfirmAudio.setOnClickListener {
-                audioHelper.audioFilePath?.let {
-                    onAudioSelected?.invoke(it, it.getAudioFileName())
+                audioHelper.audioFilePath.let {
+                    onAudioSelected?.invoke(it, it?.getAudioFileName())
                 }
             }
 
@@ -99,11 +110,13 @@ class ChooseAudioDialog : BaseDialog<DialogChooseAudioBinding>() {
 
     private fun afterRecordingDesign() {
         binding.apply {
+            val audioName = audioHelper.audioFilePath?.getAudioFileName() ?: "comunicaa_aud_000010.mp3"
+            binding.tvPreviewAudioName.text = audioName
+
             cvAudioPreview.isVisible = true
             btRecordAudio.isVisible = false
             btRecordAudio.text = getString(R.string.record_audio)
             btRecordAudio.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_mic)
-            binding.tvPreviewAudioName.text = audioHelper.audioFilePath?.getAudioFileName()
             tvAudioMaxTime.isVisible = false
             ivConfirmAudio.isVisible = true
             tvUseThisAudio.isVisible = true

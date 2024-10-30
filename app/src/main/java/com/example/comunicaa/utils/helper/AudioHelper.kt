@@ -14,6 +14,7 @@ class AudioHelper(private val context: Context) {
     private var mediaRecorder: MediaRecorder? = null
     private var mediaPlayer: MediaPlayer? = null
     var audioFilePath: String? = null
+    var audioUrl: String? = null
 
     fun startRecording(onStop: () -> Unit) {
         audioFilePath = context.createAudioFilePath()
@@ -51,7 +52,14 @@ class AudioHelper(private val context: Context) {
     fun playRecording(onStart: (() -> Unit), onComplete: (() -> Unit)) {
         mediaPlayer = MediaPlayer().apply {
             try {
-                setDataSource(audioFilePath)
+                var audio = ""
+
+                if (!audioFilePath.isNullOrEmpty()) {
+                    setDataSource(audioFilePath)
+                } else if (!audioUrl.isNullOrEmpty()) {
+                    setDataSource(audioUrl)
+                }
+
                 prepareAsync()
 
                 setOnPreparedListener {

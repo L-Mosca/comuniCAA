@@ -11,7 +11,6 @@ import com.example.comunicaa.base.ViewHolder
 import com.example.comunicaa.databinding.AdapterCategoriesBinding
 import com.example.comunicaa.domain.models.cards.Category
 import com.example.comunicaa.domain.models.cards.SubCategory
-import com.example.comunicaa.screens.action_list.ActionListAdapter
 import com.example.comunicaa.utils.toDpMetric
 
 class HomeCategoriesAdapter :
@@ -58,7 +57,7 @@ class HomeCategoriesAdapter :
 
         if (viewType == LAST_VIEW) {
             viewBinding.root.updateLayoutParams<RecyclerView.LayoutParams> {
-                bottomMargin = 60.toDpMetric(parent)
+                bottomMargin = 20.toDpMetric(parent)
             }
         }
 

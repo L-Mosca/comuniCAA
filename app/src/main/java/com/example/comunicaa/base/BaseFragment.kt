@@ -135,7 +135,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         val popupMenu = PopupMenu(
             requireContext(),
             anchorView,
-            Gravity.END,
+            Gravity.TOP,
             androidx.appcompat.R.attr.popupMenuStyle,
             R.style.Base_PopupMenu
         ).apply {

@@ -6,7 +6,6 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,7 +16,6 @@ import com.example.comunicaa.databinding.FragmentActionListBinding
 import com.example.comunicaa.domain.models.cards.ActionCard
 import com.example.comunicaa.screens.host.HostViewModel
 import com.example.comunicaa.utils.onBackPressed
-import com.example.comunicaa.utils.toDpMetric
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 
@@ -32,6 +30,7 @@ class ActionListFragment : BaseFragment<FragmentActionListBinding>() {
     private val navArgs: ActionListFragmentArgs by navArgs()
     private val adapter = ActionListAdapter()
     private var mediaPlayer: MediaPlayer? = null
+    private var isReproducing = false
 
     override fun initViews() {
         setupInitialData()
@@ -54,16 +53,25 @@ class ActionListFragment : BaseFragment<FragmentActionListBinding>() {
         binding.rvAction.adapter = adapter
 
         adapter.onCardPressed = { actionCard ->
-            mediaPlayer = MediaPlayer().apply {
-                setVolume(1f, 1f)
-                try {
-                    setDataSource(requireContext(), Uri.parse(actionCard.sound))
-                    prepareAsync()
-                    setOnPreparedListener { start() }
-                } catch (e: IOException) {
-                    Log.e("AudioRecord", "prepare() failed")
+            if (!isReproducing) {
+                isReproducing = true
+                mediaPlayer = MediaPlayer().apply {
+                    setVolume(1f, 1f)
+                    try {
+                        setDataSource(requireContext(), Uri.parse(actionCard.sound))
+                        prepareAsync()
+                        setOnPreparedListener { start() }
+                        setOnCompletionListener {
+                            release()
+                            mediaPlayer = null
+                            isReproducing = false
+                        }
+                    } catch (e: IOException) {
+                        Log.e("AudioRecord", "prepare() failed")
+                    }
                 }
             }
+
         }
     }
 

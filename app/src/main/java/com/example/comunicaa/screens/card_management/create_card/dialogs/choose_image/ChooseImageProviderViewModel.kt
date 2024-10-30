@@ -12,6 +12,7 @@ import javax.inject.Inject
 class ChooseImageProviderViewModel @Inject constructor() : BaseViewModel() {
 
     val imageSuccess = SingleLiveData<Uri>()
+    val loadImageUrl = SingleLiveData<String>()
     val imageError = SingleLiveData<Unit>()
 
     fun handleCameraImage(uri: Uri?, result: ActivityResult) {
@@ -26,9 +27,13 @@ class ChooseImageProviderViewModel @Inject constructor() : BaseViewModel() {
         else imageError.postValue(Unit)
     }
 
-    fun handleInitialData(data: Uri?) {
+    fun handleInitialData(imageUri: Uri?, imageUrl: String?) {
         defaultLaunch {
-            data?.let { imageSuccess.postValue(it) }
+            if (imageUri != null) {
+                imageSuccess.postValue(imageUri!!)
+            } else if (!imageUrl.isNullOrEmpty()) {
+                loadImageUrl.postValue(imageUrl!!)
+            }
         }
     }
 }

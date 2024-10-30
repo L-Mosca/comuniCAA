@@ -11,6 +11,7 @@ class ChooseAudioViewModel @Inject constructor() : BaseViewModel() {
 
     val setInitialPath = SingleLiveData<String?>()
     val buttonStyle = SingleLiveData<Pair<Int, Int>>()
+    val audioUrl = SingleLiveData<String?>()
 
     fun changeButtonAppearance(startRecording: Boolean) {
         val buttonIcon = if (startRecording) R.drawable.ic_stop else R.drawable.ic_mic
@@ -18,7 +19,8 @@ class ChooseAudioViewModel @Inject constructor() : BaseViewModel() {
         buttonStyle.postValue(Pair(buttonIcon, buttonText))
     }
 
-    fun handleInitialData(data: String?) {
-        setInitialPath.postValue(data)
+    fun handleInitialData(audioPath: String?, audioUrl: String?) {
+        setInitialPath.postValue(audioPath)
+        this.audioUrl.postValue(audioUrl)
     }
 }

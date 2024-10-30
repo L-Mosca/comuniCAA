@@ -64,8 +64,6 @@
                 layout="@layout/include_create_card_select_audio"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/includeCreateActionSelectImage" />
@@ -81,15 +79,15 @@
                  app:layout_constraintStart_toStartOf="parent"
                  app:layout_constraintTop_toBottomOf="@id/includeCreateActionSelectAudio" />-->
 
-            <include
-                android:id="@+id/includeCreateActionSelectSubcategory"
-                layout="@layout/include_create_card_select_subcategory"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/includeCreateActionSelectAudio" />
+            <!-- <include
+                 android:id="@+id/includeCreateActionSelectSubcategory"
+                 layout="@layout/include_create_card_select_subcategory"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 app:cardCornerRadius="8dp"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/includeCreateActionSelectAudio" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
@@ -116,5 +114,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white" />
+
+    <include
+        android:id="@+id/include_create_card_loading"
+        layout="@layout/include_default_loading" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

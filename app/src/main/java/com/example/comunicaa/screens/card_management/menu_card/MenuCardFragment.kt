@@ -1,12 +1,14 @@
 package com.example.comunicaa.screens.card_management.menu_card
 
 import android.view.LayoutInflater
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.comunicaa.R
 import com.example.comunicaa.base.BaseFragment
 import com.example.comunicaa.databinding.FragmentMenuCardBinding
-import com.example.comunicaa.domain.models.cards.Category
+import com.example.comunicaa.domain.models.cards.ActionCard
+import com.example.comunicaa.domain.models.keys.DataKeys
 import com.example.comunicaa.screens.card_management.menu_card.adapters.EditCategoriesAdapter
 import com.example.comunicaa.utils.navigate
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,11 +24,25 @@ class MenuCardFragment : BaseFragment<FragmentMenuCardBinding>() {
 
     override fun initViews() {
         setupHeader()
-        viewModel.fetchData()
+        binding.ivNewCard.setOnClickListener { goToEditAction() }
     }
 
     override fun initObservers() {
-        viewModel.categories.observe(viewLifecycleOwner) { setupAdapter(it) }
+        viewModel.userCards.observe(viewLifecycleOwner) {
+            binding.includeMenuEmptyList.rlEmptyPlaceholder.isVisible = it.isEmpty()
+            setupAdapter(it)
+        }
+
+        viewModel.deleteCardError.observe(viewLifecycleOwner) {
+            showShortSnackBar(getString(R.string.delete_card_error))
+        }
+
+        viewModel.loading.observe(viewLifecycleOwner) { binding.piMenuList.isVisible = it }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchData()
     }
 
     private fun setupHeader() {
@@ -36,22 +52,37 @@ class MenuCardFragment : BaseFragment<FragmentMenuCardBinding>() {
         }
     }
 
-    private fun setupAdapter(data: List<Category>) {
+    private fun setupAdapter(data: List<ActionCard>) {
+        binding.rvEditCategories.adapter = adapter
         adapter.submitList(data)
 
         adapter.onEditCategoryClicked = {
-            val direction = MenuCardFragmentDirections.actionMenuCardFragmentToCreateCardFragment(null)
+            val direction =
+                MenuCardFragmentDirections.actionMenuCardFragmentToCreateCardFragment(null)
             navigate(direction)
         }
-        adapter.onSubcategoryClicked = { view, _ ->
-            showPopupMenu(view, R.menu.drawer_menu) {
-                it.setOnMenuItemClickListener {
-                    // todo handle menu item click
+
+        adapter.onCardSelected = { view, card ->
+            showPopupMenu(view, R.menu.user_cards_menu) { menuItem ->
+                menuItem.setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.menuEditCard -> goToEditAction(card)
+                        R.id.menuDeleteCard -> viewModel.deleteCard(card.userId, card.id)
+                    }
                     true
                 }
             }
         }
+    }
 
-        binding.rvEditCategories.adapter = adapter
+    private fun goToEditAction(action: ActionCard) {
+        val keys = DataKeys.build(action)
+        val direction = MenuCardFragmentDirections.actionMenuCardFragmentToCreateCardFragment(keys)
+        navigate(direction)
+    }
+
+    private fun goToEditAction() {
+        val direction = MenuCardFragmentDirections.actionMenuCardFragmentToCreateCardFragment(null)
+        navigate(direction)
     }
 }

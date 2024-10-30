@@ -127,6 +127,7 @@ class HostActivity : AppCompatActivity() {
         }
 
         binding.navigationView.menu.findItem(R.id.menuLogout).isVisible = user != null
+        binding.navigationView.menu.findItem(R.id.menuCustomizeApp).isVisible = user != null
     }
 
     private fun setupViewPadding() {
