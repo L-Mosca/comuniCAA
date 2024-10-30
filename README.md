@@ -105,6 +105,80 @@ Versão dos plugins do Gradle: 8.6.0
 
 ___
 
+### Estrutura do projeto
+
+O projeto foi estruturado da seguinte maneira:
+
+- base => Classes abstratas utilizadas para base do comportamento do app
+
+
+- data => Camada de dados
+    - preferences_datastore => Serviço de armazenamento interno chave/valor
+    - firebase => Contém as classes responsáveis pelos serviços do Firebase
+        - auth => Serviço de autenticação do Firebase
+        - database => Serviço do banco de dados online do Firebase
+        - storage => Serviço de armazenamento do Firebase
+
+
+- di => Contém os módulos para injeção de dependência do app
+
+
+- domain => Camada de domínio
+    - models => Contém as entidades utilizadas pelo app (data class)
+    - repositories => Contém as classes responsáveis por intermediar a camade de apresentação e dados
+    - cards => Classe responsável pelos cartões
+    - user => Classe responsável pelo usuário
+
+
+- screen => Camada de apresentação, contém as classes que representam as telas do app
+
+
+- utils => Funções de extensão e classes para ajudar a na manipulação de dados e lógicas internas
+
+___
+
+### Flavor
+Este app possui apenas a flavor "prod".
+```
+flavorDimensions += "version"
+    productFlavors {
+        create("prod") {
+            dimension = "version"
+            resValue("string", "app_name", "ComuniCAA")
+
+            buildConfigField("String", "NAME", "\"ComuniCAA\"")
+        }
+    }
+```
+
+___
+
+### Tipos de builds
+Existem dois tipos de builds:
+- **prodDebug** = utilize em ambiente de desenvolvimento (aqui as configurações de depuração estão habilitadas e ofuscação de código estão desabilitadas).
+
+
+- **prodRelease** = utilize para disponibilizar versões testáveis e definitivas para ambiente de produção (configurações de depuração desabilitadas e ofuscação de código habilitada).
+```
+buildTypes {
+        debug {
+            isMinifyEnabled = false
+            isDebuggable = true
+        }
+
+        release {
+            isMinifyEnabled = false
+            isDebuggable = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+```
+
+___
+
 ## Funcionalidades:
 
 ### Login
@@ -145,83 +219,9 @@ ___
 
 ### Criar/Editar cartão
 
-Esta tela permite que um novo cartão seja criado ou que um cartão existente
+Esta tela permite que um novo cartão seja criado ou que um cartão existente seja editado.
 
 <img src="screenshots/feature_create_card.png" alt="app data layer" width="200"/>
-
-___
-
-## Estrutura do projeto
-
-O projeto foi estruturado da seguinte maneira:
-
-- base => Classes abstratas utilizadas para base do comportamento do app
-
-
-- data => Camada de dados
-    - preferences_datastore => Serviço de armazenamento interno chave/valor
-    - firebase => Contém as classes responsáveis pelos serviços do Firebase
-        - auth => Serviço de autenticação do Firebase
-        - database => Serviço do banco de dados online do Firebase
-        - storage => Serviço de armazenamento do Firebase
-
-
-- di => Contém os módulos para injeção de dependência do app
-
-
-- domain => Camada de domínio
-  - models => Contém as entidades utilizadas pelo app (data class)
-  - repositories => Contém as classes responsáveis por intermediar a camade de apresentação e dados
-  - cards => Classe responsável pelos cartões
-  - user => Classe responsável pelo usuário
-
-
-- screen => Camada de apresentação, contém as classes que representam as telas do app
-
-
-- utils => Funções de extensão e classes para ajudar a na manipulação de dados e lógicas internas
-
-___
-
-## Flavor
-Este app possui apenas a flavor "prod".
-```
-flavorDimensions += "version"
-    productFlavors {
-        create("prod") {
-            dimension = "version"
-            resValue("string", "app_name", "ComuniCAA")
-
-            buildConfigField("String", "NAME", "\"ComuniCAA\"")
-        }
-    }
-```
-
-___
-
-## Tipos de builds
-Existem dois tipos de builds:
-- **prodDebug** = utilize em ambiente de desenvolvimento (aqui as configurações de depuração estão habilitadas e ofuscação de código estão desabilitadas).
-
-
-- **prodRelease** = utilize para disponibilizar versões testáveis e definitivas para ambiente de produção (configurações de depuração desabilitadas e ofuscação de código habilitada).
-```
-buildTypes {
-        debug {
-            isMinifyEnabled = false
-            isDebuggable = true
-        }
-
-        release {
-            isMinifyEnabled = false
-            isDebuggable = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-```
 
 ___
 
@@ -237,3 +237,4 @@ Propostas de melhoria e novas funcionalidades para o app.
 - Criar perfil do app na loja (Google Play Console).
 - Criar estrutura de backend própria para remover o processamento do telefone e deixar somento no
   servidor.
+___
