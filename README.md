@@ -225,7 +225,7 @@ buildTypes {
 
 ___
 
-## Melhorias
+## Propostas de Melhorias
 
 Propostas de melhoria e novas funcionalidades para o app.
 
