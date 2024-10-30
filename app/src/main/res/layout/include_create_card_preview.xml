@@ -17,52 +17,41 @@
         android:textSize="22sp"
         android:textStyle="bold" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvPreviewSubcategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_margin="20dp"
-        android:textColor="@color/gray_800"
-        android:textSize="20sp"
-        tools:text="Preview" />
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cvCreateActionPreview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="250dp"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/orange_200"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="10dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="200dp"
+            android:layout_height="250dp">
 
-            <com.google.android.material.imageview.ShapeableImageView
+            <include
                 android:id="@+id/ivCreatePreview"
-                android:layout_width="140dp"
-                android:layout_height="180dp"
-                android:padding="10dp"
-                android:scaleType="centerCrop" />
+                layout="@layout/include_user_card_image"
+                android:layout_width="200dp"
+                android:layout_height="250dp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvActionPreview"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginBottom="8dp"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 tools:text="Subcategoria" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.appcompat.widget.LinearLayoutCompat>

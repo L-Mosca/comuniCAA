@@ -18,7 +18,7 @@ subCategory - Frutas
   "subCategoryId": "000010",
   "name": "Banana",
   "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000010%2F000100%2Fcomunicaa_img_banana.png?alt=media&token=c5b994d9-af40-484c-8f48-0f47daeaf647",
-  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000010%2F000100%2Fcomunicaa_aud_banana.mp3?alt=media&token=5a6f844c-69a2-47f5-9364-801062afa639",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000001%2F000010%2F000100%2Fcomunicaa_aud_banana.mp3?alt=media&token=d8328463-4bbc-47a4-b4c7-bf030b92b823",
   "isDefault": true
 }
 

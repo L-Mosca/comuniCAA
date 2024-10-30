@@ -15,6 +15,8 @@ data class Category(
     val isDefault: Boolean? = true,
 ) : Parcelable {
     companion object {
+        const val DEFAULT_ID = "000001"
+
         fun getMockData(): List<Category> {
             val list = mutableListOf<Category>()
 
@@ -52,5 +54,25 @@ data class Category(
 
             return list.sortedWith(compareBy(collator) { it.name })
         }
+
+        fun buildDefaultUserCategory(userId: String): Category {
+            return Category(
+                id = DEFAULT_ID,
+                userId = userId,
+                name = "Meus cartões",
+                subCategories = emptyList(),
+                isDefault = false
+            )
+        }
+    }
+
+    fun toMap() : Map<String, Any?> {
+        return mapOf(
+            "id" to id,
+            "userId" to userId,
+            "name" to name,
+            "subCategories" to "",
+            "isDefault" to isDefault
+        )
     }
 }

@@ -18,6 +18,8 @@ data class SubCategory(
     val isDefault: Boolean? = true,
 ) : Parcelable {
     companion object {
+        const val DEFAULT_ID = "000010"
+
         fun getMockData(): List<SubCategory> {
             val list = mutableListOf<SubCategory>()
 
@@ -39,7 +41,7 @@ data class SubCategory(
         }
 
         @Exclude
-        fun convertToSubcategoryList(data: Any?) : List<SubCategory> {
+        fun convertToSubcategoryList(data: Any?): List<SubCategory> {
             val list = mutableListOf<SubCategory>()
             if (data is Map<*, *>) {
                 data.forEach { (_, value) ->
@@ -52,7 +54,16 @@ data class SubCategory(
                         val color = (value["color"] as Long).toInt()
                         val actions = ActionCard.convertToCardList(value["actions"])
                         val isDefault = value["isDefault"] as Boolean
-                        val subcategory = SubCategory(id, userId, categoryId, name, image, color, actions, isDefault)
+                        val subcategory = SubCategory(
+                            id,
+                            userId,
+                            categoryId,
+                            name,
+                            image,
+                            color,
+                            actions,
+                            isDefault
+                        )
                         list.add(subcategory)
                     }
                 }
@@ -62,5 +73,31 @@ data class SubCategory(
 
             return list.sortedWith(compareBy(collator) { it.name })
         }
+
+        fun buildDefaultUserSubcategory(userId: String): SubCategory {
+            return SubCategory(
+                id = DEFAULT_ID,
+                userId = userId,
+                categoryId = Category.DEFAULT_ID,
+                name = "Meus cartões",
+                image = "",
+                color = 0,
+                actions = emptyList(),
+                isDefault = false,
+            )
+        }
+    }
+
+    fun toMap(): Map<String, Any?> {
+        return mapOf(
+            "id" to id,
+            "userId" to userId,
+            "categoryId" to categoryId,
+            "name" to name,
+            "image" to image,
+            "color" to color,
+            "actions" to "",
+            "isDefault" to isDefault
+        )
     }
 }

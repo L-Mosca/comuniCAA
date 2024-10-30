@@ -9,6 +9,15 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        create("release") {
+            storeFile = file("./key/keystore.jks")
+            storePassword = "@ComuniCAA123"
+            keyAlias = "@ComuniCAA123"
+            keyPassword = "@ComuniCAA123"
+        }
+    }
+
     namespace = "com.example.comunicaa"
     compileSdk = 34
 
@@ -35,6 +44,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 
@@ -119,6 +129,9 @@ dependencies {
     implementation(libs.picasso)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
+
+    // Lottie Files
+    implementation("com.airbnb.android:lottie:6.0.0")
 }
 
 kapt { correctErrorTypes = true }

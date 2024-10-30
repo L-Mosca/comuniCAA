@@ -1,6 +1,5 @@
 package com.example.comunicaa.domain.repositories.user
 
-import android.util.Log
 import com.example.comunicaa.data.firebase.auth.RemoteAuthContract
 import com.example.comunicaa.data.firebase.database.RemoteDatabaseContract
 import com.example.comunicaa.data.preferences_datastore.PreferencesContract
@@ -20,6 +19,10 @@ class UserRepository @Inject constructor(
         if (userData != null) {
             preferencesHelper.saveUserData(userData)
             databaseService.insertUser(userData)
+            userData.uid?.let {
+                databaseService.insertDefaultCategory(it)
+                databaseService.insertDefaultSubcategory(it)
+            }
         }
         return userData
     }
@@ -27,7 +30,6 @@ class UserRepository @Inject constructor(
     override suspend fun login(body: LoginBody): UserModel? {
         val userData = authService.login(body)
         if (userData != null) preferencesHelper.saveUserData(userData)
-        Log.e("teste", "retornou dados do usuário $userData")
         return userData
     }
 

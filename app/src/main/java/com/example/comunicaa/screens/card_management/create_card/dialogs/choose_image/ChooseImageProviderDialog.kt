@@ -20,6 +20,7 @@ import com.example.comunicaa.utils.checkCameraPermission
 import com.example.comunicaa.utils.checkPickImagePermission
 import com.example.comunicaa.utils.createFile
 import com.example.comunicaa.utils.getImageUri
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
@@ -31,12 +32,14 @@ class ChooseImageProviderDialog : BaseDialog<DialogChooseImageProviderBinding>()
 
     companion object {
 
-        private const val CHOOSE_IMAGE_DIALOG_EXTRA = "ChooseImageDialog.imageUri"
+        private const val CHOOSE_IMAGE_URI_DIALOG_EXTRA = "ChooseImageDialog.imageUri"
+        private const val CHOOSE_IMAGE_URL_DIALOG_EXTRA = "ChooseImageDialog.imageUrl"
 
-        fun newInstance(imageUri: Uri?): ChooseImageProviderDialog {
+        fun newInstance(imageUri: Uri?, imageUrl: String?): ChooseImageProviderDialog {
             return ChooseImageProviderDialog().apply {
                 arguments = Bundle().apply {
-                    putParcelable(CHOOSE_IMAGE_DIALOG_EXTRA, imageUri)
+                    putParcelable(CHOOSE_IMAGE_URI_DIALOG_EXTRA, imageUri)
+                    putString(CHOOSE_IMAGE_URL_DIALOG_EXTRA, imageUrl)
                 }
             }
         }
@@ -45,12 +48,15 @@ class ChooseImageProviderDialog : BaseDialog<DialogChooseImageProviderBinding>()
     private lateinit var galleryLauncher: ActivityResultLauncher<PickVisualMediaRequest>
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
     private var imageUri: Uri? = null
+    private var imageUrl: String? = null
     private lateinit var photoFile: File
 
     var onImageSelected: ((Uri?) -> Unit)? = null
 
     override fun getBundleArguments() {
-        viewModel.handleInitialData(arguments?.getParcelable(CHOOSE_IMAGE_DIALOG_EXTRA))
+        imageUri = arguments?.getParcelable(CHOOSE_IMAGE_URI_DIALOG_EXTRA)
+        imageUrl = arguments?.getString(CHOOSE_IMAGE_URL_DIALOG_EXTRA)
+        viewModel.handleInitialData(imageUri, imageUrl)
     }
 
     override fun initViews() {
@@ -61,6 +67,7 @@ class ChooseImageProviderDialog : BaseDialog<DialogChooseImageProviderBinding>()
     override fun initObservers() {
         viewModel.imageSuccess.observe(viewLifecycleOwner) { showImage(it) }
         viewModel.imageError.observe(viewLifecycleOwner) { imageError() }
+        viewModel.loadImageUrl.observe(viewLifecycleOwner) { showImage(it) }
     }
 
     private fun setupListeners() {
@@ -108,6 +115,17 @@ class ChooseImageProviderDialog : BaseDialog<DialogChooseImageProviderBinding>()
             tvUseThisImage.isVisible = true
             llChooseImageButtons.isVisible = false
             ivChooseImagePreview.setImageURI(imageUri)
+        }
+    }
+
+    private fun showImage(url: String) {
+        imageUrl = url
+        binding.apply {
+            cvImagePreview.isVisible = true
+            ivConfirmImage.isVisible = true
+            tvUseThisImage.isVisible = true
+            llChooseImageButtons.isVisible = false
+            Picasso.get().load(url).into(ivChooseImagePreview)
         }
     }
 
