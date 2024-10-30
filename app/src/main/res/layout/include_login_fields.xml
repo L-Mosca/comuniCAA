@@ -68,7 +68,7 @@
             android:text="@string/enter"
             android:textAllCaps="true" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <!--<androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clLoginOptions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -119,13 +119,14 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="30dp"
-            android:background="@drawable/splash_background" />
+            android:background="@drawable/splash_background" />-->
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvDontHasAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"
             android:paddingVertical="6dp"
             android:text="@string/dont_have_account"
             android:textAlignment="center"
