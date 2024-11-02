@@ -26,7 +26,9 @@ class CardsRepository @Inject constructor(
     }
 
     override suspend fun deleteUserCard(userId: String, cardId: String) : Boolean {
-        return remoteDatabase.deleteUserCard(userId, cardId)
+        val removeDatabase = remoteDatabase.deleteUserCard(userId, cardId)
+        remoteStorage.removeActionFiles(userId, cardId)
+        return removeDatabase
     }
 
     override suspend fun fetchCardData(userId: String, cardId: String) : ActionCard? {
@@ -34,11 +36,15 @@ class CardsRepository @Inject constructor(
     }
 
     override suspend fun createAction(title: String, image: Uri, audio: String, userId: String) {
-        val imagePath = remoteStorage.insertImage(image, userId)
-        val audioPath = remoteStorage.insertAudio(audio, userId)
-        if (imagePath != null && audioPath != null) {
-            val newAction = ActionCard.buildNewActionBody(title, imagePath, audioPath, userId)
-            remoteDatabase.createAction(newAction)
+        val cardId = remoteDatabase.getNewCardId(userId)
+
+        if (cardId.isNotEmpty()) {
+            val imagePath = remoteStorage.insertImage(image, userId, cardId)
+            val audioPath = remoteStorage.insertAudio(audio, userId, cardId)
+            if (imagePath != null && audioPath != null) {
+                val newAction = ActionCard.buildNewActionBody(title, imagePath, audioPath, userId, cardId)
+                remoteDatabase.createAction(newAction)
+            } else throw Exception()
         } else throw Exception()
     }
 }
