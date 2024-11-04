@@ -79,6 +79,7 @@ fun Activity.checkRecordAudioPermission(onPermissionGranted: () -> Unit) {
             permissions
         )
     ) onPermissionGranted()
+    else requestPermissions(permissions, PermissionCodes.REQUEST_RECORD_AUDIO_PERMISSION_CODE)
 }
 
 fun Activity.checkPickAudioPermission(onPermissionGranted: () -> Unit) {

@@ -1,5 +1,6 @@
 package com.example.comunicaa.screens.card_management.menu_card
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -27,6 +28,7 @@ class MenuCardFragment : BaseFragment<FragmentMenuCardBinding>() {
         binding.ivNewCard.setOnClickListener { goToEditAction() }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun initObservers() {
         viewModel.userCards.observe(viewLifecycleOwner) {
             binding.includeMenuEmptyList.rlEmptyPlaceholder.isVisible = it.isEmpty()
@@ -37,7 +39,11 @@ class MenuCardFragment : BaseFragment<FragmentMenuCardBinding>() {
             showShortSnackBar(getString(R.string.delete_card_error))
         }
 
-        viewModel.loading.observe(viewLifecycleOwner) { binding.piMenuList.isVisible = it }
+        viewModel.loading.observe(viewLifecycleOwner) {
+            binding.piMenuList.isVisible = it
+            adapter.isEnabled = !it
+            adapter.notifyDataSetChanged()
+        }
     }
 
     override fun onResume() {

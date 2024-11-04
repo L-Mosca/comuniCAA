@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.example.comunicaa.R
 import com.example.comunicaa.base.BaseDialog
 import com.example.comunicaa.databinding.DialogChooseAudioBinding
+import com.example.comunicaa.utils.checkRecordAudioPermission
 import com.example.comunicaa.utils.getAudioFileName
 import com.example.comunicaa.utils.helper.AudioHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -110,7 +111,8 @@ class ChooseAudioDialog : BaseDialog<DialogChooseAudioBinding>() {
 
     private fun afterRecordingDesign() {
         binding.apply {
-            val audioName = audioHelper.audioFilePath?.getAudioFileName() ?: "comunicaa_aud_000010.mp3"
+            val audioName =
+                audioHelper.audioFilePath?.getAudioFileName() ?: "comunicaa_aud_000010.mp3"
             binding.tvPreviewAudioName.text = audioName
 
             cvAudioPreview.isVisible = true

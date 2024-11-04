@@ -5,6 +5,7 @@ import com.example.comunicaa.utils.buildAudioDefaultMetadata
 import com.example.comunicaa.utils.buildAudioName
 import com.example.comunicaa.utils.buildImageName
 import com.example.comunicaa.utils.pathToUri
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -46,13 +47,13 @@ class RemoteStorage @Inject constructor() : RemoteStorageContract {
 
     override suspend fun removeActionFiles(userId: String, cardId: String): Boolean {
         return suspendCoroutine { continuation ->
-            reference
-                .child(USERS_STORAGE)
-                .child(userId)
-                .child(USER_ACTIONS)
-                .child(cardId)
-                .delete()
-                .addOnSuccessListener { continuation.resume(true) }
+            val path = "$USERS_STORAGE/$userId/$USER_ACTIONS/$cardId"
+            reference.child(path).listAll()
+                .addOnSuccessListener { list ->
+                    val tasks = list.items.map { it.delete() }
+                    Tasks.whenAll(tasks).addOnSuccessListener { continuation.resume(true) }
+                        .addOnFailureListener { continuation.resume(false) }
+                }
                 .addOnFailureListener { continuation.resume(false) }
         }
     }
