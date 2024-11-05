@@ -28,7 +28,7 @@ class MenuCardViewModel @Inject constructor(
         }
     }
 
-    fun deleteCard(userId: String?, cardId: String?) {
+    private fun deleteCard(userId: String?, cardId: String?) {
         defaultLaunch(exceptionHandler = { deleteCardError.postValue(Unit) }) {
             val deleteCardSuccess = cardRepository.deleteUserCard(userId!!, cardId!!)
 
@@ -39,7 +39,6 @@ class MenuCardViewModel @Inject constructor(
 
     fun handleMenuItem(itemId: Int, card: ActionCard) : Boolean {
         when (itemId) {
-            R.id.menuEditCard -> editAction.postValue(card)
             R.id.menuDeleteCard -> deleteCard(card.userId, card.id)
         }
         return true
