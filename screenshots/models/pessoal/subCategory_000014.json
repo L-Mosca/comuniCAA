@@ -1,0 +1,44 @@
+subCategory - Roupas
+{
+  "id": "000014",
+  "userId": "",
+  "categoryId": "000004",
+  "name": "Roupas",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000004%2F000014%2Fcomunicaa_cloates_subcategory.png?alt=media&token=63ee6e58-d3f0-48d8-826c-1ecb530c3941",
+  "color": -1074534,
+  "actions": "",
+  "isDefault": true,
+}
+
+{
+  "id": "000104",
+  "userId": "",
+  "categoryId": "000004",
+  "subCategoryId": "000014",
+  "name": "Camisa",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000004%2F000014%2F000104%2Fcomunicaa_img_tshirt.png?alt=media&token=2b6675b9-96f7-4b66-b36d-673d7cf3fff6",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000004%2F000014%2F000104%2Fcomunicaa_aud_tshirt.mp3?alt=media&token=2ce9b29b-2384-477f-96bf-b274456c9e35",
+  "isDefault": true,
+}
+
+{
+  "id": "000204",
+  "userId": "",
+  "categoryId": "000004",
+  "subCategoryId": "000014",
+  "name": "Calça",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000004%2F000014%2F000204%2Fcomunicaa_img_pants.png?alt=media&token=29096d78-9f89-4787-9863-a54f618044ab",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000004%2F000014%2F000204%2Fcomunicaa_aud_pants.mp3?alt=media&token=5c3d92e0-4171-487b-a002-740b43de15bb",
+  "isDefault": true
+}
+
+{
+  "id": "000304",
+  "userId": "",
+  "categoryId": "000004",
+  "subCategoryId": "000014",
+  "name": "Meia",
+  "image": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000004%2F000014%2F000304%2Fcomunicaa_img_socks.png?alt=media&token=c39eb600-668b-4f7f-bb83-e904914a1b8c",
+  "sound": "https://firebasestorage.googleapis.com/v0/b/comunica-cca.appspot.com/o/default_items_images%2Fcategories%2F000004%2F000014%2F000304%2Fcomunicaa_aud_socks.mp3?alt=media&token=8850aa4b-9fdf-437a-8816-91c895042e5c",
+  "isDefault": true
+}
