@@ -44,6 +44,8 @@ class MenuCardFragment : BaseFragment<FragmentMenuCardBinding>() {
             adapter.isEnabled = !it
             adapter.notifyDataSetChanged()
         }
+
+        viewModel.editAction.observe(viewLifecycleOwner) { it?.let { goToEditAction(it) } }
     }
 
     override fun onResume() {
@@ -71,11 +73,7 @@ class MenuCardFragment : BaseFragment<FragmentMenuCardBinding>() {
         adapter.onCardSelected = { view, card ->
             showPopupMenu(view, R.menu.user_cards_menu) { menuItem ->
                 menuItem.setOnMenuItemClickListener {
-                    when (it.itemId) {
-                        R.id.menuEditCard -> goToEditAction(card)
-                        R.id.menuDeleteCard -> viewModel.deleteCard(card.userId, card.id)
-                    }
-                    true
+                    viewModel.handleMenuItem(it.itemId, card)
                 }
             }
         }

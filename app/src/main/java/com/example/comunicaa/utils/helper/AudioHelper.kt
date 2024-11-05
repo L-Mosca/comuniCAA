@@ -6,6 +6,8 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.util.Log
+import android.widget.Toast
+import com.example.comunicaa.R
 import com.example.comunicaa.utils.createAudioFilePath
 import java.io.IOException
 
@@ -50,27 +52,25 @@ class AudioHelper(private val context: Context) {
     }
 
     fun playRecording(onStart: (() -> Unit), onComplete: (() -> Unit)) {
-        mediaPlayer = MediaPlayer().apply {
-            try {
-                var audio = ""
+        try {
+            mediaPlayer = MediaPlayer().apply {
+                try {
+                    if (!audioFilePath.isNullOrEmpty()) setDataSource(audioFilePath)
+                    else if (!audioUrl.isNullOrEmpty()) setDataSource(audioUrl)
 
-                if (!audioFilePath.isNullOrEmpty()) {
-                    setDataSource(audioFilePath)
-                } else if (!audioUrl.isNullOrEmpty()) {
-                    setDataSource(audioUrl)
+                    prepareAsync()
+                    setOnPreparedListener {
+                        start()
+                        onStart.invoke()
+                    }
+
+                    setOnCompletionListener { onComplete.invoke() }
+                } catch (e: IOException) {
+                    Log.e("AudioRecord", "prepare() failed")
                 }
-
-                prepareAsync()
-
-                setOnPreparedListener {
-                    start()
-                    onStart.invoke()
-                }
-
-                setOnCompletionListener { onComplete.invoke() }
-            } catch (e: IOException) {
-                Log.e("AudioRecord", "prepare() failed")
             }
+        } catch (e: Exception) {
+            Toast.makeText(context, context.getString(R.string.record_audio_error), Toast.LENGTH_SHORT).show()
         }
     }
 
