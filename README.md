@@ -213,13 +213,13 @@ ___
 
 ### Cartões do usuário
 
-Mostra todos os cartões criados pelo usuário. Ao seleciona é possível excluir ou editar seus dados.
+Mostra todos os cartões criados pelo usuário. Ao seleciona é possível excluir seus dados.
 
 <img src="screenshots/feature_user_cards.png" alt="app data layer" width="200"/>
 
 ___
 
-### Criar/Editar cartão
+### Criar cartão
 
 Esta tela permite que um novo cartão seja criado ou que um cartão existente seja editado.
 
@@ -293,8 +293,7 @@ ___
 
 Propostas de melhoria e novas funcionalidades para o app.
 
-- Funcionalidade funcionalidade para adicionar, editar e excluir categorias.
-- Funcionalidade para adicionar, editar e excluir subcategorias.
+- Permitir um maior nível de personalização do app (perfil, e cartões).
 - Integrar serviços de autenticação com clientes externos (como o Google, por exemplo).
 - Implementar banco de dados local para que o app possa funcionar offline.
 - Criar termos de uso e política de privacidade.
