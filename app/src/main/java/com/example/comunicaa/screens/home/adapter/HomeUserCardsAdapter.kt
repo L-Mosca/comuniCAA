@@ -33,6 +33,7 @@ class HomeUserCardsAdapter :
         }
 
     var onCardSelected: ((ActionCard) -> Unit)? = null
+    var isClickable = true
 
     override fun onBindViewHolder(
         holder: ViewHolder<AdapterUserCardBinding>,
@@ -40,7 +41,12 @@ class HomeUserCardsAdapter :
         position: Int
     ) {
         holder.binding.apply {
-            cvSubcategories.setOnClickListener { onCardSelected?.invoke(data) }
+            cvSubcategories.setOnClickListener {
+                if (isClickable) onCardSelected?.invoke(data)
+            }
+
+            cvSubcategories.isEnabled = isClickable
+
             tvSubcategoryName.text = data.name
 
             data.image?.let {

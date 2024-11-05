@@ -103,11 +103,12 @@ data class ActionCard(
             title: String,
             image: String,
             audio: String,
-            userId: String
+            userId: String,
+            cardId: String,
         ): ActionCard {
 
             return ActionCard(
-                id = "",
+                id = cardId,
                 userId = userId,
                 categoryId = Category.DEFAULT_ID,
                 subCategoryId = SubCategory.DEFAULT_ID,

@@ -1,5 +1,6 @@
 package com.example.comunicaa.screens.home
 
+import android.annotation.SuppressLint
 import android.media.MediaPlayer
 import android.net.Uri
 import android.util.Log
@@ -30,7 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val adapter = HomeCategoriesAdapter()
     private val userCardsAdapter = HomeUserCardsAdapter()
-    private var mediaPlayer: MediaPlayer? = null
+    private lateinit var mediaPlayer: MediaPlayer
     private var isReproducing = false
 
     override fun initViews() {
@@ -75,6 +76,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         adapter.submitList(categories)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setupUserCardsAdapter(actions: List<ActionCard>) {
         binding.apply {
             rvHomeUserCards.isVisible = actions.isNotEmpty()
@@ -84,20 +86,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         userCardsAdapter.onCardSelected = {
             if (!isReproducing) {
+                userCardsAdapter.isClickable = false
                 isReproducing = true
-                mediaPlayer = MediaPlayer().apply {
-                    setVolume(1f, 1f)
+                userCardsAdapter.notifyDataSetChanged()
+                mediaPlayer.apply {
                     try {
+                        reset()
                         setDataSource(requireContext(), Uri.parse(it.sound))
-                        prepareAsync()
+                        prepare()
                         setOnPreparedListener { start() }
                         setOnCompletionListener {
-                            release()
-                            mediaPlayer = null
                             isReproducing = false
+                            userCardsAdapter.isClickable = true
+                            userCardsAdapter.notifyDataSetChanged()
                         }
                     } catch (e: IOException) {
                         Log.e("AudioRecord", "prepare() failed")
+                        isReproducing = false
+                        userCardsAdapter.isClickable = true
+                        userCardsAdapter.notifyDataSetChanged()
                     }
                 }
             }
@@ -107,13 +114,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun onStop() {
         super.onStop()
-        mediaPlayer?.release()
-        mediaPlayer = null
+        mediaPlayer.release()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mediaPlayer?.release()
-        mediaPlayer = null
+        mediaPlayer.release()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mediaPlayer = MediaPlayer()
+        mediaPlayer.setVolume(1f, 1f)
     }
 }

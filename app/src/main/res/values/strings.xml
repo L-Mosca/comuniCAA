@@ -53,6 +53,7 @@
     <string name="use_this_image">Usar esta imagem</string>
     <string name="use_this_audio">Usar este áudio</string>
     <string name="record_audio">Gravar</string>
+    <string name="record_audio_error">Ocorreu um erro ao gravar o áudio</string>
     <string name="stop_recording">Parar</string>
     <string name="pick_audio">Buscar áudio</string>
     <string name="audio_max_time">Tempo máximo de 3 segundos</string>
@@ -60,6 +61,10 @@
     <string name="save_success">Cartão salvo com sucesso</string>
     <string name="create_action_error">Erro ao criar cartão</string>
     <string name="empty_card_data_error">Preencha todos os campos</string>
+    <string name="should_permission">Permissão necessária</string>
+    <string name="permission_message">Para utilizar esta funcionalidade, é necessário habilitar a permissão ao <b>Microfone</b> do dispositivo</string>
+    <string name="permission_recused"><u>Negar e sair</u></string>
+    <string name="go_to_settings">Ir para configurações</string>
     <!--Create Action **END**-->
 
     <!--Menu Card Screen-->

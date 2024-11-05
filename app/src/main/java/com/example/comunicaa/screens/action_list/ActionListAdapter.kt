@@ -69,6 +69,7 @@ class ActionListAdapter : BaseListAdapter<AdapterActionListBinding, ActionCard>(
     }
 
     var onCardPressed: ((ActionCard) -> Unit)? = null
+    var isClickable = true
 
     override fun onBindViewHolder(
         holder: ViewHolder<AdapterActionListBinding>,
@@ -77,7 +78,12 @@ class ActionListAdapter : BaseListAdapter<AdapterActionListBinding, ActionCard>(
     ) {
         holder.binding.apply {
 
-            cvActionItem.setOnClickListener { onCardPressed?.invoke(data) }
+            cvActionItem.setOnClickListener {
+                if (isClickable) onCardPressed?.invoke(data)
+            }
+
+            cvActionItem.isEnabled = isClickable
+
             tvActionName.text = data.name
 
             includeActionImage.ivSubcategory.apply {

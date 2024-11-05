@@ -110,7 +110,8 @@ class ChooseAudioDialog : BaseDialog<DialogChooseAudioBinding>() {
 
     private fun afterRecordingDesign() {
         binding.apply {
-            val audioName = audioHelper.audioFilePath?.getAudioFileName() ?: "comunicaa_aud_000010.mp3"
+            val audioName =
+                audioHelper.audioFilePath?.getAudioFileName() ?: "comunicaa_aud_000010.mp3"
             binding.tvPreviewAudioName.text = audioName
 
             cvAudioPreview.isVisible = true

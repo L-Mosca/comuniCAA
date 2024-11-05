@@ -1,5 +1,6 @@
 package com.example.comunicaa.screens.card_management.menu_card
 
+import com.example.comunicaa.R
 import com.example.comunicaa.base.BaseViewModel
 import com.example.comunicaa.base.SingleLiveData
 import com.example.comunicaa.domain.models.cards.ActionCard
@@ -16,6 +17,7 @@ class MenuCardViewModel @Inject constructor(
 
     val userCards = SingleLiveData<List<ActionCard>>()
     val deleteCardError = SingleLiveData<Unit>()
+    val editAction = SingleLiveData<ActionCard?>()
 
     fun fetchData() {
         defaultLaunch {
@@ -26,12 +28,19 @@ class MenuCardViewModel @Inject constructor(
         }
     }
 
-    fun deleteCard(userId: String?, cardId: String?) {
+    private fun deleteCard(userId: String?, cardId: String?) {
         defaultLaunch(exceptionHandler = { deleteCardError.postValue(Unit) }) {
             val deleteCardSuccess = cardRepository.deleteUserCard(userId!!, cardId!!)
 
             if (deleteCardSuccess) fetchData()
             else deleteCardError.postValue(Unit)
         }
+    }
+
+    fun handleMenuItem(itemId: Int, card: ActionCard) : Boolean {
+        when (itemId) {
+            R.id.menuDeleteCard -> deleteCard(card.userId, card.id)
+        }
+        return true
     }
 }

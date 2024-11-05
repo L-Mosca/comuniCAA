@@ -1,11 +1,11 @@
 package com.example.comunicaa.data.firebase.storage
 
 import android.net.Uri
-import android.util.Base64
 import com.example.comunicaa.utils.buildAudioDefaultMetadata
 import com.example.comunicaa.utils.buildAudioName
 import com.example.comunicaa.utils.buildImageName
 import com.example.comunicaa.utils.pathToUri
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -24,12 +24,13 @@ class RemoteStorage @Inject constructor() : RemoteStorageContract {
         private const val USER_ACTIONS = "actions"
     }
 
-    override suspend fun insertImage(image: Uri, userId: String): String? {
+    override suspend fun insertImage(image: Uri, userId: String, cardId: String): String? {
         return suspendCoroutine { continuation ->
             val path = reference
                 .child(USERS_STORAGE)
                 .child(userId)
                 .child(USER_ACTIONS)
+                .child(cardId)
                 .child(buildImageName())
 
             path.putFile(image).addOnCompleteListener {
@@ -43,20 +44,27 @@ class RemoteStorage @Inject constructor() : RemoteStorageContract {
         }
     }
 
-    override suspend fun updateImage(image: Uri, userId: String): Boolean {
-        return true
+
+    override suspend fun removeActionFiles(userId: String, cardId: String): Boolean {
+        return suspendCoroutine { continuation ->
+            val path = "$USERS_STORAGE/$userId/$USER_ACTIONS/$cardId"
+            reference.child(path).listAll()
+                .addOnSuccessListener { list ->
+                    val tasks = list.items.map { it.delete() }
+                    Tasks.whenAll(tasks).addOnSuccessListener { continuation.resume(true) }
+                        .addOnFailureListener { continuation.resume(false) }
+                }
+                .addOnFailureListener { continuation.resume(false) }
+        }
     }
 
-    override suspend fun removeImage(image: String): Boolean {
-        return true
-    }
-
-    override suspend fun insertAudio(audioPath: String, userId: String): String? {
+    override suspend fun insertAudio(audioPath: String, userId: String, cardId: String): String? {
         return suspendCoroutine { continuation ->
             val path = reference
                 .child(USERS_STORAGE)
                 .child(userId)
                 .child(USER_ACTIONS)
+                .child(cardId)
                 .child(buildAudioName())
 
             val audioUri = pathToUri(audioPath)
@@ -71,13 +79,5 @@ class RemoteStorage @Inject constructor() : RemoteStorageContract {
                 } else continuation.resume(null)
             }
         }
-    }
-
-    override suspend fun updateAudio(audio: Base64): Boolean {
-        return true
-    }
-
-    override suspend fun removeAudio(audio: String): Boolean {
-        return true
     }
 }
