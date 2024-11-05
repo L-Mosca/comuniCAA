@@ -1,8 +1,15 @@
 package com.example.comunicaa.screens.card_management.create_card
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
@@ -12,12 +19,12 @@ import com.example.comunicaa.R
 import com.example.comunicaa.base.BaseFragment
 import com.example.comunicaa.databinding.FragmentCreateCardBinding
 import com.example.comunicaa.domain.models.cards.ActionCard
+import com.example.comunicaa.screens.card_management.create_card.dialogs.audio_permission.AudioPermissionDialog
 import com.example.comunicaa.screens.card_management.create_card.dialogs.choose_audio.ChooseAudioDialog
 import com.example.comunicaa.screens.card_management.create_card.dialogs.choose_image.ChooseImageProviderDialog
 import com.example.comunicaa.utils.hideKeyboard
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.Exception
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
 
@@ -28,7 +35,11 @@ class CreateCardFragment : BaseFragment<FragmentCreateCardBinding>() {
     private var imageUrl: String? = null
     private var audioPath: String? = null
     private var audioUrl: String? = null
+
     //private var subcategory: SubCategory? = null
+    private lateinit var permissionLauncher: ActivityResultLauncher<String>
+    private lateinit var appSettingsLauncher: ActivityResultLauncher<Intent>
+    private lateinit var permissionDialog: AudioPermissionDialog
 
     override val bindingInflater: (LayoutInflater) -> FragmentCreateCardBinding =
         FragmentCreateCardBinding::inflate
@@ -37,6 +48,11 @@ class CreateCardFragment : BaseFragment<FragmentCreateCardBinding>() {
     private val navArgs: CreateCardFragmentArgs by navArgs()
 
     override fun initViews() {
+        initSettingsLauncher()
+        initPermissionLauncher()
+
+        if (!hasRecordAudioPermission()) permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+
         binding.includeCreateActionHeader.ivCreateCardHeaderBack.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -73,7 +89,11 @@ class CreateCardFragment : BaseFragment<FragmentCreateCardBinding>() {
 
         viewModel.initialCard.observe(viewLifecycleOwner) { setupInitialData(it) }
 
-        viewModel.loading.observe(viewLifecycleOwner) { binding.includeCreateCardLoading.showLoading(it) }
+        viewModel.loading.observe(viewLifecycleOwner) {
+            binding.includeCreateCardLoading.showLoading(
+                it
+            )
+        }
     }
 
     private fun setupSelectImage() {
@@ -148,6 +168,43 @@ class CreateCardFragment : BaseFragment<FragmentCreateCardBinding>() {
     private fun getAudioName(): String {
         val decodedUrl = URLDecoder.decode(audioUrl, StandardCharsets.UTF_8.toString())
         return decodedUrl.substringAfterLast("/").substringBefore("?")
+    }
+
+    private fun showAudioPermissionDialog() {
+        permissionDialog = AudioPermissionDialog.newInstance().apply {
+            isCancelable = false
+
+            onSettingsPressed = {
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                    data = Uri.fromParts("package", requireContext().packageName, null)
+                }
+                appSettingsLauncher.launch(intent)
+                dismiss()
+            }
+        }
+        permissionDialog.show(childFragmentManager, permissionDialog.tag)
+    }
+
+    private fun hasRecordAudioPermission(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            requireActivity(),
+            Manifest.permission.RECORD_AUDIO
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun initPermissionLauncher() {
+        permissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+                if (!isGranted) showAudioPermissionDialog()
+            }
+    }
+
+    private fun initSettingsLauncher() {
+        appSettingsLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (!hasRecordAudioPermission()) showAudioPermissionDialog()
+        }
     }
 
     /*private fun setupSelectSubcategory() {

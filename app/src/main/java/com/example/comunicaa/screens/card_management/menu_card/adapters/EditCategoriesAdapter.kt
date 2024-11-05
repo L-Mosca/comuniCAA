@@ -62,6 +62,8 @@ class EditCategoriesAdapter :
     var onEditCategoryClicked: ((ActionCard) -> Unit)? = null
     var onCardSelected: ((View, ActionCard) -> Unit)? = null
 
+    var isEnabled = true
+
     override fun onBindViewHolder(
         holder: ViewHolder<AdapterUserCardBinding>,
         data: ActionCard,
@@ -69,6 +71,8 @@ class EditCategoriesAdapter :
     ) {
         holder.binding.apply {
             cvSubcategories.setOnClickListener { onCardSelected?.invoke(it, data) }
+            cvSubcategories.isEnabled = isEnabled
+
             tvSubcategoryName.text = data.name
 
             data.image?.let {

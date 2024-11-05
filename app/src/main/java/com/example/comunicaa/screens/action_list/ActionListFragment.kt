@@ -1,5 +1,6 @@
 package com.example.comunicaa.screens.action_list
 
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.media.MediaPlayer
@@ -29,13 +30,12 @@ class ActionListFragment : BaseFragment<FragmentActionListBinding>() {
     private val hostViewModel: HostViewModel by activityViewModels()
     private val navArgs: ActionListFragmentArgs by navArgs()
     private val adapter = ActionListAdapter()
-    private var mediaPlayer: MediaPlayer? = null
+    private lateinit var mediaPlayer: MediaPlayer
     private var isReproducing = false
 
     override fun initViews() {
         setupInitialData()
         setupBackAction()
-        viewModel.fetchActions()
     }
 
     override fun initObservers() {}
@@ -48,26 +48,33 @@ class ActionListFragment : BaseFragment<FragmentActionListBinding>() {
         )
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setupAdapter(list: List<ActionCard>) {
         adapter.submitList(list)
         binding.rvAction.adapter = adapter
 
         adapter.onCardPressed = { actionCard ->
             if (!isReproducing) {
+                adapter.isClickable = false
                 isReproducing = true
-                mediaPlayer = MediaPlayer().apply {
-                    setVolume(1f, 1f)
+                adapter.notifyDataSetChanged()
+                mediaPlayer.apply {
                     try {
                         setDataSource(requireContext(), Uri.parse(actionCard.sound))
-                        prepareAsync()
+                        prepare()
                         setOnPreparedListener { start() }
                         setOnCompletionListener {
-                            release()
-                            mediaPlayer = null
                             isReproducing = false
+                            adapter.isClickable = true
+                            adapter.notifyDataSetChanged()
+                            reset()
                         }
                     } catch (e: IOException) {
                         Log.e("AudioRecord", "prepare() failed")
+                        adapter.isClickable = true
+                        isReproducing = false
+                        adapter.notifyDataSetChanged()
+                        reset()
                     }
                 }
             }
@@ -93,13 +100,17 @@ class ActionListFragment : BaseFragment<FragmentActionListBinding>() {
 
     override fun onStop() {
         super.onStop()
-        mediaPlayer?.release()
-        mediaPlayer = null
+        mediaPlayer.release()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mediaPlayer?.release()
-        mediaPlayer = null
+        mediaPlayer.release()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mediaPlayer = MediaPlayer()
+        mediaPlayer.setVolume(1f, 1f)
     }
 }
