@@ -28,7 +28,7 @@ tecnicamente consiste na divisão de três camadas:
 * Domínio
 * Dados
 
-<img src="screenshots/architecture_layer.png" alt="app layer"/>
+<img src="screenshots/layers.png" alt="app layer"/>
 
 ### Visualização
 
