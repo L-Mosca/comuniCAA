@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -43,6 +44,7 @@ abstract class BaseViewModel : ViewModel() {
             try {
                 function.invoke()
             } catch (throwable: Throwable) {
+                FirebaseCrashlytics.getInstance().log(throwable.message ?: "Unexpected Error")
                 throwable.printStackTrace()
                 defaultCatch(throwable, exceptionHandler, defaultErrorMessage)
             }
