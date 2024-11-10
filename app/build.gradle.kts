@@ -6,6 +6,7 @@ plugins {
     id("androidx.navigation.safeargs")
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -124,6 +125,12 @@ dependencies {
     // Firebase Storage
     implementation(libs.firebase.storage)
 
+    // Firebase Crashlytics
+    implementation(libs.firebase.crashlytics)
+
+    // Firebase Analytics
+    implementation(libs.firebase.analytics)
+
     // Picasso
     implementation(platform(libs.okhttp.bom))
     implementation(libs.picasso)
@@ -131,7 +138,7 @@ dependencies {
     implementation(libs.logging.interceptor)
 
     // Lottie Files
-    implementation("com.airbnb.android:lottie:6.0.0")
+    implementation(libs.lottie)
 }
 
 kapt { correctErrorTypes = true }
