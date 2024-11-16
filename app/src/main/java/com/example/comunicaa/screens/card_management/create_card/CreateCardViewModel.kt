@@ -2,7 +2,6 @@ package com.example.comunicaa.screens.card_management.create_card
 
 import android.content.ContentResolver
 import android.net.Uri
-import android.util.Log
 import com.example.comunicaa.base.BaseViewModel
 import com.example.comunicaa.base.SingleLiveData
 import com.example.comunicaa.domain.models.cards.ActionCard
@@ -58,10 +57,7 @@ class CreateCardViewModel @Inject constructor(
     ) {
         setLoading(true)
         if (initialCard.value != null) {
-            Log.e("test", "Fluxo de editar")
-           /* if (hasAllData(title, image, audio)) {
-
-            } else emptyDataError.postValue(Unit)*/
+            // TODO fluxo para editar cartão
         } else {
             if (hasAllData(title, image, audio)) {
                 val newImage = resizeImage(contentResolver, image!!)
